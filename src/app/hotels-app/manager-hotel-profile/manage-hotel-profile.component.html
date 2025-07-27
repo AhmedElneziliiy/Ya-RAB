@@ -1,0 +1,41 @@
+<div class="manage-profile mb-4">
+    <div class="container">
+        <h1 class="mt-5">Profile</h1>
+        <p>Manage your Profile details</p>
+
+        @defer (when isHotelReqFinished) {
+        <div class="photo-slider">
+
+            @for (item of hotel.photoUrls; track $index) {
+            <div class="photo">
+                <img [src]="item" alt="Profile Photo" />
+            </div>
+            }
+        </div>
+
+        <h2 class="mt-2">Profile Images</h2>
+        <form (ngSubmit)="editProfile()">
+            <label>Hotel name</label>
+            <input type="text" placeholder="Enter Hotel Name" [(ngModel)]="hotel.hotelName" name="hotel">
+            <label>Hotel Address</label>
+            <input type="text" placeholder="Enter Hotel Address" [(ngModel)]="hotel.address" name="address">
+            <label>Hotel Description</label>
+            <input type="text" placeholder="Enter Hotel Description" [(ngModel)]="hotel.description" name="description">
+            <label>Hotel Email</label>
+            <input type="email" placeholder="Enter Hotel Email" [(ngModel)]="hotel.contactEmail" name="email">
+            <label>Hotel Phone</label>
+            <input type="tel" placeholder="Enter Hotel Phone" [(ngModel)]="hotel.contactPhone" name="phone">
+            <input type="file" placeholder="Add to Your Images" multiple (change)="addPhotosToForm($event)" />
+            <button class="ms-auto mt-5" type="submit">Save Changes</button>
+        </form>
+        }@placeholder {
+        <div class="spinner">
+            <mat-progress-spinner diameter="40" color="accent" mode="indeterminate"></mat-progress-spinner>
+        </div>
+        }@loading(minimum 3s) {
+        <div class="spinner">
+            <mat-progress-spinner diameter="40" color="accent" mode="indeterminate"></mat-progress-spinner>
+        </div>
+        }
+    </div>
+</div>

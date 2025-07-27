@@ -1,0 +1,92 @@
+* {
+    color: black;
+}
+
+
+.spinner {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@media (max-width:576px) {
+    .container {
+        width: 80%;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width:767px) {
+    table tr td:nth-child(2n) {
+        background-color: rgb(229, 227, 227);
+    }
+
+    table {
+        border-collapse: separate;
+        border: 1px solid black;
+    }
+
+    table tr td {
+        border-bottom: none;
+    }
+
+    table tr td:last-child {
+        border-bottom: 3px solid black;
+    }
+
+    table tr:last-child td:last-child {
+        border-bottom: none;
+    }
+}
+
+@media (min-width:768px) {
+
+    .rooms tr {
+        border-bottom: 1px solid black;
+    }
+
+    .rooms th,
+    .rooms td {
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .rooms th {
+        background-color: #f0f0f0;
+        text-align: left;
+    }
+}
+
+@media (max-width:767px) {
+
+    .rooms th {
+        display: none;
+    }
+
+    .rooms td {
+        display: block;
+        border-bottom: 1px solid black;
+        position: relative;
+        padding: 15px;
+        padding-inline-start: 55%;
+        overflow-wrap: break-word;
+    }
+
+    .rooms td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 5%;
+    }
+}
+
+.rooms table {
+    width: 100%;
+    background: #fff;
+    border-radius: 10px;
+    border-collapse: collapse;
+    overflow: hidden;
+}
+
+.rooms h2 {
+    margin-bottom: 12px;
+}

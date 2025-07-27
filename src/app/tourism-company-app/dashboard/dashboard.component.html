@@ -1,0 +1,120 @@
+<!-- Start Of DashBoard Text  -->
+<div class="dashboard-text">
+    <div class="container">
+        <h1>DashBoard</h1>
+        <p>Welcome Back,{{name}}</p>
+    </div>
+</div>
+<!-- End Of DashBoard Text  -->
+<!-- Start Of DashBoard Card  -->
+<div class="dashboard-cards mt-5">
+    <div class="container">
+        <div class="dashboard-card">
+            <h2>Total Packages</h2>
+            @defer (when isPackagesReqFinished) {
+            <p>{{numberOfPackages}}</p>
+            }
+            @loading (minimum 2s){
+            <div class="mt-5">
+                <mat-progress-spinner color="accent" diameter="40" mode="indeterminate"></mat-progress-spinner>
+            </div>
+            }
+        </div>
+        <div class="dashboard-card">
+            <h2>Active Bookings</h2>
+            @defer (when isBookingsReqFinished) {
+            <p>{{activeBookingsNumber}}</p>
+            }@placeholder(minimum 2s){
+            <div class="mt-5">
+                <mat-progress-spinner color="accent" diameter="40" mode="indeterminate"></mat-progress-spinner>
+            </div>
+            }
+            @loading (minimum 2s){
+            <div class="mt-5">
+                <mat-progress-spinner color="accent" diameter="40" mode="indeterminate"></mat-progress-spinner>
+            </div>
+            }
+        </div>
+        <div class="dashboard-card">
+            <h2>Revenue</h2>
+            @defer (when isBookingsReqFinished) {
+            <p>{{price}}$</p>
+            }@placeholder{
+            <div class="mt-5">
+                <mat-progress-spinner color="accent" diameter="40" mode="indeterminate"></mat-progress-spinner>
+            </div>
+            }
+            @loading (minimum 2s){
+            <div class="mt-5">
+                <mat-progress-spinner color="accent" diameter="40" mode="indeterminate"></mat-progress-spinner>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- End Of DashBoard Card  -->
+<!-- Start Of Quick Actions  -->
+<div class="quick-actions mt-5">
+    <div class="container">
+        <h3>Quick Actions</h3>
+        <div class="actions mt-5">
+            <div class="action">
+                <a routerLink="/company/new-package">Create New Package</a>
+            </div>
+            <div class="action">
+                <a routerLink="/company/bookings">View Bookings</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Of Quick Actions  -->
+<!-- Start Of Recent Booking  -->
+<div class="recent-booking mb-2">
+    <div class="container mt-5">
+        @defer (when isPackagesReqFinished) {
+        @if(packages.length > 0){
+        <table class="mb-3">
+            <tr>
+                <th>Package Name</th>
+                <th>Total Price</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Actions</th>
+            </tr>
+            @for (item of packages; track $index) {
+            <tr>
+                <td data-label="Package Name">
+                    <p>{{item.packageName}}</p>
+                </td>
+                <td data-label="Total Price">
+                    <p>{{item.price}}</p>
+                </td>
+                <td data-label="Start Date">
+                    <p>{{item.startDate.split("T")[0]}}</p>
+                </td>
+                <td data-label="End Date">
+                    <p>{{item.endDate.split("T")[0]}}</p>
+                </td>
+                <td data-label="Actions">
+                    <p><a [routerLink]="['/company/edit-package',item.packageId]" (click)="print(item)">
+                            Edit
+                        </a></p>
+                    <p (click)="openDeleteDialog(item.packageId,'Package')">Delete</p>
+                </td>
+            </tr>
+            }
+        </table>
+        }@else{
+        <div class="loading-container mt-5">
+            <h2>Company Has No Packages</h2>
+        </div>
+        }
+        }
+        @loading (minimum 2s){
+        <div class="loading-container mt-5">
+            <mat-progress-spinner color="accent" diameter="40" mode="indeterminate"></mat-progress-spinner>
+        </div>
+        }
+    </div>
+</div>
+<!-- End Of Recent Booking  -->

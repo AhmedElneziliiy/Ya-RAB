@@ -1,0 +1,60 @@
+<div class="manage-profile mb-4">
+    <div class="container">
+        <h1 class="mt-5">Profile</h1>
+        <p>Manage your Profile details</p>
+        @defer (when tourGuide) {
+        <h2 class="mt-2">Profile Images</h2>
+        <div class="photo-slider">
+            @for (item of tourGuide.photoUrls; track $index) {
+            <div class="photo">
+                <img [src]="item" alt="Profile Photo" />
+            </div>
+            }
+        </div>
+        <form (ngSubmit)="editProfile()">
+            <label>Full name</label>
+            <input type="text" placeholder="Enter Your Name" [(ngModel)]="tourGuide.guideName" name="guide">
+            <label>Email</label>
+            <input type="text" placeholder="Enter Your Email" [(ngModel)]="tourGuide.contactEmail" name="email">
+            <label>Phone</label>
+            <input type="tel" placeholder="Enter Your Phone" [(ngModel)]="tourGuide.contactPhone" name="phone">
+            <label>License Number</label>
+            <input type="text" placeholder="Enter Your License Number" [(ngModel)]="tourGuide.licenseNumber"
+                name="license">
+            <label>Languages</label>
+            <div class="language-labels">
+                @for (item of allLanguages; track $index) {
+                <div class="language-label">
+                    <input type="checkbox" name="{{item}}" [checked]="myLanguages.includes(item)"
+                        (change)="editLanguages(item)">
+                    <label>{{item}}</label>
+                </div>
+                }
+            </div>
+            <label>Areas Covered</label>
+            <div class="destination-labels">
+                @for (item of allDestinations; track $index) {
+                <div class="destination-label">
+                    <input type="checkbox" name="{{item}}" [checked]="myDestinations.includes(item)"
+                        (change)="editDestination(item)">
+                    <label>{{item}}</label>
+                </div>
+                }
+            </div>
+
+            <label>Price Per Hour (USD)</label>
+            <input type="number" placeholder="Enter Price Per Hour" [(ngModel)]="tourGuide.pricePerHour" name="price">
+            <input type="file" placeholder="Add to Your Images" multiple (change)="addPhotosToForm($event)" />
+            <button class="ms-auto mt-5" type="submit">Save Changes</button>
+        </form>
+        }@placeholder {
+        <div class="spinner">
+            <mat-progress-spinner diameter="40" color="accent" mode="indeterminate"></mat-progress-spinner>
+        </div>
+        }@loading(minimum 3s) {
+        <div class="spinner">
+            <mat-progress-spinner diameter="40" color="accent" mode="indeterminate"></mat-progress-spinner>
+        </div>
+        }
+    </div>
+</div>

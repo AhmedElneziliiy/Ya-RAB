@@ -1,0 +1,119 @@
+// Start Of Booking Management 
+.incoming-bookings {
+    position: relative;
+}
+
+.booking-management {
+    margin-top: 30px;
+}
+
+.booking-management .container {
+    padding: 0 30px;
+}
+
+.booking-management .container h1 {
+    color: black;
+    font-weight: bold;
+    font-size: 32px;
+}
+
+.booking-management .container h2 {
+    color: black;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+table {
+    border: 1px solid black;
+    border-radius: 20px;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+}
+
+th {
+    color: black;
+    border-bottom: 1px solid black;
+}
+
+table td,
+th {
+    padding: 8px;
+    border-bottom: 1px solid black;
+}
+
+tr {
+    border-bottom: 1px solid black;
+}
+
+
+td[data-label="Customer Name"] {
+    color: black;
+}
+
+td[data-label="Status"] p {
+    background-color: white;
+    border-radius: 8px;
+    padding: 4px 0;
+    text-align: center;
+}
+
+@media (min-width:768px) {
+    table tr:last-child td {
+        border-bottom: none;
+    }
+}
+
+@media (max-width:767px) {
+    th {
+        display: none;
+    }
+
+    tr {
+        width: 100%;
+    }
+
+    tr td:last-child {
+        border-bottom: 3px solid black;
+    }
+
+    td {
+        display: block;
+        width: 100%;
+        text-align: right;
+        position: relative;
+    }
+
+    table tr:last-child td:last-child {
+        border-bottom: none;
+    }
+
+    td[data-label="Customer Email"] {
+        font-size: 12px;
+    }
+
+    td[data-label="Status"] p {
+        width: 90px;
+        text-align: center;
+        margin-inline-start: auto;
+    }
+
+    td p {
+        position: relative;
+    }
+
+    td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 2%;
+    }
+}
+
+.loading-container {
+    margin-top: 50px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+// End Of Booking Management 

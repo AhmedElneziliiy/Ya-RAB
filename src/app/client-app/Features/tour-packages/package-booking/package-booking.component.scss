@@ -1,0 +1,277 @@
+/* Container styles */
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  animation: fadeIn 0.8s ease-out;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Title styles */
+.title {
+  font-size: 2.25rem;
+  color: #1a202c;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  position: relative;
+  animation: slideIn 0.6s ease-out;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: #3182ce;
+    margin: 10px auto;
+    border-radius: 2px;
+    animation: underlineGrow 0.5s ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes underlineGrow {
+    from {
+      width: 0;
+    }
+    to {
+      width: 60px;
+    }
+  }
+}
+
+/* Alert styles */
+.alert {
+  padding: 16px;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  font-size: 1rem;
+  text-align: center;
+  animation: popIn 0.5s ease-out;
+
+  &.alert-error {
+    background-color: #fff5f5;
+    color: #9b2c2c;
+    border: 1px solid #feb2b2;
+  }
+
+  &.alert-success {
+    background-color: #e6fffa;
+    color: #2c7a7b;
+    border: 1px solid #4fd1c5;
+  }
+
+  &.alert-loading {
+    background-color: #edf2f7;
+    color: #4a5568;
+    border: 1px solid #e2e8f0;
+  }
+
+  @keyframes popIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+/* Booking section */
+.booking-section {
+  background: #ffffff;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+  animation: cardFadeIn 0.7s ease-out;
+
+  @keyframes cardFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Package info card */
+.card {
+  background: linear-gradient(145deg, #f7fafc, #e2e8f0);
+  padding: 24px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.15);
+  }
+
+  .package-title {
+    font-size: 1.8rem;
+    color: #2b6cb0;
+    margin-bottom: 1rem;
+    animation: fadeIn 0.8s ease-out;
+  }
+
+  .package-detail {
+    font-size: 1.1rem;
+    color: #4a5568;
+    margin: 0.75rem 0;
+    animation: fadeIn 0.9s ease-out;
+
+    strong {
+      color: #2d3748;
+      font-weight: 600;
+    }
+  }
+}
+
+/* Form styles */
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.form-group {
+  .form-label {
+    display: block;
+    font-size: 1rem;
+    color: #2d3748;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    animation: fadeIn 0.7s ease-out;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    animation: fadeIn 0.8s ease-out;
+
+    &:focus {
+      outline: none;
+      border-color: #3182ce;
+      box-shadow: 0 0 0 4px rgba(49, 130, 206, 0.2);
+    }
+
+    &.ng-invalid.ng-touched {
+      border-color: #9b2c2c;
+      box-shadow: 0 0 0 4px rgba(155, 44, 44, 0.1);
+    }
+  }
+
+  .error-message {
+    font-size: 0.85rem;
+    color: #9b2c2c;
+    margin-top: 0.5rem;
+    animation: popIn 0.5s ease-out;
+  }
+}
+
+/* Button group */
+.button-group {
+  display: flex;
+  gap: 1.25rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.btn {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: fadeIn 0.9s ease-out;
+
+  &.btn-primary {
+    background-color: #3182ce;
+    color: #ffffff;
+
+    &:hover:not(:disabled) {
+      background-color: #2b6cb0;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(49, 130, 206, 0.3);
+    }
+
+    &:disabled {
+      background-color: #a0aec0;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+  }
+
+  &.btn-secondary {
+    background-color: #718096;
+    color: #ffffff;
+
+    &:hover {
+      background-color: #5a7184;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(90, 113, 132, 0.3);
+    }
+  }
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+  .container {
+    padding: 16px;
+    margin: 20px auto;
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .booking-section {
+    padding: 20px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 12px;
+  }
+}

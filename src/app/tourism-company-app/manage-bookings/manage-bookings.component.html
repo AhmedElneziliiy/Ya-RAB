@@ -1,0 +1,54 @@
+<!-- Start Of Booking Management  -->
+<div class="booking-management mb-2">
+    <div class="container">
+        <h1>Booking Management</h1>
+        <div class="incoming-bookings mt-5">
+            <h2>Company Bookings</h2>
+            @defer (when isBookingReqFinished) {
+            @if(bookings.length === 0){
+            <div class="loading-container mt-5">
+                <h2>No Bookings Were Made</h2>
+            </div>
+            }@else {
+            <table class="mt-5">
+                <tr>
+                    <th>Customer Email</th>
+                    <th>Tour</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Total Price</th>
+                    <th>Actions</th>
+                </tr>
+                @for (item of bookings; track $index) {
+                <tr>
+                    <td data-label="Customer Email">
+                        <p>{{item.touristEmail}}</p>
+                    </td>
+                    <td data-label="Tour">
+                        <p>{{item.packageName}}</p>
+                    </td>
+                    <td data-label="Date">
+                        <p>{{item.bookingDate.split("T")[0]}}</p>
+                    </td>
+                    <td data-label="Status" class="status-{{item.status}}">
+                        <p>{{item.status}}</p>
+                    </td>
+                    <td data-label="Price">
+                        <p>{{item.totalPrice}}</p>
+                    </td>
+                    <td data-label="Actions">
+                        <p>View Details</p>
+                    </td>
+                </tr>
+                }
+            </table>
+            }
+            }@loading (minimum 2s){
+            <div class="loading-container mt-5">
+                <mat-progress-spinner color="accent" diameter="40" mode="indeterminate"></mat-progress-spinner>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- End Of Booking Management  -->

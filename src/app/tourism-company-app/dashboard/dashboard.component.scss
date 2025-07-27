@@ -1,0 +1,212 @@
+ * {
+     color: black;
+ }
+
+ .recent-booking {
+     margin-bottom: 50px;
+ }
+
+ .container {
+     padding: 0 100px;
+     position: relative;
+ }
+
+ @media (max-width:767px) {
+     .container {
+         padding: 0;
+     }
+ }
+
+ @media (max-width:576px) {
+     .container {
+         width: 90%;
+     }
+ }
+
+ // Start Of Dashboard Text 
+ .dashboard-text h1 {
+     color: black;
+ }
+
+ .dashboard-text p {
+     color: grey;
+     font-size: 14px;
+ }
+
+ // End Of Dashboard Text 
+ // Start Of Dashboard Cards 
+
+ .dashboard-cards .container {
+     display: grid;
+     gap: 20px;
+ }
+
+ @media (max-width:767px) {
+     .dashboard-cards .container {
+         grid-template-columns: 1fr;
+     }
+ }
+
+ @media (min-width:768px) {
+     .dashboard-cards .container {
+         grid-template-columns: repeat(2, 1fr);
+     }
+ }
+
+ @media (min-width:992px) {
+     .dashboard-cards .container {
+         grid-template-columns: repeat(3, 1fr);
+     }
+ }
+
+ .dashboard-card {
+     display: flex;
+     flex-direction: column;
+     background-color: #F2F0E2;
+     color: black;
+     border-radius: 7px;
+     padding: 30px;
+ }
+
+ // End Of Dashboard Cards 
+ // Start Of quick actions 
+ .actions {
+     display: grid;
+     grid-template-columns: repeat(auto-fit, 1fr);
+     gap: 20px;
+ }
+
+ @media (min-width:768px) {
+     .actions {
+         grid-template-columns: repeat(2, 1fr);
+     }
+ }
+
+ @media (min-width:992px) {
+     .actions {
+         grid-template-columns: repeat(3, 1fr);
+     }
+ }
+
+ .action {
+     background-color: #F2F0E2;
+     border-radius: 8px;
+     text-align: center;
+     padding: 10px 0;
+ }
+
+ // End Of quick actions  
+ // Start Of Recent Booking  
+
+ table {
+     border: 1px solid black;
+     border-radius: 10px;
+     width: 100%;
+     border-spacing: 0;
+     border-collapse: separate;
+ }
+
+ @media (max-width:767px) {
+
+     .recent-booking .container {
+         padding: 0;
+     }
+
+     .recent-booking th {
+         display: none;
+     }
+
+     .recent-booking tr:first-child {
+         border-bottom: none;
+     }
+
+     .recent-booking tr {
+         display: block;
+         margin-bottom: 15px;
+         border-bottom: 3px solid black;
+     }
+
+     .recent-booking tr:last-child {
+         border-bottom: none;
+     }
+
+     .recent-booking tr:last-child td:last-child {
+         border-bottom: none;
+     }
+
+     .recent-booking td {
+         display: block;
+         width: 100%;
+         padding-left: 150px;
+         position: relative;
+     }
+
+     .recent-booking p {
+         display: inline;
+         position: absolute;
+         left: 50%;
+         transform: translateY(-50%);
+     }
+
+     .recent-booking td::after {
+         content: attr(data-label);
+         position: absolute;
+         left: 20px;
+         font-weight: bold;
+         transform: translateY(-50%);
+     }
+
+     .recent-booking th,
+     .recent-booking td {
+         padding: 30px 15px;
+     }
+
+     .recent-booking td {
+         border-bottom: 1px solid black;
+     }
+ }
+
+ @media (min-width:768px) {
+
+     .recent-booking th,
+     .recent-booking td {
+         padding: 10px 15px;
+     }
+ }
+
+ .recent-booking th,
+ .recent-booking td {
+     text-align: left;
+ }
+
+ @media (min-width:768px) {
+
+     .recent-booking td,
+     .recent-booking th {
+         border-bottom: 1px solid black;
+     }
+
+     .recent-booking tr:last-child td {
+         border-bottom: none;
+     }
+ }
+
+ @media (max-width:767px) {
+     .recent-booking td[data-label="Actions"] p:last-child {
+         margin-inline-start: 25%;
+     }
+ }
+
+ .recent-booking td[data-label="Actions"] p:last-child {
+     cursor: pointer;
+ }
+
+ .loading-container {
+     margin-top: 50px;
+     position: absolute;
+     left: 50%;
+     transform: translateX(-50%);
+ }
+
+
+ // End Of Recent Booking  

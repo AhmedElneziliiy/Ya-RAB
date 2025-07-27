@@ -1,0 +1,36 @@
+<div class="manage-profile mb-4">
+    <div class="container">
+        <h1 class="mt-5">Profile</h1>
+        @defer (when isRoomReqFinished) {
+        <div class="photo-slider">
+            @for (item of room.photoUrls; track $index ; let i = $index) {
+            <div class="photo">
+                <img [src]="item" alt="Profile Photo" />
+            </div>
+            }
+        </div>
+        <p>Manage your Profile details</p>
+        <h2 class="mt-2">Profile Images</h2>
+        <form (ngSubmit)="editRoom()">
+            <label>Room Type</label>
+            <input type="text" placeholder="Enter Room Type" [(ngModel)]="room.roomType" name="room">
+            <label>Hotel Address</label>
+            <input type="text" placeholder="Enter Price Per Night" [(ngModel)]="room.pricePerNight" name="price">
+            <div class="input">
+                <input type="file" placeholder="Add to Your Images" multiple (change)="addPhotosToForm($event)"
+                    #fileInput />
+            </div>
+            <button class="ms-auto mt-5" type="submit">Save Changes</button>
+        </form>
+        }@loading (minimum 3s){
+        <div class="table-spinner">
+            <mat-progress-spinner diameter="40" color="accent" mode="indeterminate"></mat-progress-spinner>
+        </div>
+        }
+        @placeholder{
+        <div class="table-spinner">
+            <mat-progress-spinner diameter="40" color="accent" mode="indeterminate"></mat-progress-spinner>
+        </div>
+        }
+    </div>
+</div>

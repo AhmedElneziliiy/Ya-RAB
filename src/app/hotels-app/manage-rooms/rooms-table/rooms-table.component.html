@@ -1,0 +1,31 @@
+<div class="rooms position-relative container">
+
+    @if(rooms){
+    <h2 class="mt-5">All Rooms</h2>
+    <table class="mt-2">
+        <thead>
+            <tr class="room">
+                <th>Room Type</th>
+                <th>Price Per Night</th>
+                <th>Available For Booking</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (item of rooms; track $index) {
+            <tr class="room">
+                <td data-label="Room Type">{{item.roomType}}</td>
+                <td data-label="Price Per Night">{{item.pricePerNight}}</td>
+                <td data-label="Available">{{item.isAvailable}}</td>
+                <td data-label="Actions">
+                    <a [routerLink]="[item.roomId]">Edit</a>
+                    <button (click)="openDeleteDialog(item.roomId!,'Room')">Delete</button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    }@else{
+    <h2>No Rooms In This Hotel</h2>
+    }
+</div>

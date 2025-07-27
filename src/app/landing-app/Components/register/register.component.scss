@@ -1,0 +1,144 @@
+/* 🌟 Section Styling */
+.register-section {
+    text-align: center;
+    padding: 80px 20px 60px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.register-title {
+    font-size: 42px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+    animation: fadeInDown 1s ease-in-out;
+}
+
+.register-subtitle {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 50px;
+    animation: fadeIn 1.2s ease-in-out;
+}
+
+/* 🌐 Card Layout */
+.register-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.register-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 22px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    background-color: #fff;
+}
+
+.register-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+    filter: brightness(90%);
+}
+
+.register-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
+}
+
+.register-card:hover img {
+    transform: scale(1.07);
+    filter: brightness(100%);
+}
+
+/* ✨ Glassmorphism Text Overlay */
+.register-content {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 25px 20px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.register-content h2 {
+    color: #fff;
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* ✨ Optional Hover CTA Overlay */
+/*
+.register-card::after {
+    content: 'Register Now';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: rgba(255, 255, 255, 0.85);
+    color: #222;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-weight: 600;
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+.register-card:hover::after {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+*/
+
+/* 🔄 Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 📱 Mobile Optimizations */
+@media (max-width: 600px) {
+    .register-card img {
+        height: 220px;
+    }
+
+    .register-content {
+        padding: 15px;
+    }
+
+    .register-content h2 {
+        font-size: 20px;
+    }
+
+    .register-title {
+        font-size: 30px;
+    }
+}

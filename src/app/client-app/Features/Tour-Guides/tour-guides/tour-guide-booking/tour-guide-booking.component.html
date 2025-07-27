@@ -1,0 +1,35 @@
+<div class="container">
+  <app-navbar></app-navbar>
+  <h2 class="title">Book Tour Guide: {{ tourGuide?.guideName || 'Tour Guide' }}</h2>
+  <div *ngIf="errorMessage" class="alert alert-error">{{ errorMessage }}</div>
+  <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+  <div *ngIf="!tourGuide" class="alert alert-loading">Loading tour guide details...</div>
+  <div *ngIf="tourGuide" class="booking-form">
+    <h4 class="form-title">{{ tourGuide.guideName }}</h4>
+    <p class="form-detail"><strong>Price per Hour:</strong> ${{ tourGuide.pricePerHour }}</p>
+    <form (ngSubmit)="submitBooking()">
+      <div class="form-group">
+        <label for="touristEmail" class="form-label">Email Address</label>
+        <input type="email" id="touristEmail" class="form-control" [(ngModel)]="booking.touristEmail" name="touristEmail" required>
+      </div>
+      <div class="form-group">
+        <label for="bookingDate" class="form-label">Booking Date</label>
+        <select id="bookingDate" class="form-control" [(ngModel)]="booking.bookingDate" name="bookingDate" required>
+          <option value="" disabled>Select a date</option>
+          <option *ngFor="let date of availableDates" [value]="date">{{ date | date:'mediumDate' }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="numberOfHours" class="form-label">Number of Hours</label>
+        <select id="numberOfHours" class="form-control" [(ngModel)]="numberOfHours" name="numberOfHours" required>
+          <option *ngFor="let n of [1, 2, 3, 4, 5, 6, 7, 8]" [value]="n">{{ n }}</option>
+        </select>
+      </div>
+      <p class="form-detail"><strong>Total Price:</strong> ${{ calculateTotalPrice() }}</p>
+      <div class="button-group">
+        <button type="submit" class="btn btn-primary">Confirm Booking</button>
+        <button type="button" class="btn btn-secondary" (click)="goBack()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
