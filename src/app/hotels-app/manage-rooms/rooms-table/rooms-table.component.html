@@ -1,31 +1,39 @@
-<div class="rooms position-relative container">
-
-    @if(rooms){
-    <h2 class="mt-5">All Rooms</h2>
-    <table class="mt-2">
-        <thead>
-            <tr class="room">
-                <th>Room Type</th>
-                <th>Price Per Night</th>
-                <th>Available For Booking</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (item of rooms; track $index) {
-            <tr class="room">
-                <td data-label="Room Type">{{item.roomType}}</td>
-                <td data-label="Price Per Night">{{item.pricePerNight}}</td>
-                <td data-label="Available">{{item.isAvailable}}</td>
-                <td data-label="Actions">
-                    <a [routerLink]="[item.roomId]">Edit</a>
-                    <button (click)="openDeleteDialog(item.roomId!,'Room')">Delete</button>
-                </td>
-            </tr>
-            }
-        </tbody>
-    </table>
-    }@else{
-    <h2>No Rooms In This Hotel</h2>
+<div class="rooms position-relative container my-5">
+    @if (rooms) {
+    <div class="card shadow-lg border-0 p-4 rounded-4">
+        <h2 class="mb-4 text-primary fw-bold text-center">All Rooms</h2>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle text-center fancy-table">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Room Type</th>
+                        <th>Price Per Night</th>
+                        <th>Available</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (item of rooms; track $index) {
+                    <tr>
+                        <td data-label="Room Type">{{ item.roomType }}</td>
+                        <td data-label="Price Per Night">${{ item.pricePerNight }}</td>
+                        <td data-label="Available">
+                            <span class="badge" [ngClass]="item.isAvailable ? 'bg-success' : 'bg-danger'">
+                                {{ item.isAvailable ? 'Yes' : 'No' }}
+                            </span>
+                        </td>
+                        <td data-label="Actions">
+                            <a [routerLink]="[item.roomId]" class="btn btn-sm btn-outline-primary me-2">Edit</a>
+                            <button (click)="openDeleteDialog(item.roomId!, 'Room')"
+                                class="btn btn-sm btn-outline-danger">Delete</button>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    } @else {
+    <div class="alert alert-warning text-center mt-5 fs-5">No Rooms In This Hotel</div>
     }
 </div>

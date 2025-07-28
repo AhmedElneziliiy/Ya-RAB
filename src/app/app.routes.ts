@@ -122,7 +122,13 @@ export const routes: Routes = [
       { path: 'profile', component: ManageHotelProfileComponent },
       { path: 'new-room', component: CreateRoomComponent },
       { path: 'rooms', component: RoomsTableComponent },
-      { path: 'rooms/:id', component: ManageRoomComponent }
+      {
+        path: 'rooms/:id', component: ManageRoomComponent, resolve: {
+          id: (route: ActivatedRouteSnapshot) => {
+            return route.paramMap.get('id');
+          }
+        }
+      }
     ]
   },
 

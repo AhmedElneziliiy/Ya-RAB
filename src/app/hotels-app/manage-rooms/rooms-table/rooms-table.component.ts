@@ -5,10 +5,11 @@ import { AlertDialogComponent } from '../../../alert-dialog-component/alert-dial
 import { Room } from '../../interfaces/hotel-dashboard';
 import { MatDialog } from '@angular/material/dialog';
 import { DeletePackageComponent } from '../delete-package/delete-package.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-rooms-table',
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule],
   templateUrl: './rooms-table.component.html',
   styleUrl: './rooms-table.component.scss'
 })

@@ -20,6 +20,7 @@ import { Tourist } from '../../tourist-app/components/tourist';
 export class AuthService {
   logout() {
     localStorage.clear();
+    this.navigateToLogin();
   }
 
   baseUrl = 'https://fizo.runasp.net/api/Account';

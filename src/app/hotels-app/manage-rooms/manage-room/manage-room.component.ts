@@ -5,6 +5,7 @@ import { Room } from '../../interfaces/hotel-dashboard';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { log } from 'console';
 
 @Component({
   selector: 'app-manage-room',
@@ -18,8 +19,13 @@ export class ManageRoomComponent implements OnInit {
 
   constructor(private route: ActivatedRoute) { }
 
-  room!: Room;
-
+  room: Room = {
+    roomId: '',
+    roomType: '',
+    pricePerNight: 0,
+    photoUrls: [],
+    isAvailable: false
+  };
   id = '';
 
   router = inject(Router);
@@ -37,14 +43,14 @@ export class ManageRoomComponent implements OnInit {
     this.service.hotelDashBoard$.subscribe(
       {
         next: (value) => {
-          console.log(value);
           this.isRoomReqFinished = true;
-          value.rooms?.map((e) => {
-            if (e.roomId == this.id) {
-              this.room = e;
-              console.log('found room!');
-            }
-          });
+          const foundRoom = value.rooms?.find(r => r.roomId === this.id);
+          if (foundRoom) {
+            this.room = foundRoom;
+          }
+          console.log('room is : ' + this.room);
+          console.log(this.room.roomType);
+
         },
       }
     );
