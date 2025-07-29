@@ -59,7 +59,7 @@
 }
 
 .package-card {
-    height: 100px;
+    height: 150px;
     border: none;
     border-radius: 0.75rem;
     overflow: hidden;
@@ -89,8 +89,8 @@
 }
 
 .package-thumb {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 100%;
     object-fit: cover;
     flex-shrink: 0;
     transition: transform 0.4s ease;

@@ -1,12 +1,13 @@
-import { Component, inject, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Package } from './../interfaces/package';
+import { Component, Inject, inject, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Package } from '../interfaces/package';
 import { CompanyService } from '../services/company.service';
 import { DeletePackageComponent } from './delete-package/delete-package.component';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AlertDialogComponent } from '../../alert-dialog-component/alert-dialog-component';
+import { AuthService } from '../../landing-app/Components/auth-service.service';
 @Component({
   selector: 'app-dashboard',
   imports: [RouterModule, MatProgressSpinnerModule, CommonModule],
@@ -20,6 +21,8 @@ export class CompanyDashboardComponent implements OnInit {
 
   isBookingsReqFinished = false;
   isPackagesReqFinished = false;
+
+  authService = inject(AuthService);
 
   ngOnInit(): void {
     this.service.packages$.subscribe(
@@ -99,5 +102,9 @@ export class CompanyDashboardComponent implements OnInit {
 
   print(item: Package) {
     console.log(item.packageId);
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

@@ -1,212 +1,131 @@
- * {
-     color: black;
- }
+    .container-fluid {
+        padding: 0;
+    }
 
- .recent-booking {
-     margin-bottom: 50px;
- }
+    /* Animations */
+    .fancy-fade-in {
+        animation: fadeInUp 1s ease forwards;
+        opacity: 0;
+    }
 
- .container {
-     padding: 0 100px;
-     position: relative;
- }
+    /* Sidebar */
+    .fancy-sidebar {
+        background: linear-gradient(135deg, #2c3e50, #34495e);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        min-height: 100vh;
+    }
 
- @media (max-width:767px) {
-     .container {
-         padding: 0;
-     }
- }
+    @media (max-width: 767px) {
+        .fancy-sidebar {
+            display: none;
+        }
 
- @media (max-width:576px) {
-     .container {
-         width: 90%;
-     }
- }
+        .row {
+            margin-right: 0px;
+            margin-left: 0px;
+        }
+    }
 
- // Start Of Dashboard Text 
- .dashboard-text h1 {
-     color: black;
- }
+    @media (min-width: 768px) {
+        .navbar {
+            display: none;
+        }
+    }
 
- .dashboard-text p {
-     color: grey;
-     font-size: 14px;
- }
+    .navbar .nav-link {
+        transition: color 0.2s ease-in-out;
+    }
 
- // End Of Dashboard Text 
- // Start Of Dashboard Cards 
+    .navbar .nav-link:hover {
+        color: #ffcc70 !important;
+    }
 
- .dashboard-cards .container {
-     display: grid;
-     gap: 20px;
- }
+    .navbar .btn-outline-light:hover {
+        background-color: #ffffff;
+        color: #343a40;
+        border-color: #ffffff;
+    }
 
- @media (max-width:767px) {
-     .dashboard-cards .container {
-         grid-template-columns: 1fr;
-     }
- }
-
- @media (min-width:768px) {
-     .dashboard-cards .container {
-         grid-template-columns: repeat(2, 1fr);
-     }
- }
-
- @media (min-width:992px) {
-     .dashboard-cards .container {
-         grid-template-columns: repeat(3, 1fr);
-     }
- }
-
- .dashboard-card {
-     display: flex;
-     flex-direction: column;
-     background-color: #F2F0E2;
-     color: black;
-     border-radius: 7px;
-     padding: 30px;
- }
-
- // End Of Dashboard Cards 
- // Start Of quick actions 
- .actions {
-     display: grid;
-     grid-template-columns: repeat(auto-fit, 1fr);
-     gap: 20px;
- }
-
- @media (min-width:768px) {
-     .actions {
-         grid-template-columns: repeat(2, 1fr);
-     }
- }
-
- @media (min-width:992px) {
-     .actions {
-         grid-template-columns: repeat(3, 1fr);
-     }
- }
-
- .action {
-     background-color: #F2F0E2;
-     border-radius: 8px;
-     text-align: center;
-     padding: 10px 0;
- }
-
- // End Of quick actions  
- // Start Of Recent Booking  
-
- table {
-     border: 1px solid black;
-     border-radius: 10px;
-     width: 100%;
-     border-spacing: 0;
-     border-collapse: separate;
- }
-
- @media (max-width:767px) {
-
-     .recent-booking .container {
-         padding: 0;
-     }
-
-     .recent-booking th {
-         display: none;
-     }
-
-     .recent-booking tr:first-child {
-         border-bottom: none;
-     }
-
-     .recent-booking tr {
-         display: block;
-         margin-bottom: 15px;
-         border-bottom: 3px solid black;
-     }
-
-     .recent-booking tr:last-child {
-         border-bottom: none;
-     }
-
-     .recent-booking tr:last-child td:last-child {
-         border-bottom: none;
-     }
-
-     .recent-booking td {
-         display: block;
-         width: 100%;
-         padding-left: 150px;
-         position: relative;
-     }
-
-     .recent-booking p {
-         display: inline;
-         position: absolute;
-         left: 50%;
-         transform: translateY(-50%);
-     }
-
-     .recent-booking td::after {
-         content: attr(data-label);
-         position: absolute;
-         left: 20px;
-         font-weight: bold;
-         transform: translateY(-50%);
-     }
-
-     .recent-booking th,
-     .recent-booking td {
-         padding: 30px 15px;
-     }
-
-     .recent-booking td {
-         border-bottom: 1px solid black;
-     }
- }
-
- @media (min-width:768px) {
-
-     .recent-booking th,
-     .recent-booking td {
-         padding: 10px 15px;
-     }
- }
-
- .recent-booking th,
- .recent-booking td {
-     text-align: left;
- }
-
- @media (min-width:768px) {
-
-     .recent-booking td,
-     .recent-booking th {
-         border-bottom: 1px solid black;
-     }
-
-     .recent-booking tr:last-child td {
-         border-bottom: none;
-     }
- }
-
- @media (max-width:767px) {
-     .recent-booking td[data-label="Actions"] p:last-child {
-         margin-inline-start: 25%;
-     }
- }
-
- .recent-booking td[data-label="Actions"] p:last-child {
-     cursor: pointer;
- }
-
- .loading-container {
-     margin-top: 50px;
-     position: absolute;
-     left: 50%;
-     transform: translateX(-50%);
- }
+    .navbar {
+        width: 100vw;
+        padding: 10px 20px;
+        background: linear-gradient(135deg,
+                #dc3545,
+                #ff6b6b);
+    }
 
 
- // End Of Recent Booking  
+    /* Cards */
+    .fancy-card {
+        background: linear-gradient(135deg, #dc3545, #ff6b6b);
+        color: #fff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+        transition: transform 0.3s;
+    }
+
+    .fancy-card:hover {
+        transform: scale(1.03);
+    }
+
+    /* Section Title */
+    .section-heading {
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: #343a40;
+        border-left: 5px solid #dc3545;
+        padding-left: 12px;
+    }
+
+    /* Table */
+    .fancy-table th,
+    .fancy-table td {
+        vertical-align: middle;
+    }
+
+    .fancy-table tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+
+    /* Buttons */
+    .fancy-btn {
+        transition: all 0.3s ease;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+    }
+
+    .fancy-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(255, 255, 255, 0.2);
+    }
+
+    /* Map */
+    .fancy-map {
+        height: 250px;
+        background: #dee2e6;
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width:576px) {
+        .container-fluid {
+            width: 100%;
+        }
+
+        .main-content {
+            padding: 20px;
+        }
+    }
+
+    /* Animation keyframes */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }

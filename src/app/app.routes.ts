@@ -40,6 +40,7 @@ import { CreateRoomComponent } from './hotels-app/create-room/create-room.compon
 import { RoomsTableComponent } from './hotels-app/manage-rooms/rooms-table/rooms-table.component';
 import { ManageRoomComponent } from './hotels-app/manage-rooms/manage-room/manage-room.component';
 import { EditBookingComponent } from './tourist-app/components/edit-booking/edit-booking.component';
+import { ShowPackagesComponent } from './tourism-company-app/show-packages/show-packages.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -107,6 +108,7 @@ export const routes: Routes = [
       { path: 'dashboard', component: CompanyDashboardComponent },
       { path: 'new-package', component: CreatePackageComponent },
       { path: 'edit-package/:id', component: EditPackageComponent },
+      { path: 'packages', component: ShowPackagesComponent },
       { path: 'bookings', component: ManageBookingsComponent }
     ]
   },

@@ -7,12 +7,12 @@ import { CommonModule } from '@angular/common';
 import { AlertDialogComponent } from '../../alert-dialog-component/alert-dialog-component';
 import { MatDialog } from '@angular/material/dialog';
 import { title } from 'process';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { LoadingDialogComponent } from '../../shared-app/Components/loading-dialog/loading-dialog.component';
 
 @Component({
   selector: 'app-create-package',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './create-package.component.html',
   styleUrl: './create-package.component.scss'
 })

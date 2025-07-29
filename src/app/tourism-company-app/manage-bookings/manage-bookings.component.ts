@@ -6,6 +6,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 import { AlertDialogComponent } from '../../alert-dialog-component/alert-dialog-component';
 import { MatDialog } from '@angular/material/dialog';
+import { DeleteBookingComponent } from './delete-booking/delete-booking.component';
 
 @Component({
   selector: 'app-manage-bookings',
@@ -45,4 +46,15 @@ export class ManageBookingsComponent implements OnInit {
     });
     this.bookingService.getCompanyBookings();
   }
+
+  //TODO: ASK NEZILLY ABOUT DELETE BOOKING IS IT POSSIBLE FOR COMPAMY OR ONLY FOR TOURIST
+
+  // openDeleteDialog(bookingId: string) {
+  //   this.matDialog.open(DeleteBookingComponent, {
+  //     data: {
+  //       itemName: 'Booking',
+  //       title: 'Delete Booking',
+  //     }
+  //   })
+  // }
 }

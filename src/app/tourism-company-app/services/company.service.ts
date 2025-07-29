@@ -9,6 +9,18 @@ import { log } from 'console';
   providedIn: 'root',
 })
 export class CompanyService {
+  deleteBooking(bookingId: any) {
+    return this.httpClient.delete<Booking>(this.baseUrl + "/Bookings/" + bookingId, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      }
+    }).pipe(
+      tap(() => {
+        const newList = this.bookingsSubject.value.filter((p) => p.bookingID != bookingId);
+        this.bookingsSubject.next(newList);
+      })
+    );
+  }
 
   private packagesSubject = new BehaviorSubject<Package[]>([]);
   packages$ = this.packagesSubject.asObservable();

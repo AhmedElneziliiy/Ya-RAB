@@ -1,120 +1,89 @@
-<!-- Start Of DashBoard Text  -->
-<div class="dashboard-text">
-    <div class="container">
-        <h1>DashBoard</h1>
-        <p>Welcome Back,{{name}}</p>
+<div class="container-fluid fancy-fade-in">
+    <div class="row">
+        <nav class="navbar navbar-expand-lg navbar-dark  sticky-top shadow-sm">
+            <div class="container-fluid">
+                <a class="navbar-brand d-flex align-items-center gap-2" routerLink="/">
+                    <i class="bi bi-globe2"></i>
+                    Egypt Trip
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavbar"
+                    aria-controls="topNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-between" id="topNavbar">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/company/dashboard">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/company/packages">Packages</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/company/bookings">Bookings</a>
+                        </li>
+                    </ul>
+                    <button class="btn btn-outline-light d-flex align-items-center gap-1" (click)="logout()">
+                        <i class="bi bi-box-arrow-right"></i>
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+
+        <!-- Sidebar -->
+        <div class="col-md-3">
+            <div class="card bg-dark text-white shadow-lg rounded-0 h-100 fancy-sidebar p-4">
+                <h4 class="fw-bold mb-4 border-bottom pb-2">🏨 Company Dashboard</h4>
+                <div class="d-grid gap-3">
+                    <a routerLink="/company/bookings" class="btn btn-danger btn-lg rounded-pill fancy-btn">
+                        📖 Bookings
+                    </a>
+                    <a routerLink="/company/new-package" class="btn btn-danger btn-lg rounded-pill fancy-btn">
+                        ➕ New Package
+                    </a>
+
+                    <a routerLink="/company/packages" class="btn btn-danger btn-lg rounded-pill fancy-btn">
+                        📦 Packages
+                    </a>
+                    <button class="btn btn-danger btn-lg rounded-pill fancy-btn" (click)="logout()">🚪 Logout</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Main Content -->
+        <div class="col-md-9 pt-5 px-4 main-content my-5">
+            <!-- Performance Cards -->
+            <div class="row mb-4 g-2">
+                <div class="col-md-4">
+                    <div class="fancy-card text-center">
+                        <h6>Active Bookings</h6>
+                        <h3>{{activeBookingsNumber}}</h3>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="fancy-card text-center">
+                        <h6>Number Of Packages</h6>
+                        <h3>{{packages.length}}</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map & Actions -->
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <h5 class="section-heading">Quick Actions</h5>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-danger fancy-btn" routerLink="/company/new-package">Create New
+                            Package</button>
+                        <button class="btn btn-danger fancy-btn" routerLink="/company/bookings">View Your
+                            Bookings</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<!-- End Of DashBoard Text  -->
-<!-- Start Of DashBoard Card  -->
-<div class="dashboard-cards mt-5">
-    <div class="container">
-        <div class="dashboard-card">
-            <h2>Total Packages</h2>
-            @defer (when isPackagesReqFinished) {
-            <p>{{numberOfPackages}}</p>
-            }
-            @loading (minimum 2s){
-            <div class="mt-5">
-                <mat-progress-spinner color="accent" diameter="40" mode="indeterminate"></mat-progress-spinner>
-            </div>
-            }
-        </div>
-        <div class="dashboard-card">
-            <h2>Active Bookings</h2>
-            @defer (when isBookingsReqFinished) {
-            <p>{{activeBookingsNumber}}</p>
-            }@placeholder(minimum 2s){
-            <div class="mt-5">
-                <mat-progress-spinner color="accent" diameter="40" mode="indeterminate"></mat-progress-spinner>
-            </div>
-            }
-            @loading (minimum 2s){
-            <div class="mt-5">
-                <mat-progress-spinner color="accent" diameter="40" mode="indeterminate"></mat-progress-spinner>
-            </div>
-            }
-        </div>
-        <div class="dashboard-card">
-            <h2>Revenue</h2>
-            @defer (when isBookingsReqFinished) {
-            <p>{{price}}$</p>
-            }@placeholder{
-            <div class="mt-5">
-                <mat-progress-spinner color="accent" diameter="40" mode="indeterminate"></mat-progress-spinner>
-            </div>
-            }
-            @loading (minimum 2s){
-            <div class="mt-5">
-                <mat-progress-spinner color="accent" diameter="40" mode="indeterminate"></mat-progress-spinner>
-            </div>
-            }
-        </div>
-    </div>
-</div>
-<!-- End Of DashBoard Card  -->
-<!-- Start Of Quick Actions  -->
-<div class="quick-actions mt-5">
-    <div class="container">
-        <h3>Quick Actions</h3>
-        <div class="actions mt-5">
-            <div class="action">
-                <a routerLink="/company/new-package">Create New Package</a>
-            </div>
-            <div class="action">
-                <a routerLink="/company/bookings">View Bookings</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Of Quick Actions  -->
-<!-- Start Of Recent Booking  -->
-<div class="recent-booking mb-2">
-    <div class="container mt-5">
-        @defer (when isPackagesReqFinished) {
-        @if(packages.length > 0){
-        <table class="mb-3">
-            <tr>
-                <th>Package Name</th>
-                <th>Total Price</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Actions</th>
-            </tr>
-            @for (item of packages; track $index) {
-            <tr>
-                <td data-label="Package Name">
-                    <p>{{item.packageName}}</p>
-                </td>
-                <td data-label="Total Price">
-                    <p>{{item.price}}</p>
-                </td>
-                <td data-label="Start Date">
-                    <p>{{item.startDate.split("T")[0]}}</p>
-                </td>
-                <td data-label="End Date">
-                    <p>{{item.endDate.split("T")[0]}}</p>
-                </td>
-                <td data-label="Actions">
-                    <p><a [routerLink]="['/company/edit-package',item.packageId]" (click)="print(item)">
-                            Edit
-                        </a></p>
-                    <p (click)="openDeleteDialog(item.packageId,'Package')">Delete</p>
-                </td>
-            </tr>
-            }
-        </table>
-        }@else{
-        <div class="loading-container mt-5">
-            <h2>Company Has No Packages</h2>
-        </div>
-        }
-        }
-        @loading (minimum 2s){
-        <div class="loading-container mt-5">
-            <mat-progress-spinner color="accent" diameter="40" mode="indeterminate"></mat-progress-spinner>
-        </div>
-        }
-    </div>
-</div>
-<!-- End Of Recent Booking  -->
