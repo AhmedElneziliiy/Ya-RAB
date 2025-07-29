@@ -22,7 +22,7 @@ export class AllHotelsComponent implements OnInit {
   };
   currentImageIndices: number[] = []; // Track current image index for each hotel
 
-  constructor(@Inject(HotelsServiceService) private hotelService: HotelsServiceService, private router: Router) {}
+  constructor(@Inject(HotelsServiceService) private hotelService: HotelsServiceService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadHotels();
@@ -34,7 +34,7 @@ export class AllHotelsComponent implements OnInit {
         console.log('Hotels received in AllHotelsComponent:', hotels);
         this.hotels = hotels;
         this.filteredHotels = [...hotels];
-         this.currentImageIndices = new Array(hotels.length).fill(0); // Initialize image indices
+        this.currentImageIndices = new Array(hotels.length).fill(0); // Initialize image indices
 
         this.applyFilters();
       },

@@ -14,7 +14,7 @@ import { LoadingDialogComponent } from '../../../shared-app/Components/loading-d
 
 @Component({
   selector: 'app-edit-booking',
-  imports: [MatProgressSpinner, FormsModule, CommonModule, NavbarComponent, RouterModule],
+  imports: [MatProgressSpinner, FormsModule, CommonModule, RouterModule],
   providers: [TouristNavbarComponent],
   templateUrl: './edit-booking.component.html',
   styleUrl: './edit-booking.component.scss'

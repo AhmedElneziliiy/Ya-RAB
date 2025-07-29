@@ -116,13 +116,11 @@ export class AuthService {
     localStorage.setItem('token', user.token!);
   }
 
-  //use later for logout
-
-  // private clearUser(): void {
-  //   localStorage.removeItem('token');
-  //   localStorage.removeItem('user');
-  // }
-
+  public navigateToHome(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.router.navigate(['/']);
+    }
+  }
   getToken(): string | null {
     return localStorage.getItem('token');
   }

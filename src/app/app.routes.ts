@@ -15,8 +15,6 @@ import { TourPackagesComponent } from './client-app/Features/tour-packages/tour-
 import { HotelDetailsComponent } from './tourist-app/components/hotel-details/hotel-details.component';
 import { HotelOffersComponent } from './tourist-app/components/hotel-offers/hotel-offers.component';
 import { TourGuideOffersComponent } from './tourist-app/components/tour-guide-offers/tour-guide-offers.component';
-import { TouristMessagesComponent } from './tourist-app/components/tourist-messages/tourist-messages.component';
-import { TouristTripsComponent } from './tourist-app/components/tourist-trips/tourist-trips.component';
 import { TourGuidesMainComponent } from './tour-guides-app/tour-guides-component/tour-guides-component.component';
 import { HotelComponent } from './hotels-app/hotel-component/hotel-component.component';
 import { HotelDashboardComponent } from './hotels-app/hotel-dashboard/hotel-dashboard.component';
@@ -41,6 +39,7 @@ import { RoomsTableComponent } from './hotels-app/manage-rooms/rooms-table/rooms
 import { ManageRoomComponent } from './hotels-app/manage-rooms/manage-room/manage-room.component';
 import { EditBookingComponent } from './tourist-app/components/edit-booking/edit-booking.component';
 import { ShowPackagesComponent } from './tourism-company-app/show-packages/show-packages.component';
+import { ManageGuideBookingsComponent } from './tour-guides-app/manage-bookings/manage-bookings.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -78,8 +77,6 @@ export const routes: Routes = [
       {
         path: 'dashboard/edit-booking/:id', component: EditBookingComponent,
       },
-      { path: 'trips', component: TouristTripsComponent },
-      { path: 'messages', component: TouristMessagesComponent },
       { path: 'hotel-offers', component: HotelOffersComponent },
       { path: 'hotel-details/:hotelId', component: HotelDetailsComponent },
       { path: 'dashboard/guide-offers', component: TourGuideOffersComponent }
@@ -94,7 +91,8 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: OverviewComponent },
-      { path: 'profile', component: ManagerTourGuideProfileComponent }
+      { path: 'profile', component: ManagerTourGuideProfileComponent },
+      { path: 'bookings', component: ManageGuideBookingsComponent }
     ]
   },
 

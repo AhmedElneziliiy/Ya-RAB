@@ -3,15 +3,14 @@ import { TourGuide } from './../interfaces/tour-guide';
 import { TourGuideService } from './../tour-guide.service';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { DeleteImageDialogComponent } from './delete-image-dialog/delete-image-dialog.component';
 import { AlertDialogComponent } from '../../alert-dialog-component/alert-dialog-component';
 import { LoadingDialogComponent } from '../../shared-app/Components/loading-dialog/loading-dialog.component';
 
 @Component({
   selector: 'app-manager-tour-guide-profile',
-  imports: [FormsModule, MatProgressSpinner],
+  imports: [FormsModule, MatProgressSpinner, RouterLink],
   standalone: true,
   templateUrl: './manager-tour-guide-profile.component.html',
   styleUrl: './manager-tour-guide-profile.component.scss'
@@ -32,6 +31,8 @@ export class ManagerTourGuideProfileComponent implements OnInit {
   photos: File[] = [
   ];
 
+  isGuideReqFinished = false;
+
   router = inject(Router);
 
 
@@ -40,6 +41,7 @@ export class ManagerTourGuideProfileComponent implements OnInit {
       {
         next: (value) => {
           this.allDestinations = value.map((e) => e.name);
+          this.isGuideReqFinished = true;
         },
         error: (err) => {
           let message = '';

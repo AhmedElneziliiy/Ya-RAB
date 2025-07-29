@@ -5,14 +5,16 @@
     <div class="filter-row">
       <div class="filter-group">
         <label for="priceRange" class="filter-label">Price Range</label>
-        <select id="priceRange" class="form-control" [(ngModel)]="selectedPriceRange" (ngModelChange)="onPriceRangeChange()">
+        <select id="priceRange" class="form-control" [(ngModel)]="selectedPriceRange"
+          (ngModelChange)="onPriceRangeChange()">
           <option value="">Select Price Range</option>
           <option *ngFor="let range of priceRanges" [value]="range.label">{{ range.label }}</option>
         </select>
       </div>
       <div class="filter-group">
         <label for="destination" class="filter-label">Destination</label>
-        <select id="destination" class="form-control" [(ngModel)]="selectedDestination" (ngModelChange)="onDestinationChange()">
+        <select id="destination" class="form-control" [(ngModel)]="selectedDestination"
+          (ngModelChange)="onDestinationChange()">
           <option value="">Select Destination</option>
           <option *ngFor="let dest of availableDestinations" [value]="dest">{{ dest }}</option>
         </select>
@@ -21,11 +23,13 @@
     </div>
   </div>
   <div *ngIf="errorMessage" class="alert alert-error">{{ errorMessage }}</div>
-  <div *ngIf="filteredPackages.length === 0 && !errorMessage" class="alert alert-no-data">No tour packages available.</div>
+  <div *ngIf="filteredPackages.length === 0 && !errorMessage" class="alert alert-no-data">No tour packages available.
+  </div>
   <div *ngIf="filteredPackages.length > 0" class="packages-list">
     <div *ngFor="let pkg of filteredPackages" class="package-item">
       <div class="image-container">
-        <img *ngIf="pkg.photoUrls && pkg.photoUrls.length > 0" [src]="pkg.photoUrls[0]" alt="package-image" class="package-image">
+        <img *ngIf="pkg.photoUrls && pkg.photoUrls.length > 0" [src]="pkg.photoUrls[0]" alt="package-image"
+          class="package-image">
         <div *ngIf="!pkg.photoUrls || pkg.photoUrls.length === 0" class="no-image">No image available</div>
       </div>
       <div class="package-details">

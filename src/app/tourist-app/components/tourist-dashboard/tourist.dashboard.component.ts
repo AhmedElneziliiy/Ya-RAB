@@ -1,3 +1,4 @@
+import { AuthService } from './../../../landing-app/Components/auth-service.service';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { MatDialog } from '@angular/material/dialog';
@@ -7,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { Booking, Tourist } from '../tourist';
 import { TouristService } from '../../tourist.service';
 import { NavbarComponent } from "../../../shared-app/Components/navbar/navbar.component";
-import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, OnInit, Renderer2, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,6 +25,9 @@ import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } fr
   ],
 })
 export class TouristDashboardComponent implements OnInit {
+  logout() {
+    this.authService.logout();
+  }
 
   tourist!: Tourist;
 
@@ -32,6 +36,8 @@ export class TouristDashboardComponent implements OnInit {
   filteredBookings!: Booking[];
 
   filteredStatus = '';
+
+  authService = inject(AuthService);
 
   constructor(private matDialog: MatDialog, private service: TouristService, private el: ElementRef, private renderer: Renderer2) { }
 

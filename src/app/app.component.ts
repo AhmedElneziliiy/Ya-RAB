@@ -25,7 +25,7 @@ export class AppComponent {
     if (token) {
       this.authService.navigateBasedOnRole();
     } else {
-      this.authService.navigateToLogin();
+      this.authService.navigateToHome();
     }
   }
 }

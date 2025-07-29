@@ -1,7 +1,11 @@
 <!-- Start Of Create Package -->
-<app-navbar></app-navbar>
 <div class="edit-booking pt-5 mb-2">
     <div class="container">
+        <div class="back-button-container">
+            <a routerLink="/tourist/dashboard" class="btn btn-outline-primary back-btn">
+                🔙 Back to Dashboard
+            </a>
+        </div>
         <div class="booking-info pt-3">
             @if (isEditing) {
             <mat-progress-spinner></mat-progress-spinner>
