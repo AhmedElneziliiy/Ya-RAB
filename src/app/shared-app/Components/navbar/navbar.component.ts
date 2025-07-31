@@ -1,6 +1,7 @@
 
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../../landing-app/Components/auth-service.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,5 +10,9 @@ import { RouterLink } from '@angular/router';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
+  authService = inject(AuthService);
 
+  isLoggedIn(): boolean {
+    return this.authService.getToken() !== null;
+  }
 }

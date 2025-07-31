@@ -1,12 +1,12 @@
 <div class="container">
-  <app-navbar></app-navbar>
   <h2 class="title">All Tour Guides</h2>
   <div *ngIf="errorMessage" class="alert alert-error">{{ errorMessage }}</div>
   <div *ngIf="tourGuides.length === 0 && !errorMessage" class="alert alert-no-data">No tour guides available.</div>
   <!-- Language Filter -->
   <div class="filter-container">
     <label for="languageFilter" class="filter-label">Filter by Language:</label>
-    <select id="languageFilter" class="form-control" [(ngModel)]="selectedLanguage" (ngModelChange)="filterTourGuides()">
+    <select id="languageFilter" class="form-control" [(ngModel)]="selectedLanguage"
+      (ngModelChange)="filterTourGuides()">
       <option value="">All</option>
       <option *ngFor="let language of availableLanguages" [value]="language">{{ language }}</option>
     </select>
@@ -32,12 +32,11 @@
         <p class="guide-detail"><strong>Areas Covered:</strong> {{ guide.areasCovered }}</p>
         <p class="guide-detail"><strong>Price per Hour:</strong> ${{ guide.pricePerHour }}</p>
         <p class="availability">
-          <strong>Availability:</strong> 
+          <strong>Availability:</strong>
           <span [ngClass]="guide.isAvailable ? 'available' : 'unavailable'">
             {{ guide.isAvailable ? 'Available' : 'Not Available' }}
-            <i [ngClass]="guide.isAvailable ? 'fa-solid fa-check' : 'fa-solid fa-times'" 
-               [class.available-icon]="guide.isAvailable" 
-               [class.unavailable-icon]="!guide.isAvailable"></i>
+            <i [ngClass]="guide.isAvailable ? 'fa-solid fa-check' : 'fa-solid fa-times'"
+              [class.available-icon]="guide.isAvailable" [class.unavailable-icon]="!guide.isAvailable"></i>
           </span>
         </p>
         <div class="guide-rating">

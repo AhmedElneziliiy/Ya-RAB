@@ -1,4 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { AuthService } from './../../../../../../landing-app/Components/auth-service.service';
+import { Component, inject, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HotelsServiceService } from '../../Services/hotels-service.service';
 import { CommonModule } from '@angular/common';
@@ -11,24 +12,30 @@ import { ReviewService } from '../../Services/review.service';
 @Component({
   selector: 'app-hotels-details',
   standalone: true,
-  imports: [CommonModule, NavbarComponent,RouterLink],
+  imports: [CommonModule, NavbarComponent, RouterLink],
   templateUrl: './hotels-details.component.html',
   styleUrls: ['./hotels-details.component.scss']
 })
 export class HotelsDetailsComponent implements OnInit {
-   hotel: Hotel | null = null;
+  hotel: Hotel | null = null;
   rooms: Room[] = [];
   errorMessage: string | null = null;
   currentHotelImageIndex: number = 0;
   currentRoomImageIndices: number[] = [];
   reviews: Review[] = [];
 
+  authService = inject(AuthService);
+
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
+
   constructor(
     @Inject(HotelsServiceService) private hotelService: HotelsServiceService,
     @Inject(ReviewService) private reviewService: ReviewService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const hotelId = this.route.snapshot.paramMap.get('hotelId');

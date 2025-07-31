@@ -60,17 +60,20 @@
           <p class="room-detail"><strong>Room Type:</strong> {{ room.roomType }}</p>
           <p class="room-detail"><strong>Price per Night:</strong> ${{ room.pricePerNight }}</p>
           <p class="availability">
-            <strong>Availability:</strong> 
+            <strong>Availability:</strong>
             <span [ngClass]="room.isAvailable ? 'available' : 'unavailable'">
               {{ room.isAvailable ? 'Available' : 'Not Available' }}
-              <i [ngClass]="room.isAvailable ? 'fa-solid fa-check' : 'fa-solid fa-times'" 
-                 [class.available-icon]="room.isAvailable" 
-                 [class.unavailable-icon]="!room.isAvailable"></i>
+              <i [ngClass]="room.isAvailable ? 'fa-solid fa-check' : 'fa-solid fa-times'"
+                [class.available-icon]="room.isAvailable" [class.unavailable-icon]="!room.isAvailable"></i>
             </span>
           </p>
           <div class="button-group">
-            <button class="btn btn-primary" [routerLink]="['/room-details', room.roomId]" [disabled]="!room.isAvailable">View</button>
-            <button class="btn btn-success" (click)="bookRoom(hotel.hotelID, room.roomId)" [disabled]="!room.isAvailable">Book Room</button>
+            <button class="btn btn-primary" [routerLink]="['/room-details', room.roomId]"
+              [disabled]="!room.isAvailable">View</button>
+            @if (isLoggedIn()) {
+            <button class="btn btn-success" (click)="bookRoom(hotel.hotelID, room.roomId)"
+              [disabled]="!room.isAvailable">Book Room</button>
+            }
           </div>
         </div>
       </div>

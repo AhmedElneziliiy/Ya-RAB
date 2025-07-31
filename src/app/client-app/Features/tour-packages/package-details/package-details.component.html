@@ -6,7 +6,8 @@
   <div *ngIf="package" class="package-details">
     <div class="package-card">
       <div class="image-container">
-        <img *ngIf="package.photoUrls && package.photoUrls.length > 0" [src]="package.photoUrls[0]" alt="package-image" class="package-image">
+        <img *ngIf="package.photoUrls && package.photoUrls.length > 0" [src]="package.photoUrls[0]" alt="package-image"
+          class="package-image">
         <div *ngIf="!package.photoUrls || package.photoUrls.length === 0" class="no-image">No image available</div>
       </div>
       <div class="details-content">
@@ -19,7 +20,9 @@
         <p class="package-detail"><strong>End Date:</strong> {{ package.endDate | date:'mediumDate' }}</p>
         <p class="package-detail"><strong>Destinations:</strong> {{ getDestinationsString(package.destinations) }}</p>
         <div class="button-group">
+          @if (isLoggedIn()) {
           <button class="btn btn-primary" [routerLink]="['/package-booking', package.packageId]">Book Now</button>
+          }
           <button class="btn btn-secondary" [routerLink]="['/tour-packages']">Back to Packages</button>
         </div>
       </div>

@@ -34,11 +34,15 @@ export interface Room {
 export interface Booking {
     bookingID: string;
     touristEmail: string;
-    tourGuideName: string | null;
+    tourGuideName: string;
+    tourGuideEmail: string;
     hotelName: string;
     roomType: string;
     packageName: string;
     bookingDate: string;
     totalPrice: number;
     status: string;
+    packageId?: string;
+    roomId?: string;
+    hotelEmail?: string;
 }

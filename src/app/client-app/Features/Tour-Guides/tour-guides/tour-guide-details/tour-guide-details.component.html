@@ -1,4 +1,3 @@
-
 <div class="container">
   <app-navbar></app-navbar>
   <h2 class="title">{{ tourGuide?.guideName || 'Tour Guide Details' }}</h2>
@@ -24,12 +23,11 @@
     <p class="guide-detail"><strong>Areas Covered:</strong> {{ tourGuide.areasCovered }}</p>
     <p class="guide-detail"><strong>Price per Hour:</strong> ${{ tourGuide.pricePerHour }}</p>
     <p class="availability">
-      <strong>Availability:</strong> 
+      <strong>Availability:</strong>
       <span [ngClass]="tourGuide.isAvailable ? 'available' : 'unavailable'">
         {{ tourGuide.isAvailable ? 'Available' : 'Not Available' }}
-        <i [ngClass]="tourGuide.isAvailable ? 'fa-solid fa-check' : 'fa-solid fa-times'" 
-           [class.available-icon]="tourGuide.isAvailable" 
-           [class.unavailable-icon]="!tourGuide.isAvailable"></i>
+        <i [ngClass]="tourGuide.isAvailable ? 'fa-solid fa-check' : 'fa-solid fa-times'"
+          [class.available-icon]="tourGuide.isAvailable" [class.unavailable-icon]="!tourGuide.isAvailable"></i>
       </span>
     </p>
     <div class="guide-rating">
@@ -58,7 +56,10 @@
       </div>
     </div>
     <div class="button-group">
-      <button class="btn btn-success" (click)="bookTourGuide(tourGuide.guideID)" [disabled]="!tourGuide.isAvailable">Book Tour Guide</button>
+      @if(isLoggedIn()) {
+      <button class="btn btn-success" (click)="bookTourGuide(tourGuide.guideID)"
+        [disabled]="!tourGuide.isAvailable">Book Tour Guide</button>
+      }
       <button class="btn btn-secondary" (click)="goBack()">Back to Tour Guides</button>
     </div>
   </div>

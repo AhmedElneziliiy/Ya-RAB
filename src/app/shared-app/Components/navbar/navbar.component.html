@@ -21,12 +21,21 @@
         <li class="nav-item">
           <a class="nav-link" routerLinkActive="active" routerLink="/tour-guides">Tour Guides</a>
         </li>
+        @if (isLoggedIn()) {
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" routerLink="/tourist/dashboard">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" routerLink="/tourist/new-trip">New Trip</a>
+        </li>
+        }@else{
         <button routerLink="/login" class="btn btn-primary">
           Login
         </button>
         <button routerLink="/register" class="btn btn-secondary">
           Register
         </button>
+        }
       </ul>
     </div>
   </div>

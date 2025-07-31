@@ -4,8 +4,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 import { AlertDialogComponent } from '../../alert-dialog-component/alert-dialog-component';
 import { MatDialog } from '@angular/material/dialog';
-import { Booking } from '../../hotels-app/interfaces/hotel-dashboard';
 import { TourGuideService } from '../tour-guide.service';
+import { Booking } from '../../tourism-company-app/interfaces/booking';
 
 @Component({
   selector: 'app-manage-bookings',

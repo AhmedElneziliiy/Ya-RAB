@@ -40,6 +40,7 @@ import { ManageRoomComponent } from './hotels-app/manage-rooms/manage-room/manag
 import { EditBookingComponent } from './tourist-app/components/edit-booking/edit-booking.component';
 import { ShowPackagesComponent } from './tourism-company-app/show-packages/show-packages.component';
 import { ManageGuideBookingsComponent } from './tour-guides-app/manage-bookings/manage-bookings.component';
+import { NewTripComponent } from './tourist-app/components/new-trip/new-trip.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -78,6 +79,7 @@ export const routes: Routes = [
         path: 'dashboard/edit-booking/:id', component: EditBookingComponent,
       },
       { path: 'hotel-offers', component: HotelOffersComponent },
+      { path: 'new-trip', component: NewTripComponent },
       { path: 'hotel-details/:hotelId', component: HotelDetailsComponent },
       { path: 'dashboard/guide-offers', component: TourGuideOffersComponent }
     ]

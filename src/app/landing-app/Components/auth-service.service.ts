@@ -125,6 +125,10 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
+  isLoggedIn() {
+    return this.getToken() !== null;
+  }
+
   getHotelId(): Observable<string | undefined> {
     console.log(`token in hotel ${this.getToken()}`);
 

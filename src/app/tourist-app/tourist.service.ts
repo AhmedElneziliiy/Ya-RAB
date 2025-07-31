@@ -1,7 +1,10 @@
+import { Destination } from './../tourism-company-app/interfaces/package';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, ReplaySubject, tap } from 'rxjs';
 import { Booking, Tourist } from './components/tourist';
+import { Trip } from './components/trip';
+import { Hotel } from '../hotels-app/interfaces/hotel-dashboard';
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +60,26 @@ export class TouristService {
 
   getBooking(id: string): Observable<Booking> {
     return this.client.get<Booking>(this.baseUrl + 'Bookings/' + id, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      }
+    });
+  }
+
+  getDestinationsForTrip(destination: string): Observable<Trip> {
+    return this.client.get<Trip>(this.baseUrl + `Search/destination?destination=${destination}`);
+  }
+
+  createBooking(booking: Booking): Observable<Booking> {
+    return this.client.post<Booking>(this.baseUrl + 'Bookings', booking, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      }
+    });
+  }
+
+  getHotelById(hotelId: string): Observable<Hotel> {
+    return this.client.get<any>(this.baseUrl + 'Hotels/' + hotelId, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
       }

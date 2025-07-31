@@ -209,10 +209,10 @@
             <div class="card bg-dark text-white shadow-lg rounded-0 h-100 fancy-sidebar p-4">
                 <h4 class="fw-bold mb-4 border-bottom pb-2">🏨 Tourist Dashboard</h4>
                 <div class="d-grid gap-3">
-                    <a routerLink="/tourist/tour-packages" class="btn btn-danger btn-lg rounded-pill fancy-btn">
+                    <a routerLink="/tour-packages" class="btn btn-danger btn-lg rounded-pill fancy-btn">
                         📖 Packages
                     </a>
-                    <a routerLink="/tourist/hotels" class="btn btn-danger btn-lg rounded-pill fancy-btn">
+                    <a routerLink="/hotel-reservation" class="btn btn-danger btn-lg rounded-pill fancy-btn">
                         🏨 Hotel Offers
                     </a>
                     <button class="btn btn-danger btn-lg rounded-pill fancy-btn" (click)="logout()">🚪 Logout</button>
@@ -244,10 +244,8 @@
                 <div class="col-md-6 mb-4">
                     <h5 class="section-heading">Quick Actions</h5>
                     <div class="d-grid gap-2">
-                        <button class="btn btn-danger fancy-btn" routerLink="/tourist/new-package">Create New
-                            Package</button>
-                        <button class="btn btn-danger fancy-btn" routerLink="/company/bookings">View Your
-                            Bookings</button>
+                        <button class="btn btn-danger fancy-btn" routerLink="/tourist/new-trip">Customize New
+                            Trip</button>
                     </div>
                 </div>
             </div>

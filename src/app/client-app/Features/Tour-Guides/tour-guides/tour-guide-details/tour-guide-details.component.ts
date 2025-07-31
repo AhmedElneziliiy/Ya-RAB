@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, inject, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { TourGuide } from '../interfaces/tour-guide';
 import { TourGuideService } from '../Services/tour-guide.service';
@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../../../../../shared-app/Components/navbar/navbar.component';
 import { Review } from '../../../Hotels/main-page/interfaces/review';
 import { ReviewService } from '../../../Hotels/main-page/Services/review.service';
+import { AuthService } from '../../../../../landing-app/Components/auth-service.service';
 
 @Component({
   selector: 'app-tour-guide-details',
@@ -16,6 +17,8 @@ import { ReviewService } from '../../../Hotels/main-page/Services/review.service
 export class TourGuideDetailsComponent implements OnInit {
   tourGuide: TourGuide | null = null;
   reviews: Review[] = [];
+
+  authService = inject(AuthService);
 
   errorMessage: string | null = null;
   currentImageIndex: number = 0; // Track current image index for the slider
@@ -87,5 +90,9 @@ export class TourGuideDetailsComponent implements OnInit {
     if (this.tourGuide && this.tourGuide.photoUrls && this.tourGuide.photoUrls.length > 0) {
       this.currentImageIndex = (this.currentImageIndex + 1) % this.tourGuide.photoUrls.length;
     }
+  }
+
+  isLoggedIn(): boolean {
+    return this.authService.getToken() !== null;
   }
 }

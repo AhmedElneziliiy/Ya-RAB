@@ -127,6 +127,7 @@ export interface Room {
   pricePerNight: number;
   isAvailable: boolean;
   photoUrls: string[];
+  hotelName?: string;
 }
 
 export interface CreateHotelBookingDto {
