@@ -1,16 +1,35 @@
 import { Hotel, HotelDashBoard, Room } from './interfaces/hotel-dashboard';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable, ReplaySubject, take, tap } from 'rxjs';
+import { map, Observable, ReplaySubject, take, tap } from 'rxjs';
 import { AlertDialogComponent } from '../alert-dialog-component/alert-dialog-component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { LoadingDialogComponent } from '../shared-app/Components/loading-dialog/loading-dialog.component';
+import { TourGuide } from '../tour-guides-app/interfaces/tour-guide';
+import { Review } from '../tour-guides-app/interfaces/review';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HotelsService {
+
+  getTopHotels(): Observable<Hotel[]> {
+    return this.client.get<Hotel[]>(this.baseUrl + 'Hotels', {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      }
+    });
+  }
+
+  getTopReviews(): Observable<Review[]> {
+    return this.client.get<Review[]>(this.baseUrl + 'Reviews', {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      }
+    })
+  }
+
   editProfile(formData: FormData, hotelId: string): Observable<Hotel> {
     return this.client.put<Hotel>(this.baseUrl + 'Hotels/' + hotelId, formData, {
       headers: {

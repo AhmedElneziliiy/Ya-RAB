@@ -10,6 +10,13 @@ import { Destination } from '../tourism-company-app/interfaces/package';
   providedIn: 'root'
 })
 export class TourGuideService {
+  getTopTourGuides(): Observable<TourGuide[]> {
+    return this.client.get<TourGuide[]>(this.baseUrl + '/TourGuides', {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      }
+    });
+  }
 
   dashboardSubject = new BehaviorSubject<DashBoard>({});
   dashboard$ = this.dashboardSubject.asObservable();

@@ -12,7 +12,7 @@ import { AfterViewInit, Component, ElementRef, inject, OnInit, Renderer2, ViewCh
 
 @Component({
   selector: 'app-dashboard',
-  imports: [MatProgressSpinner, CommonModule, NavbarComponent, RouterLink],
+  imports: [CommonModule, RouterLink],
   templateUrl: './tourist.dashboard.component.html',
   styleUrl: './tourist.dashboard.component.scss',
   animations: [

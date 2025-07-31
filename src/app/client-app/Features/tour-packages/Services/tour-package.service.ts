@@ -8,11 +8,18 @@ import { Review } from '../../Hotels/main-page/interfaces/review';
   providedIn: 'root'
 })
 export class TourPackageService {
+  getTopPackages(): Observable<TourPackage[]> {
+    return this.http.get<TourPackage[]>(this.apiUrl, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+  }
   private apiUrl = 'https://fizo.runasp.net/api/TourPackages';
-    private reviewsApiUrl = 'https://fizo.runasp.net/api/Reviews/package';
+  private reviewsApiUrl = 'https://fizo.runasp.net/api/Reviews/package';
   private bookingsApiUrl = 'https://fizo.runasp.net/api/Bookings/package';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAllPackages(): Observable<TourPackage[]> {
     return this.http.get<TourPackage[]>(this.apiUrl).pipe(

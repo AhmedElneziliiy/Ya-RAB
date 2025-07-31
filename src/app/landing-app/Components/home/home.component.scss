@@ -1,0 +1,153 @@
+h2 {
+    font-weight: 600;
+    color: #007bff;
+}
+
+img {
+    border-radius: 1rem;
+    transition: transform 0.3s ease-in-out;
+}
+
+img:hover {
+    transform: scale(1.05);
+}
+
+/* === Cards === */
+.card,
+.tour-guide-card,
+.tour-package-card,
+.hotel-card,
+.testimonial-card {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 1.25rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    animation: fadeInUp 1s ease;
+}
+
+.hotel-card {
+    overflow: hidden;
+    height: 450px;
+}
+
+.hotel-card img {
+    height: 250px;
+    width: 100%;
+    object-fit: cover;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.card:hover,
+.tour-guide-card:hover,
+.tour-package-card:hover,
+.hotel-card:hover,
+.testimonial-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* === Tour Guide Section === */
+.tour-guide-name,
+.tour-guide-price,
+.hotel-name,
+.hotel-address {
+    margin-top: 0.75rem;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.rating-stars svg {
+    margin-right: 4px;
+    transition: transform 0.3s ease;
+}
+
+.rating-stars svg.filled {
+    color: #f7c948;
+    /* gold */
+}
+
+.rating-stars svg.empty {
+    color: #dcdcdc;
+    /* light grey */
+}
+
+.rating-stars svg:hover {
+    transform: scale(1.2);
+}
+
+/* === Testimonial Section === */
+.testimonial-content p {
+    font-style: italic;
+    font-size: 1.05rem;
+}
+
+.testimonial-rating {
+    margin-top: 0.75rem;
+}
+
+.testimonial-date p {
+    font-size: 0.85rem;
+    color: #adb5bd;
+    margin-top: 0.5rem;
+}
+
+/* === Animations === */
+@keyframes fadeInUp {
+    0% {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes bounceIn {
+
+    0%,
+    20%,
+    40%,
+    60%,
+    80%,
+    100% {
+        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    }
+
+    0% {
+        opacity: 0;
+        transform: scale3d(.3, .3, .3);
+    }
+
+    20% {
+        transform: scale3d(1.1, 1.1, 1.1);
+    }
+
+    40% {
+        transform: scale3d(.9, .9, .9);
+    }
+
+    60% {
+        opacity: 1;
+        transform: scale3d(1.03, 1.03, 1.03);
+    }
+
+    80% {
+        transform: scale3d(.97, .97, .97);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    animation: bounceIn 1.2s ease;
+}
