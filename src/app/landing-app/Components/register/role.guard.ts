@@ -46,3 +46,14 @@ export const tourGuideGuard: CanActivateFn = (route, state) => {
 
   return false;
 };
+export const adminGuard: CanActivateFn = (route, state) => {
+  const jwt = localStorage.getItem('token');
+
+  const decodedToken = jwtDecode<DecodedToken>(jwt!);
+
+  if (decodedToken.roles.toLowerCase() == 'admin') {
+    return true;
+  }
+
+  return false;
+};

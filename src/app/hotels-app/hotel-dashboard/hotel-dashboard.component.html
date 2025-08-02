@@ -24,19 +24,40 @@
                 <div class="col-md-4">
                     <div class="fancy-card text-center">
                         <h6>Total Bookings</h6>
+                        @defer (when isHotelReqFinished) {
                         <h3>{{hotelDashBoard.bookings?.length}}</h3>
+                        }@placeholder {
+                        <mat-progress-spinner mode="indeterminate" diameter="40" color="accent"></mat-progress-spinner>
+                        }
+                        @loading (minimum 3s) {
+                        <mat-progress-spinner mode="indeterminate" diameter="40" color="accent"></mat-progress-spinner>
+                        }
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="fancy-card text-center">
                         <h6>Number Of Rooms</h6>
+                        @defer (when isHotelReqFinished) {
                         <h3>{{hotelDashBoard.rooms?.length}}</h3>
+                        }@placeholder {
+                        <mat-progress-spinner mode="indeterminate" diameter="40" color="accent"></mat-progress-spinner>
+                        }
+                        @loading (minimum 3s) {
+                        <mat-progress-spinner mode="indeterminate" diameter="40" color="accent"></mat-progress-spinner>
+                        }
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="fancy-card text-center">
                         <h6>Rating</h6>
+                        @defer (when isHotelReqFinished) {
                         <h3>{{hotelDashBoard.averageRating}} ★</h3>
+                        }@placeholder {
+                        <mat-progress-spinner mode="indeterminate" diameter="40" color="accent"></mat-progress-spinner>
+                        }
+                        @loading (minimum 3s) {
+                        <mat-progress-spinner mode="indeterminate" diameter="40" color="accent"></mat-progress-spinner>
+                        }
                     </div>
                 </div>
             </div>
@@ -45,6 +66,8 @@
             <div class="fancy-section mb-4">
                 <h5 class="section-heading">Recent Bookings</h5>
                 <div class="table-responsive">
+                    @defer (when isHotelReqFinished) {
+
                     <table class="table table-hover fancy-table">
                         <thead>
                             <tr>
@@ -64,7 +87,12 @@
                             </tr>
                             }
                         </tbody>
-                    </table>
+                    </table> }@placeholder {
+                    <mat-progress-spinner mode="indeterminate" diameter="40" color="accent"></mat-progress-spinner>
+                    }
+                    @loading (minimum 3s) {
+                    <mat-progress-spinner mode="indeterminate" diameter="40" color="accent"></mat-progress-spinner>
+                    }
                 </div>
             </div>
 
@@ -72,7 +100,18 @@
             <div class="row">
                 <div class="col-md-6 mb-4">
                     <h5 class="section-heading">Map Preview</h5>
+                    @defer (when isHotelReqFinished) {
                     <div id="map" class="fancy-map rounded"></div>
+                    }@loading (minimum 3s){
+                    <div class="loading-container">
+                        <mat-progress-spinner mode="indeterminate" color="accent" diameter="40"></mat-progress-spinner>
+                    </div>
+                    }
+                    @placeholder{
+                    <div class="loading-container">
+                        <mat-progress-spinner mode="indeterminate" color="accent" diameter="40"></mat-progress-spinner>
+                    </div>
+                    }
                 </div>
                 <div class="col-md-6 mb-4">
                     <h5 class="section-heading">Quick Actions</h5>

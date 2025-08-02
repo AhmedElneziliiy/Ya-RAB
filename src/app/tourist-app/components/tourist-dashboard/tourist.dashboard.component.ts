@@ -1,5 +1,5 @@
 import { AuthService } from './../../../landing-app/Components/auth-service.service';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatProgressSpinner, MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteBookingComponent } from './delete-booking/delete-booking.component';
@@ -9,10 +9,12 @@ import { Booking, Tourist } from '../tourist';
 import { TouristService } from '../../tourist.service';
 import { NavbarComponent } from "../../../shared-app/Components/navbar/navbar.component";
 import { AfterViewInit, Component, ElementRef, inject, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { AlertDialogComponent } from '../../../alert-dialog-component/alert-dialog-component';
+import { title } from 'process';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, MatProgressSpinnerModule],
   templateUrl: './tourist.dashboard.component.html',
   styleUrl: './tourist.dashboard.component.scss',
   animations: [
@@ -55,6 +57,14 @@ export class TouristDashboardComponent implements OnInit {
           this.filteredBookings = this.tourist.bookings.filter(
             (e) => e.status === this.filteredStatus
           );
+        },
+        error: (err) => {
+          this.matDialog.open(AlertDialogComponent, {
+            data: {
+              title: 'Error',
+              message: 'Error getting data,try again later',
+            }
+          })
         },
       }
     );

@@ -87,6 +87,15 @@ export class EditBookingComponent implements OnInit {
       error: (err: string) => {
         ref.close();
         console.log(err);
+        this.matDialog.open(AlertDialogComponent, {
+          data: {
+            title: 'TripLink',
+            message: 'Error while creating Booking,try again later!',
+            method: () => {
+              this.router.navigate(['/tourist/dashboard'], { replaceUrl: true });
+            }
+          }
+        });
       },
     });
   }

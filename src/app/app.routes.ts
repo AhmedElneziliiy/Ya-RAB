@@ -31,7 +31,7 @@ import { TouristRegisterComponent } from './landing-app/Components/register/tour
 import { HotelRegisterComponent } from './landing-app/Components/register/hotel-register/hotel-register.component';
 import { LoginComponent } from './landing-app/Components/login/login.component';
 import { AuthGuard } from './landing-app/auth.guard';
-import { companyGuard, hotelGuard, tourGuideGuard, touristGuard } from './landing-app/Components/register/role.guard';
+import { adminGuard, companyGuard, hotelGuard, tourGuideGuard, touristGuard } from './landing-app/Components/register/role.guard';
 import { TouristDashboardComponent } from './tourist-app/components/tourist-dashboard/tourist.dashboard.component';
 import { CompanyRegisterComponent } from './landing-app/Components/register/company-register/company-register.component';
 import { CreateRoomComponent } from './hotels-app/create-room/create-room.component';
@@ -41,9 +41,11 @@ import { EditBookingComponent } from './tourist-app/components/edit-booking/edit
 import { ShowPackagesComponent } from './tourism-company-app/show-packages/show-packages.component';
 import { ManageGuideBookingsComponent } from './tour-guides-app/manage-bookings/manage-bookings.component';
 import { NewTripComponent } from './tourist-app/components/new-trip/new-trip.component';
+import { AdminDashboardComponent } from './admin-app/dashboard/dashboard.component';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
 
   // ----------------- AUTH ROUTES -----------------
   { path: 'login', component: LoginComponent },
@@ -67,12 +69,27 @@ export const routes: Routes = [
   { path: 'hotel-booking', component: HotelBookingComponent },
   { path: 'room-details/:roomId', component: RoomDetailsComponent },
 
+  // ----------------- ADMIN -----------------
+  {
+    path: 'admin',
+    canActivate: [AuthGuard, adminGuard],
+    children: [
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
+      }, {
+        path: 'dashboard',
+        component: AdminDashboardComponent,
+      }
+    ]
+
+  },
   // ----------------- TOURIST -----------------
   {
     path: 'tourist',
     canActivate: [AuthGuard, touristGuard],
     children: [
-      { path: '', component: HomeComponent },
 
       { path: 'dashboard', component: TouristDashboardComponent },
       {

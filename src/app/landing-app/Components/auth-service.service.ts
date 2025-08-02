@@ -212,7 +212,7 @@ export class AuthService {
       case 'tourist':
         this.getTouristId().subscribe(id => {
           this.id = id!;
-          this.router.navigateByUrl('/tourist', options);
+          this.router.navigateByUrl('', options);
         });
         break;
 
@@ -221,6 +221,9 @@ export class AuthService {
           this.id = id!;
           this.router.navigateByUrl('/tour-guide/dashboard', options);
         });
+        break;
+      case 'admin':
+        this.router.navigateByUrl('/admin/dashboard', options);
         break;
 
       default:

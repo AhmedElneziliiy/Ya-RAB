@@ -1,14 +1,24 @@
 <app-navbar></app-navbar>
 <div class="container my-4">
-    <div class="hero-section fade-in"></div>
-
+    <div class="slider-photo" style="position: relative;">
+        <img [src]="sliderData[selectedImage].image" width="100%" height="400px" />
+        <i class="fa-solid fa-chevron-left"
+            style="position:absolute;top: 50%;transform: translateY(-50%);left: 15px;color:white;"
+            (click)="moveToPreImage()"></i>
+        <h2 style="position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);color:white">
+            {{sliderData[selectedImage].title}}</h2>
+        <i class="fa-solid fa-chevron-right"
+            style="position:absolute;top: 50%;transform: translateY(-50%);right: 15px;color:white"
+            (click)="moveToNextImage()"></i>
+    </div>
     <!-- Tour Guides -->
     @defer (when isGuidesReqFinished) {
     @if(topTourGuides.length == 0){
     <h2 class="mx-auto fade-in">No Tour Guides Are Available</h2>
     }@else {
     <div class="top-tour-guides mt-5 fade-in-up">
-        <h2 class="text-center mb-4">Top Tour Guides <button class="text-btn">View More</button></h2>
+        <h2 class="text-center mb-4">Top Tour Guides <button class="text-btn" routerLink="/tour-guides">View
+                More</button></h2>
         <div class="row g-4">
             @for (guide of topTourGuides; track $index){
             <div class="col-6 col-md-4">
@@ -44,7 +54,8 @@
     <h2 class="mx-auto fade-in">No Tour Packages Are Available</h2>
     }@else {
     <div class="top-tour-packages mt-5 fade-in-up">
-        <h2 class="text-center mb-4">Top Packages <button class="text-btn">View More</button></h2>
+        <h2 class="text-center mb-4">Top Packages <button class="text-btn" routerLink="/tour-packages">View
+                More</button></h2>
         <div class="row g-4">
             @for (package of topTourPackages; track $index){
             <div class="col-6 col-md-4">
@@ -66,7 +77,8 @@
     <h2 class="mx-auto fade-in">No Hotels Are Available</h2>
     }@else {
     <div class="top-hotels mt-5 fade-in-up">
-        <h2 class="text-center mb-4">Top Hotels <button class="text-btn">View More</button></h2>
+        <h2 class="text-center mb-4">Top Hotels <button class="text-btn" routerLink="/hotel-reservation">View
+                More</button></h2>
         <div class="row g-4">
             @for (hotel of topHotels; track $index){
             <div class="col-6 col-md-4">

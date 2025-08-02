@@ -70,13 +70,11 @@
             </div>
 
             }
-
-
-            <div class="next-button mt-5 ms-auto">
-                <button class="btn btn-next mt-5" (click)="skipToNext()">Next</button>
-            </div>
         </div>
         }
+        <div class="next-button mt-5 ms-auto">
+            <button class="btn btn-next mt-5" (click)="skipToNext()">Next</button>
+        </div>
     </div>
     <div class="guides" *ngIf="currentStep === 3">
         @if (trip.tourGuides.length == 0) {
@@ -118,9 +116,50 @@
         }
     </div>
     <div class="final-booking" *ngIf="currentStep === 4">
-        <h2>Total Price : {{totalPrice}}</h2>
-        <button class="btn btn-primary" (click)="bookTrip()">Book Trip</button>
+        <div class="card shadow p-4">
+            <h3 class="mb-4 text-center border-bottom pb-2">Booking Receipt</h3>
+
+            @if(selectedPackage){
+            <div class="mb-2 d-flex justify-content-between">
+                <strong>Package:</strong>
+                <span>{{ selectedPackage.packageName }}</span>
+            </div>
+            }
+
+            @if(selectedRoom){
+            <div class="mb-2 d-flex justify-content-between">
+                <strong>Hotel:</strong>
+                <span>{{ selectedRoom.hotelName }}</span>
+            </div>
+            }
+
+            @if (selectedTourGuide) {
+            <div class="mb-2 d-flex justify-content-between">
+                <strong>Tour Guide:</strong>
+                <span>{{ selectedTourGuide.guideName }}</span>
+            </div>
+            }
+
+            @if(selectedDate){
+            <div class="mb-2 d-flex justify-content-between">
+                <strong>Check-in Date:</strong>
+                <span>{{ selectedDate.toDateString().split('T')[0]}}</span>
+            </div>
+            }
+
+            <hr />
+
+            <div class="d-flex justify-content-between fs-5">
+                <strong>Total Price:</strong>
+                <span>{{ totalPrice | currency }}</span>
+            </div>
+
+            <div class="text-center mt-4">
+                <button class="btn btn-success px-4" (click)="bookTrip()">Confirm & Book</button>
+            </div>
+        </div>
     </div>
+
     }
     }@placeholder {
     <h2>Search for a good tour package</h2>

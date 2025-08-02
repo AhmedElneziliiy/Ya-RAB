@@ -226,15 +226,38 @@
             <!-- Performance Cards -->
             <div class="row mb-4 g-2">
                 <div class="col-md-4">
-                    <div class="fancy-card text-center">
+                    <div class="fancy-card text-center position-relative">
                         <h6>Active Bookings</h6>
+                        @defer (when isTouristReq) {
                         <h3>{{tourist.bookings.length}}</h3>
+                        }@placeholder {
+                        <div class="loading-container">
+                            <mat-progress-spinner mode="indeterminate" diameter="40"
+                                color="accent"></mat-progress-spinner>
+                        </div> }
+                        @loading (minimum 3s) {
+                        <div class="loading-container">
+                            <mat-progress-spinner mode="indeterminate" diameter="40"
+                                color="accent"></mat-progress-spinner>
+                        </div> }
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="fancy-card text-center">
                         <h6>Number Of Review</h6>
+                        @defer (when isTouristReq) {
                         <h3>{{tourist.reviews.length}}</h3>
+                        }@placeholder {
+                        <div class="loading-container">
+                            <mat-progress-spinner mode="indeterminate" diameter="40"
+                                color="accent"></mat-progress-spinner>
+                        </div> }
+                        @loading (minimum 3s) {
+                        <div class="loading-container">
+                            <mat-progress-spinner mode="indeterminate" diameter="40"
+                                color="accent"></mat-progress-spinner>
+                        </div>
+                        }
                     </div>
                 </div>
             </div>

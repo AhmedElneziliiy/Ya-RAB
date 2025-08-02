@@ -37,8 +37,10 @@
 
 /* Spinner container */
 .loading-container {
-    text-align: center;
-    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .btn-purple {

@@ -23,11 +23,19 @@
         </li>
         @if (isLoggedIn()) {
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" routerLink="/tourist/dashboard">Dashboard</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" routerLinkActive="active" routerLink="/tourist/new-trip">New Trip</a>
         </li>
+        <li class="nav-item profile-icon" (click)="showActions()">
+          <i class="fa-solid fa-angle-down"></i>
+        </li>
+        <div class="actions-list">
+          <p routerLink="/{{currentRole()}}/dashboard"><i class="fa-solid fa-inbox"></i> Dashboard</p>
+          <p (click)="logout()"> <i class="fa-solid fa-right-to-bracket"></i> Sign Out</p>
+        </div>
+        <li class="nav-item dashboard">
+          <a class="nav-link" routerLinkActive="active" routerLink="/{{currentRole()}}/dashboard">Dashboard</a>
+        </li>
+        <p (click)="logout()" class="mt-2 logout-btn">Sign Out</p>
         }@else{
         <button routerLink="/login" class="btn btn-primary">
           Login

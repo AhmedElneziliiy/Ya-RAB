@@ -13,19 +13,23 @@ import { TourPackage } from '../../../client-app/Features/tour-packages/interfac
 import { Hotel } from '../../../hotels-app/interfaces/hotel-dashboard';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { Review } from '../../../tour-guides-app/interfaces/review';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  imports: [NavbarComponent, CommonModule, MatProgressSpinnerModule],
+  imports: [NavbarComponent, CommonModule, MatProgressSpinnerModule, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
 
+
   isPackagesReqFinished = false;
   isHotelsReqFinished = false;
   isGuidesReqFinished = false;
+  selectedImage = 0;
   ngOnInit(): void {
+    this.slideThroughImage();
     this.guideService.getTopTourGuides().subscribe(
       {
         next: (value) => {
@@ -94,4 +98,34 @@ export class HomeComponent implements OnInit {
   hotelsNumber = 0;
   guidesNumber = 0;
   packagesNumber = 0;
+
+  sliderData: { title: string, image: string }[] = [
+    {
+      title: 'Visit great places in Egypt',
+      image: '/images/pyramids.jpeg'
+    },
+    {
+      title: 'Where you see incredible views',
+      image: '/images/stanley.jpeg'
+    },
+    {
+      title: 'And Take a look through history',
+      image: '/images/temple.jpg'
+    },
+  ];
+
+  slideThroughImage() {
+    setInterval(() => {
+      this.selectedImage = ++this.selectedImage % 3;
+    }, 2000)
+  }
+
+  moveToNextImage() {
+    this.selectedImage = ++this.selectedImage % 3;
+  }
+  moveToPreImage() {
+    this.selectedImage = --this.selectedImage % 3;
+  }
+
+
 }

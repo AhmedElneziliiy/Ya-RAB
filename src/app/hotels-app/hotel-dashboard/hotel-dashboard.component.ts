@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
 import { HotelsService } from '../hotels-service.service';
 import { HotelDashBoard } from '../interfaces/hotel-dashboard';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatProgressSpinner, MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 import { AlertDialogComponent } from '../../alert-dialog-component/alert-dialog-component';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,7 +12,7 @@ import { AuthService } from '../../landing-app/Components/auth-service.service';
 
 @Component({
   selector: 'app-hotel-dashboard',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, MatProgressSpinnerModule],
   standalone: true,
   templateUrl: './hotel-dashboard.component.html',
   styleUrl: './hotel-dashboard.component.scss'

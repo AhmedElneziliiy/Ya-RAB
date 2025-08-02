@@ -8,8 +8,31 @@ img {
     transition: transform 0.3s ease-in-out;
 }
 
-img:hover {
+.top-tour-guides img:hover,
+.top-hotels img:hover,
+.top-tour-packages img:hover {
     transform: scale(1.05);
+}
+
+.top-tour-guides,
+.top-tour-packages,
+.top-hotels {
+    position: relative;
+}
+
+.text-btn {
+    color: #007bff;
+    background-color: transparent;
+    position: absolute;
+    right: 0;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: transform 0.3s ease-in-out;
+}
+
+.text-btn:hover {
+    transform: translateX(-10px);
 }
 
 /* === Cards === */

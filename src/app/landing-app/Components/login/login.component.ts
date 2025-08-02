@@ -8,6 +8,7 @@ import { User } from './user';
 import { AlertDialogComponent } from '../../../alert-dialog-component/alert-dialog-component';
 import { LoadingDialogComponent } from '../../../shared-app/Components/loading-dialog/loading-dialog.component';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { title } from 'process';
 @Component({
   selector: 'app-login',
   imports: [RouterModule, FormsModule, CommonModule, MatProgressSpinnerModule],
@@ -67,6 +68,15 @@ export class LoginComponent {
             data: {
               title: 'TripLink',
               message: 'Login is successful!',
+            }
+          });
+        },
+        error: (err) => {
+          ref.close();
+          this.matDialog.open(AlertDialogComponent, {
+            data: {
+              title: 'Error',
+              message: 'Error Logging In,Try Again Later or check your connection then try'
             }
           });
         },

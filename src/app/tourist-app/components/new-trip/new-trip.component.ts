@@ -13,6 +13,7 @@ import { LoadingDialogComponent } from '../../../shared-app/Components/loading-d
 import { CommonModule } from '@angular/common';
 import { Trip } from '../trip';
 import { HotelsService } from '../../../hotels-app/hotels-service.service';
+import { title } from 'process';
 
 @Component({
   selector: 'app-new-trip',
@@ -143,6 +144,14 @@ export class NewTripComponent {
                 next: (value) => {
                   this.booking.hotelEmail = value.contactEmail;
                 },
+                error: (err) => {
+                  this.dialog.open(AlertDialogComponent, {
+                    data: {
+                      title: 'Error',
+                      messsage: 'Error retrieveing hotels,try again later',
+                    }
+                  })
+                },
               }
             )
           }
@@ -184,7 +193,8 @@ export class NewTripComponent {
           message: 'Please enter a destination to search for.',
         }
       });
-    } else {
+    }
+    else {
       const ref = this.dialog.open(LoadingDialogComponent, {
         disableClose: true,
       });
@@ -197,6 +207,7 @@ export class NewTripComponent {
             this.selectedPackage = null;
             this.selectedRoom = null;
             this.selectedTourGuide = null;
+            this.selectedDate = null;
             ref.close();
             console.log('value : ' + value.hotelsRooms);
             this.trip = value;
@@ -248,11 +259,12 @@ export class NewTripComponent {
   bookTrip() {
     this.booking.touristEmail = localStorage.getItem('email')!;
     this.booking.totalPrice = this.totalPrice;
-    if (this.selectedDate!.getDay() == new Date().getDay() && this.selectedDate?.getMonth() == new Date().getMonth() && this.selectedDate?.getFullYear() == new Date().getFullYear()) {
+    let date = new Date();
+    if (this.selectedDate! <= date) {
       this.dialog.open(AlertDialogComponent, {
         data: {
           title: 'Error',
-          message: 'You cannot book a trip for today. Please select a future date.',
+          message: 'Please select a future date.',
         }
       });
     }
