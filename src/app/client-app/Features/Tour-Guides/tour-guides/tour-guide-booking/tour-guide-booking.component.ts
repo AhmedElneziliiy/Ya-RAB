@@ -1,17 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TourGuideBooking } from '../../../Hotels/main-page/interfaces/tour-guide-booking';
 import { BookingService } from '../../../shared/booking.service';
 import { TourGuide } from '../interfaces/tour-guide';
 import { TourGuideService } from '../Services/tour-guide.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NavbarComponent } from '../../../../../shared-app/Components/navbar/navbar.component';
+import { StripeService } from '../../../../../payment/payment.service';
+import { AuthService } from '../../../../../landing-app/Components/auth-service.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tour-guide-booking',
-  imports: [CommonModule, FormsModule, NavbarComponent],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, NavbarComponent],
   templateUrl: './tour-guide-booking.component.html',
   styleUrl: './tour-guide-booking.component.scss'
 })
@@ -23,17 +26,23 @@ export class TourGuideBookingComponent implements OnInit {
     bookingDate: '',
     totalPrice: 0
   };
-  numberOfHours: number = 1;
   availableDates: string[] = [];
   errorMessage: string | null = null;
   successMessage: string | null = null;
+  bookingForm: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private tourGuideService: TourGuideService,
-    private bookingService: BookingService
-  ) {}
+    private bookingService: BookingService,
+    private fb: FormBuilder
+  ) {
+    this.bookingForm = this.fb.group({
+      bookingDate: ['', Validators.required],
+      numberOfHours: [1, [Validators.required, Validators.min(1)]]
+    });
+  }
 
   ngOnInit(): void {
     const guideId = this.route.snapshot.queryParamMap.get('guideId');
@@ -68,17 +77,26 @@ export class TourGuideBookingComponent implements OnInit {
   }
 
   calculateTotalPrice(): number {
-    return this.tourGuide ? this.tourGuide.pricePerHour * this.numberOfHours : 0;
+    return this.tourGuide ? this.tourGuide.pricePerHour * this.bookingForm.get('numberOfHours')?.value : 0;
   }
 
   submitBooking(): void {
-    if (!this.validateForm()) return;
+    if (this.bookingForm.invalid || !this.validateForm()) return;
+    this.booking.touristEmail = localStorage.getItem('email')!;
+    this.booking.bookingDate = this.bookingForm.get('bookingDate')?.value;
     this.booking.totalPrice = this.calculateTotalPrice();
     this.bookingService.createTourGuideBooking(this.booking).subscribe({
       next: (response) => {
         this.successMessage = 'Booking created successfully!';
         this.errorMessage = null;
-        setTimeout(() => this.router.navigate(['/tour-guides']), 2000);
+        let price = this.booking.totalPrice;
+        let bookingId = response.bookingID;
+        this.router.navigate(['/create-checkout-session'], {
+          state: {
+            price,
+            bookingId,
+          }
+        });
       },
       error: (err) => {
         this.errorMessage = `Booking failed: ${err.message}`;
@@ -88,15 +106,11 @@ export class TourGuideBookingComponent implements OnInit {
   }
 
   validateForm(): boolean {
-    if (!this.booking.touristEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.booking.touristEmail)) {
-      this.errorMessage = 'Please enter a valid email address.';
-      return false;
-    }
-    if (!this.booking.bookingDate) {
+    if (!this.bookingForm.get('bookingDate')?.value) {
       this.errorMessage = 'Please select a booking date.';
       return false;
     }
-    if (this.numberOfHours < 1) {
+    if (this.bookingForm.get('numberOfHours')?.value < 1) {
       this.errorMessage = 'Number of hours must be at least 1.';
       return false;
     }

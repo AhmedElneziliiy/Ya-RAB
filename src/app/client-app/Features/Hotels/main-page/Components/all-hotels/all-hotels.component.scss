@@ -185,6 +185,11 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   animation: cardFadeIn 0.7s ease-out;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  /* Ensure equal height */
+  justify-content: space-between;
 
   &:hover {
     transform: translateY(-6px);
@@ -308,6 +313,7 @@
 
   i {
     margin-right: 8px;
+    margin-bottom: 8px;
     color: #2b6cb0;
     font-size: 1.1rem;
   }
@@ -349,6 +355,7 @@
     font-size: 0.95rem;
     color: #4a5568;
     margin-left: 8px;
+    margin-top: 12px;
   }
 
   @keyframes starPulse {
@@ -372,6 +379,8 @@
   margin-bottom: 16px;
   line-height: 1.5;
   animation: fadeIn 0.9s ease-out;
+  flex: 1;
+  /* Allow description to expand and push button down */
 }
 
 /* Buttons */
@@ -382,18 +391,21 @@
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 600;
-  cursor: pointer młodzie pointer;
+  cursor: pointer;
   transition: all 0.3s ease;
   animation: buttonPop 0.7s ease-out;
 
-  &.btn-primary {
-    background: linear-gradient(135deg, #3182ce, #2b6cb0);
+  &:not(.pagination-section .btn) {
+    /* Apply goldenrod to all buttons except pagination Next/Previous */
+    background: linear-gradient(135deg, #d4a017, #e6b800);
+    /* Goldenrod theme */
     color: #ffffff;
 
     &:hover:not(:disabled) {
-      background: linear-gradient(135deg, #2b6cb0, #2c5282);
+      background: linear-gradient(135deg, #e6b800, #d4a017);
+      /* Lighter goldenrod */
       transform: translateY(-2px);
-      box-shadow: 0 4px 16px rgba(49, 130, 206, 0.4);
+      box-shadow: 0 4px 16px rgba(212, 160, 23, 0.4);
     }
   }
 
@@ -406,6 +418,77 @@
     to {
       opacity: 1;
       transform: scale(1);
+    }
+  }
+}
+
+/* Pagination section */
+.pagination-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 32px;
+  animation: fadeIn 0.8s ease-out;
+
+  .page-item {
+    padding: 10px 15px;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #1a202c;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.9s ease-out;
+    animation-delay: calc(var(--item-index) * 0.1s);
+    /* Staggered effect */
+
+    &:hover {
+      background: #d4a017;
+      /* Goldenrod theme */
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(212, 160, 23, 0.3);
+    }
+
+    &.active {
+      background: #d4a017;
+      /* Goldenrod theme */
+      color: #ffffff;
+      cursor: default;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(212, 160, 23, 0.3);
+    }
+  }
+
+  .btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    width: auto;
+    /* Adjust width to fit content */
+    min-width: 80px;
+    /* Minimum width to ensure readability */
+
+    &.btn-secondary {
+      background: linear-gradient(135deg, #718096, #5a7184);
+      /* Retain original pagination style */
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+
+      &:hover:not(:disabled) {
+        background: linear-gradient(135deg, #5a7184, #4a5568);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(90, 113, 132, 0.4);
+      }
+
+      &:disabled {
+        background: #a0aec0;
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
     }
   }
 }
@@ -438,6 +521,21 @@
 
   .filter-selection-item {
     min-width: 100%;
+  }
+
+  .pagination-section {
+    flex-direction: column;
+    gap: 10px;
+
+    .page-item {
+      padding: 8px 12px;
+      font-size: 0.9rem;
+    }
+
+    .btn {
+      width: 100%;
+      /* Full width on mobile */
+    }
   }
 }
 

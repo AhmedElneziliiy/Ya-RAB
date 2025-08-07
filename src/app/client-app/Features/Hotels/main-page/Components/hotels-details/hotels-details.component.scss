@@ -6,11 +6,19 @@
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   background: linear-gradient(180deg, #f7fafc 0%, #ffffff 100%);
   border-radius: 16px;
-  animation: fadeIn 1s ease-out;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.8s ease-out;
 
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 
@@ -30,20 +38,33 @@
     display: block;
     width: 100px;
     height: 5px;
-    background: linear-gradient(90deg, #2b6cb0, #63b3ed);
+    background: #d4a017;
+    /* Goldenrod theme */
     margin: 12px auto;
     border-radius: 3px;
     animation: underlineGrow 0.6s ease-out;
   }
 
   @keyframes slideIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   @keyframes underlineGrow {
-    from { width: 0; }
-    to { width: 100px; }
+    from {
+      width: 0;
+    }
+
+    to {
+      width: 100px;
+    }
   }
 }
 
@@ -91,13 +112,25 @@
   }
 
   @keyframes popIn {
-    from { opacity: 0; transform: scale(0.85); }
-    to { opacity: 1; transform: scale(1); }
+    from {
+      opacity: 0;
+      transform: scale(0.85);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 
   @keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+    0% {
+      transform: translateX(-100%);
+    }
+
+    100% {
+      transform: translateX(100%);
+    }
   }
 }
 
@@ -118,26 +151,40 @@
     left: 0;
     width: 100%;
     height: 4px;
-    background: linear-gradient(90deg, #2b6cb0, #63b3ed);
+    background: linear-gradient(90deg, #d4a017, #e6b800);
+    /* Goldenrod theme */
     animation: borderSlide 1s ease-out;
   }
 
   .hotel-title {
     font-size: 2rem;
-    color: #2b6cb0;
+    color: #d4a017;
+    /* Goldenrod theme */
     margin-bottom: 1.5rem;
     font-weight: 700;
     animation: fadeIn 0.9s ease-out;
   }
 
   @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   @keyframes borderSlide {
-    from { width: 0; }
-    to { width: 100%; }
+    from {
+      width: 0;
+    }
+
+    to {
+      width: 100%;
+    }
   }
 }
 
@@ -152,7 +199,8 @@
   margin-bottom: 24px;
   background: #e2e8f0;
 
-  .hotel-image, .room-image {
+  .hotel-image,
+  .room-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -160,7 +208,7 @@
     animation: imageFadeIn 1s ease-out;
 
     &:hover {
-      transform: scale(1.1);
+      transform: scale(1.08);
     }
   }
 
@@ -180,8 +228,15 @@
   }
 
   @keyframes imageFadeIn {
-    from { opacity: 0; filter: blur(6px); }
-    to { opacity: 1; filter: blur(0); }
+    from {
+      opacity: 0;
+      filter: blur(6px);
+    }
+
+    to {
+      opacity: 1;
+      filter: blur(0);
+    }
   }
 }
 
@@ -203,7 +258,8 @@
 }
 
 .slider-btn {
-  background: linear-gradient(135deg, rgba(43, 108, 176, 0.8), rgba(49, 130, 206, 0.9));
+  background: linear-gradient(135deg, rgba(212, 160, 23, 0.8), rgba(230, 184, 0, 0.9));
+  /* Goldenrod theme */
   color: #ffffff;
   border: none;
   padding: 10px 14px;
@@ -222,14 +278,19 @@
   }
 
   &:hover {
-    background: linear-gradient(135deg, #2b6cb0, #3182ce);
+    background: linear-gradient(135deg, #e6b800, #d4a017);
+    /* Lighter goldenrod */
     transform: scale(1.15);
-    box-shadow: 0 4px 12px rgba(49, 130, 206, 0.4);
+    box-shadow: 0 4px 12px rgba(212, 160, 23, 0.4);
   }
 }
 
 /* Hotel location, price, rating, contact, rooms */
-.hotel-location, .hotel-price, .hotel-rating, .hotel-contact, .hotel-rooms {
+.hotel-location,
+.hotel-price,
+.hotel-rating,
+.hotel-contact,
+.hotel-rooms {
   margin-bottom: 20px;
   animation: fadeIn 1s ease-out;
 }
@@ -240,7 +301,8 @@
 
   i {
     margin-right: 10px;
-    color: #2b6cb0;
+    color: #d4a017;
+    /* Goldenrod theme */
     font-size: 1.2rem;
     animation: iconPulse 1.2s ease-out;
   }
@@ -251,7 +313,9 @@
   }
 }
 
-.hotel-price p, .hotel-contact p, .hotel-rooms p {
+.hotel-price p,
+.hotel-contact p,
+.hotel-rooms p {
   font-size: 1.1rem;
   color: #4a5568;
 
@@ -266,7 +330,8 @@
   align-items: center;
 
   i {
-    color: #f6ad55;
+    color: #d4a017;
+    /* Goldenrod theme */
     font-size: 1.1rem;
     margin-right: 6px;
     animation: starPulse 1.2s ease-out;
@@ -283,15 +348,31 @@
   }
 
   @keyframes starPulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.15); }
-    100% { transform: scale(1); }
+    0% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(1.15);
+    }
+
+    100% {
+      transform: scale(1);
+    }
   }
 
   @keyframes iconPulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.15); }
-    100% { transform: scale(1); }
+    0% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(1.15);
+    }
+
+    100% {
+      transform: scale(1);
+    }
   }
 }
 
@@ -332,7 +413,8 @@
 
   &:hover {
     transform: translateY(-6px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 24px rgba(212, 160, 23, 0.15);
+    /* Goldenrod shadow */
   }
 
   .room-details {
@@ -382,6 +464,18 @@
       }
     }
   }
+
+  @keyframes cardFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 /* Button group */
@@ -400,20 +494,135 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.4s ease;
-  animation: buttonPop 0.8s ease-out;
+  animation: buttonPop 0.7s ease-out;
 
   &.btn-primary {
-    background: linear-gradient(135deg, #3182ce, #2b6cb0);
+    background: linear-gradient(135deg, #d4a017, #e6b800);
+    /* Goldenrod theme */
+    color: #ffffff;
+    box-shadow: 0 2px 6px rgba(212, 160, 23, 0.3);
+
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, #e6b800, #d4a017);
+      /* Lighter goldenrod */
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(212, 160, 23, 0.5);
+    }
+
+    &:disabled {
+      background: #a0aec0;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
+
+  &.btn-success {
+    background: linear-gradient(135deg, #2f855a, #38a169);
+    /* Keep green for success */
     color: #ffffff;
 
     &:hover:not(:disabled) {
-      background: linear-gradient(135deg, #2b6cb0, #2c5282);
+      background: linear-gradient(135deg, #38a169, #2f855a);
       transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(49, 130, 206, 0.5);
+      box-shadow: 0 4px 12px rgba(47, 133, 90, 0.4);
     }
 
-        &:disabled {
-          background: #b0bec5;
-        }
-      }
+    &:disabled {
+      background: #a0aec0;
+      cursor: not-allowed;
+      opacity: 0.6;
     }
+  }
+
+  &.btn-secondary {
+    background: linear-gradient(135deg, #718096, #5a7184);
+    color: #ffffff;
+
+    &:hover {
+      background: linear-gradient(135deg, #5a7184, #4a5568);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(90, 113, 132, 0.4);
+    }
+  }
+
+  @keyframes buttonPop {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .rooms-list {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+
+  .room-item {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .room-item .image-slider {
+    width: 100%;
+    max-height: 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+    margin: 32px auto;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .hotel-title {
+    font-size: 1.625rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .hotel-title {
+    font-size: 1.5rem;
+  }
+
+  .hotel-price p,
+  .hotel-contact p,
+  .hotel-rooms p,
+  .description,
+  .room-detail,
+  .availability {
+    font-size: 0.95rem;
+  }
+
+  .image-slider {
+    max-height: 300px;
+  }
+
+  .room-item .image-slider {
+    max-height: 120px;
+  }
+}

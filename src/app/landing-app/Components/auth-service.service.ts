@@ -1,18 +1,18 @@
-import { HotelRegistration } from './register/register-interfaces';
 import { HttpClient } from '@angular/common/http';
 import { Inject, inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { User } from './login/user';
-import { BehaviorSubject, map, Observable, tap } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { DecodedToken } from './decoded-token';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { isPlatformBrowser } from '@angular/common';
-import { log } from 'console';
+import { Auth, GoogleAuthProvider, signInWithPopup } from '@angular/fire/auth';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertDialogComponent } from '../../alert-dialog-component/alert-dialog-component';
 import { HotelDashBoard } from '../../hotels-app/interfaces/hotel-dashboard';
 import { TourGuide } from '../../tour-guides-app/interfaces/tour-guide';
 import { Tourist } from '../../tourist-app/components/tourist';
+import { ResetPassword } from './reset-password';
 
 @Injectable({
   providedIn: 'root'
@@ -29,11 +29,28 @@ export class AuthService {
 
   id: string = '';
 
+
   constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: Object, private matDialog: MatDialog) {
   }
 
 
   public currentUser: Observable<User | null> | undefined;
+
+  loginWithGoogle(): void {
+    window.location.href = 'https://fizo.runasp.net/api/ExternalAuth/signin?provider=Google';
+  }
+
+  handleGoogleCallback(token: string | null): void {
+    if (token) {
+      console.log('token received : ' + token);
+      localStorage.setItem('token', token);
+      console.log('Token stored in localStorage:', localStorage.getItem('token'));
+      this.router.navigate(['/']);
+    } else {
+      alert('Login failed');
+      this.router.navigate(['/login']);
+    }
+  }
 
   login(user: User): Observable<User> {
     console.log(user);
@@ -232,6 +249,16 @@ export class AuthService {
     }
   }
 
+  sendResetEmail(email: string) {
+    return this.client.post('https://fizo.runasp.net/api/Account/forgotpassword', {
+      "email": email,
+      "ClientUri": "http://localhost:4200"
+    });
+  }
+
+  sendNewPassword(resetPassword: ResetPassword) {
+    return this.client.post('https://fizo.runasp.net/api/Account/resetpassword', resetPassword);
+  }
 }
 
 

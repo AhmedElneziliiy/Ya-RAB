@@ -8,6 +8,8 @@ import { Hotel } from '../../interfaces/hotel';
 import { Room } from '../../interfaces/room';
 import { Review } from '../../interfaces/review';
 import { ReviewService } from '../../Services/review.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertDialogComponent } from '../../../../../../alert-dialog-component/alert-dialog-component';
 
 @Component({
   selector: 'app-hotels-details',
@@ -23,6 +25,7 @@ export class HotelsDetailsComponent implements OnInit {
   currentHotelImageIndex: number = 0;
   currentRoomImageIndices: number[] = [];
   reviews: Review[] = [];
+  dialog = inject(MatDialog);
 
   authService = inject(AuthService);
 
@@ -128,7 +131,12 @@ export class HotelsDetailsComponent implements OnInit {
     }
   }
   bookRoom(hotelId: string, roomId: string): void {
-    this.router.navigate(['/hotel-booking'], { queryParams: { hotelId, roomId } });
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/hotel-booking'], { queryParams: { hotelId, roomId } });
+
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
   prevRoomImage(index: number): void {

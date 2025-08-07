@@ -11,6 +11,8 @@ button {
     border-radius: 25px;
     cursor: pointer;
     margin-left: 10px;
+    width: fit-content;
+    margin: auto 0;
 }
 
 .actions-list {
@@ -71,5 +73,9 @@ button {
 @media (max-width:991px) {
     .nav-item.profile-icon {
         display: none;
+    }
+
+    .btn.btn-primary {
+        margin-top: 8px;
     }
 }

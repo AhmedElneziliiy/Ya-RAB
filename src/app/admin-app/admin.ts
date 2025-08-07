@@ -4,6 +4,7 @@ import { Review } from "../tour-guides-app/interfaces/review";
 import { TourGuide } from "../tour-guides-app/interfaces/tour-guide";
 
 export interface Admin {
+    profit: number;
     totalUsers: number;
     totalBookings: number;
     totalReviews: number;

@@ -87,9 +87,14 @@ form {
   width: 100%;
 }
 
+.form-control {
+  width: 100% !important;
+}
+
 input {
   padding: 8px;
   width: 100%;
+  min-width: 400px;
   font-size: 14px;
   animation: slideIn 2s ease-in;
 }
@@ -147,12 +152,27 @@ p {
   }
 }
 
-.btn.btn-gradient {
+.btn.btn-gradient-purple {
   background-color: #6a11cb;
   color: white;
   animation: slideIn 1s ease;
 }
 
-.btn.btn-gradient:hover {
+.btn.btn-gradient-red:hover {
+  background-color: #a03c3c;
+}
+
+.btn.btn-gradient-red {
+  background-color: #cb1111;
+  color: white;
+  animation: slideIn 1s ease;
+}
+
+.btn.btn-gradient-purple:hover {
   background-color: #3c40a0;
+}
+
+.btn.btn-gradient-red svg {
+  width: 50px;
+  height: 30px;
 }

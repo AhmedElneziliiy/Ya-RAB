@@ -8,7 +8,7 @@ import { TopTourGuidesComponent } from "./top-tour-guides/top-tour-guides.compon
 @Component({
   selector: 'app-tour-guides',
   standalone: true,
-  imports: [CommonModule, RouterModule, AllTourGudiesComponent, TopTourGuidesComponent],
+  imports: [CommonModule, RouterModule, AllTourGudiesComponent, TopTourGuidesComponent, NavbarComponent],
   templateUrl: './tour-guides.component.html',
   styleUrls: ['./tour-guides.component.scss']
 })

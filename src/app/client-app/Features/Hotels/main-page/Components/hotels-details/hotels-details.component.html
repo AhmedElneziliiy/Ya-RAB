@@ -17,32 +17,34 @@
         </div>
       </div>
     </div>
-    <h3 class="hotel-title">{{ hotel.hotelName }}</h3>
-    <div class="hotel-location">
-      <i class="fa-solid fa-location-dot"></i>
-      <p>{{ extractCity(hotel.address) }}</p>
-    </div>
-    <div class="hotel-price">
-      <p><strong>Average Price per Night:</strong> ${{ getAverageRoomPrice() }}</p>
-    </div>
-    <div class="hotel-rating">
-      <i class="fa-solid fa-star" *ngFor="let _ of getStarRatingArray(hotel.rating)"></i>
-      <i class="fa-solid fa-star empty-star" *ngFor="let _ of getEmptyStarRatingArray(hotel.rating)"></i>
-      <p>({{ hotel.rating }} Stars)</p>
-    </div>
-    <p class="description">{{ hotel.description }}</p>
-    <div class="hotel-contact">
-      <p><strong>Email:</strong> {{ hotel.contactEmail }}</p>
-      <p><strong>Phone:</strong> {{ hotel.contactPhone }}</p>
-    </div>
-    <div class="hotel-rooms">
-      <p><strong>Total Rooms:</strong> {{ hotel.totalRooms }}</p>
-      <p><strong>Available Rooms:</strong> {{ hotel.availableRooms }}</p>
+    <div class="hotel-info card">
+      <h3 class="hotel-title">{{ hotel.hotelName }}</h3>
+      <div class="hotel-location">
+        <i class="fa-solid fa-location-dot"></i>
+        <p>{{ extractCity(hotel.address) }}</p>
+      </div>
+      <div class="hotel-price">
+        <p><strong>Average Price per Night:</strong> ${{ getAverageRoomPrice() }}</p>
+      </div>
+      <div class="hotel-rating">
+        <i class="fa-solid fa-star" *ngFor="let _ of getStarRatingArray(hotel.rating)"></i>
+        <i class="fa-solid fa-star empty-star" *ngFor="let _ of getEmptyStarRatingArray(hotel.rating)"></i>
+        <p>({{ hotel.rating }} Stars)</p>
+      </div>
+      <p class="description">{{ hotel.description }}</p>
+      <div class="hotel-contact">
+        <p><strong>Email:</strong> {{ hotel.contactEmail }}</p>
+        <p><strong>Phone:</strong> {{ hotel.contactPhone }}</p>
+      </div>
+      <div class="hotel-rooms">
+        <p><strong>Total Rooms:</strong> {{ hotel.totalRooms }}</p>
+        <p><strong>Available Rooms:</strong> {{ hotel.availableRooms }}</p>
+      </div>
     </div>
     <h4 class="section-title">Available Rooms</h4>
     <div *ngIf="rooms.length === 0" class="alert alert-no-data">No rooms available for this hotel.</div>
     <div class="rooms-list">
-      <div *ngFor="let room of rooms; let i = index" class="room-item">
+      <div *ngFor="let room of rooms; let i = index" class="room-item card">
         <!-- Room Image Slider -->
         <div class="image-slider">
           <div *ngIf="!room.photoUrls || room.photoUrls.length === 0" class="no-image">
@@ -70,10 +72,8 @@
           <div class="button-group">
             <button class="btn btn-primary" [routerLink]="['/room-details', room.roomId]"
               [disabled]="!room.isAvailable">View</button>
-            @if (isLoggedIn()) {
             <button class="btn btn-success" (click)="bookRoom(hotel.hotelID, room.roomId)"
               [disabled]="!room.isAvailable">Book Room</button>
-            }
           </div>
         </div>
       </div>
@@ -83,7 +83,7 @@
       <h4 class="section-title">Reviews</h4>
       <div *ngIf="reviews.length === 0" class="alert alert-no-data">No reviews available.</div>
       <div *ngIf="reviews.length > 0" class="reviews-list">
-        <div *ngFor="let review of reviews" class="review-item">
+        <div *ngFor="let review of reviews" class="review-item card">
           <div class="review-rating">
             <i class="fa-solid fa-star" *ngFor="let _ of getStarRatingArray(review.rating)"></i>
             <i class="fa-solid fa-star empty-star" *ngFor="let _ of getEmptyStarRatingArray(review.rating)"></i>
@@ -95,6 +95,8 @@
         </div>
       </div>
     </div>
-    <button class="btn btn-secondary" (click)="goBack()">Back to Hotels</button>
+    <div class="button-group">
+      <button class="btn btn-secondary" (click)="goBack()">Back to Hotels</button>
+    </div>
   </div>
 </div>

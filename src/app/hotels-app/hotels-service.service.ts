@@ -1,7 +1,7 @@
 import { Hotel, HotelDashBoard, Room } from './interfaces/hotel-dashboard';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { map, Observable, ReplaySubject, take, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, ReplaySubject, take, tap } from 'rxjs';
 import { AlertDialogComponent } from '../alert-dialog-component/alert-dialog-component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -109,7 +109,7 @@ export class HotelsService {
     });
   }
 
-  hotelDashBoardSubject = new ReplaySubject<HotelDashBoard>();
+  hotelDashBoardSubject = new BehaviorSubject<HotelDashBoard>({});
   hotelDashBoard$ = this.hotelDashBoardSubject.asObservable();
 
   roomsSubject = new ReplaySubject<Room[]>();

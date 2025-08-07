@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, Inject, OnInit } from '@angular/core';
-import {  RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TourGuidesComponent } from '../tour-guides.component';
 import { TourGuide } from '../interfaces/tour-guide';
@@ -20,14 +20,15 @@ export class AllTourGudiesComponent implements OnInit {
   selectedLanguage: string = '';
   errorMessage: string | null = null;
   currentImageIndices: number[] = [];
+  currentPage = 1;
 
-  constructor(@Inject(TourGuideService) private tourGuideService: TourGuideService) {}
+  constructor(@Inject(TourGuideService) private tourGuideService: TourGuideService) { }
 
   ngOnInit(): void {
     this.loadTourGuides();
   }
 
-   loadTourGuides(): void {
+  loadTourGuides(): void {
     this.tourGuideService.getAllTourGuides().subscribe({
       next: (guides) => {
         console.log('Tour guides received in AllTourGuidesComponent:', guides);

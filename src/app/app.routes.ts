@@ -2,7 +2,7 @@ import { HomeComponent } from './landing-app/Components/home/home.component';
 import { TourGuidesComponent } from './client-app/Features/Tour-Guides/tour-guides/tour-guides.component';
 import { HotelsDetailsComponent } from './client-app/Features/Hotels/main-page/Components/hotels-details/hotels-details.component';
 import { AllHotelsComponent } from './client-app/Features/Hotels/main-page/Components/all-hotels/all-hotels.component';
-import { ActivatedRouteSnapshot, Routes } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Routes } from '@angular/router';
 import { RegisterComponent } from './landing-app/Components/register/register.component';
 import { PackageDetailsComponent } from './client-app/Features/tour-packages/package-details/package-details.component';
 import { HotelBookingComponent } from './client-app/Features/Hotels/main-page/Components/hotel-booking/hotel-booking.component';
@@ -42,10 +42,19 @@ import { ShowPackagesComponent } from './tourism-company-app/show-packages/show-
 import { ManageGuideBookingsComponent } from './tour-guides-app/manage-bookings/manage-bookings.component';
 import { NewTripComponent } from './tourist-app/components/new-trip/new-trip.component';
 import { AdminDashboardComponent } from './admin-app/dashboard/dashboard.component';
+import { StripeComponent } from './payment/payment.component';
+import { ForgotPasswordComponent } from './landing-app/Components/forgot-password/forgot-password.component';
+import { EnterNewPasswordComponent } from './landing-app/Components/enter-new-password/enter-token.component';
+import { EnterSentTokenComponent } from './landing-app/Components/enter-sent-token/enter-sent-token.component';
+import { AuthCallbackComponent } from './landing-app/Components/auth-callback/auth-callback.component';
+import { AdminBookingsComponent } from './admin-app/bookings/bookings.component';
+import { AdminTourGuidesComponent } from './admin-app/tour-guides/tour-guides.component';
+import { AdminHotelsComponent } from './admin-app/hotels/hotels.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
+  { path: 'auth/callback', component: AuthCallbackComponent },
 
   // ----------------- AUTH ROUTES -----------------
   { path: 'login', component: LoginComponent },
@@ -68,6 +77,9 @@ export const routes: Routes = [
   { path: 'hotel-details/:hotelId', component: HotelsDetailsComponent },
   { path: 'hotel-booking', component: HotelBookingComponent },
   { path: 'room-details/:roomId', component: RoomDetailsComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent, },
+  { path: 'enter-sent-token', component: EnterSentTokenComponent, },
+  { path: 'enter-new-password', component: EnterNewPasswordComponent, },
 
   // ----------------- ADMIN -----------------
   {
@@ -81,6 +93,18 @@ export const routes: Routes = [
       }, {
         path: 'dashboard',
         component: AdminDashboardComponent,
+      },
+      {
+        path: 'bookings',
+        component: AdminBookingsComponent,
+      },
+      {
+        path: 'guides',
+        component: AdminTourGuidesComponent,
+      },
+      {
+        path: 'hotels',
+        component: AdminHotelsComponent,
       }
     ]
 
@@ -101,6 +125,7 @@ export const routes: Routes = [
       { path: 'dashboard/guide-offers', component: TourGuideOffersComponent }
     ]
   },
+  { path: 'create-checkout-session', component: StripeComponent, canActivate: [AuthGuard] },
 
   // ----------------- TOUR GUIDE -----------------
   {

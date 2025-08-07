@@ -5,6 +5,8 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 import { provideHttpClient, withInterceptors, withFetch } from '@angular/common/http';
 import { AuthService } from './landing-app/Components/auth-service.service';
 import { AuthGuard } from './landing-app/auth.guard';
+import { provideToastr } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,5 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch()),
-  ]
+    provideToastr(),
+  ],
+
 };

@@ -13,7 +13,8 @@ import { TourPackage } from '../../../client-app/Features/tour-packages/interfac
 import { Hotel } from '../../../hotels-app/interfaces/hotel-dashboard';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { Review } from '../../../tour-guides-app/interfaces/review';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +29,7 @@ export class HomeComponent implements OnInit {
   isHotelsReqFinished = false;
   isGuidesReqFinished = false;
   selectedImage = 0;
+  constructor(private route: ActivatedRoute, private router: Router) { }
   ngOnInit(): void {
     this.slideThroughImage();
     this.guideService.getTopTourGuides().subscribe(

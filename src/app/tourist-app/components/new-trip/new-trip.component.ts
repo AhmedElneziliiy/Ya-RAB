@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import { Trip } from '../trip';
 import { HotelsService } from '../../../hotels-app/hotels-service.service';
 import { title } from 'process';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-trip',
@@ -73,6 +74,8 @@ export class NewTripComponent {
   totalPrice = 0;
 
   selectedDate: Date | null = null;
+
+  router = inject(Router);
 
   booking: Booking = {
     touristEmail: '',
@@ -273,6 +276,7 @@ export class NewTripComponent {
       const ref = this.dialog.open(LoadingDialogComponent, {
         disableClose: true,
       });
+      let price = this.totalPrice;
       this.service.createBooking(this.booking).subscribe(
         {
           next: (value) => {
@@ -286,6 +290,13 @@ export class NewTripComponent {
               }
             });
             ref.close();
+            let bookingId = value.bookingID;
+            this.router.navigate(['/create-checkout-session'], {
+              state: {
+                price,
+                bookingId,
+              }
+            });
           },
           error: (err) => {
             ref.close();

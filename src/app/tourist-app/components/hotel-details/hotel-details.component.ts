@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HotelOffersService } from '../hotel-offers/hotel-offers.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../landing-app/Components/auth-service.service';
+import { StripeCardElement } from '@stripe/stripe-js';
+import { StripeService } from '../../../payment/payment.service';
 
 @Component({
   selector: 'app-hotel-details',
@@ -27,6 +29,8 @@ export class HotelDetailsComponent implements OnInit {
     private hotelOffersService: HotelOffersService,
     private http: HttpClient,
     private authService: AuthService,
+    private stripeService: StripeService,
+    private router: Router,
   ) { }
 
   ngOnInit() {

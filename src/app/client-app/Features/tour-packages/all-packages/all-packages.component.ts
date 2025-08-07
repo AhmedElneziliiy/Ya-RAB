@@ -13,13 +13,14 @@ interface PriceRange {
 }
 @Component({
   selector: 'app-all-packages',
-  imports: [CommonModule, RouterModule,FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './all-packages.component.html',
   styleUrl: './all-packages.component.scss'
 })
 export class AllPackagesComponent implements OnInit {
   packages: TourPackage[] = [];
   filteredPackages: TourPackage[] = [];
+  currentPage = 1;
   errorMessage: string | null = null;
   selectedPriceRange: string = '';
   selectedDestination: string = '';
@@ -34,7 +35,7 @@ export class AllPackagesComponent implements OnInit {
   ];
   availableDestinations: string[] = [];
 
-  constructor(private tourPackageService: TourPackageService) {}
+  constructor(private tourPackageService: TourPackageService) { }
 
   ngOnInit(): void {
     this.loadPackages();
@@ -93,7 +94,7 @@ export class AllPackagesComponent implements OnInit {
       this.filteredPackages = [...this.packages];
       return;
     }
-    this.filteredPackages = this.packages.filter(pkg => 
+    this.filteredPackages = this.packages.filter(pkg =>
       pkg.destinations.some(dest => dest.name === this.selectedDestination)
     );
     if (this.filteredPackages.length === 0) {

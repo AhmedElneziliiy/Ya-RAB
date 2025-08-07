@@ -1,5 +1,5 @@
+<app-navbar></app-navbar>
 <div class="container">
-  <app-navbar></app-navbar>
   <h2 class="title">Book a Package</h2>
   <div *ngIf="errorMessage" class="alert alert-error">{{ errorMessage }}</div>
   <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
@@ -8,22 +8,20 @@
     <div class="package-info card">
       <h3 class="package-title">{{ package.packageName }}</h3>
       <p class="package-detail"><strong>Total Price:</strong> ${{ package.price }}</p>
-      <p class="package-detail"><strong>Booking Date:</strong> {{ bookingDate | date:'mediumDate' }}</p>
-      <p class="package-detail"><strong>Valid Booking Dates:</strong> {{ package.startDate | date:'mediumDate' }} to {{ package.endDate | date:'mediumDate' }}</p>
+      <p class="package-detail"><strong>Valid Booking Dates:</strong> {{ package.startDate | date:'mediumDate' }} to {{
+        package.endDate | date:'mediumDate' }}</p>
     </div>
     <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()" class="booking-form">
       <div class="form-group">
-        <label for="touristEmail" class="form-label">Email</label>
-        <input
-          type="email"
-          id="touristEmail"
-          formControlName="touristEmail"
-          class="form-input"
-          placeholder="Enter your email"
-        >
-        <div *ngIf="bookingForm.get('touristEmail')?.touched && bookingForm.get('touristEmail')?.errors" class="error-message">
-          <span *ngIf="bookingForm.get('touristEmail')?.errors?.['required']">Email is required.</span>
-          <span *ngIf="bookingForm.get('touristEmail')?.errors?.['email']">Please enter a valid email.</span>
+        <label for="bookingDate" class="form-label">Select Booking Date</label>
+        <select id="bookingDate" formControlName="bookingDate" class="form-input">
+          <option value="" disabled>Select a date</option>
+          <option *ngFor="let date of availableDates" [value]="date.toISOString()">{{ date | date:'mediumDate' }}
+          </option>
+        </select>
+        <div *ngIf="bookingForm.get('bookingDate')?.touched && bookingForm.get('bookingDate')?.errors"
+          class="error-message">
+          <span *ngIf="bookingForm.get('bookingDate')?.errors?.['required']">Booking date is required.</span>
         </div>
       </div>
       <div class="button-group">

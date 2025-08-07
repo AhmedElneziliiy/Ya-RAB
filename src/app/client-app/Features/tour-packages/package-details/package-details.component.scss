@@ -1,50 +1,73 @@
-/* Container styles */
+/* ===== General Container and Layout ===== */
 .container {
-  max-width: 960px;
-  margin: 40px auto;
-  padding: 16px;
+  max-width: 1200px;
+  margin: 48px auto;
+  padding: 20px;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(180deg, #f7fafc 0%, #ffffff 100%);
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   animation: fadeIn 0.8s ease-out;
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
 }
 
-/* Title styles */
 .title {
-  font-size: 2.75rem;
+  font-size: 3rem;
   color: #1a202c;
   text-align: center;
-  margin-bottom: 2.5rem;
-  font-weight: 700;
+  margin-bottom: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
   position: relative;
-  animation: slideIn 0.6s ease-out;
+  animation: slideIn 0.7s ease-out;
 
   &::after {
     content: '';
     display: block;
-    width: 70px;
-    height: 4px;
-    background: #2b6cb0;
-    margin: 10px auto;
-    border-radius: 2px;
-    animation: underlineGrow 0.5s ease-out;
-  }
-
-  @keyframes slideIn {
-    from { opacity: 0; transform: translateY(-15px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes underlineGrow {
-    from { width: 0; }
-    to { width: 70px; }
+    width: 100px;
+    height: 5px;
+    background: #d4a017;
+    /* Goldenrod theme */
+    margin: 12px auto;
+    border-radius: 3px;
+    animation: underlineGrow 0.6s ease-out;
   }
 }
 
-/* Alert styles */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes underlineGrow {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100px;
+  }
+}
+
+/* ===== Alert Styles ===== */
 .alert {
   padding: 16px;
   border-radius: 10px;
@@ -85,52 +108,73 @@
   }
 
   @keyframes popIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 
   @keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+    0% {
+      transform: translateX(-100%);
+    }
+
+    100% {
+      transform: translateX(100%);
+    }
   }
 }
 
-/* Package details */
+/* ===== Package Details ===== */
 .package-details {
   margin-bottom: 48px;
   animation: fadeIn 0.9s ease-out;
 }
 
-/* Package card */
+/* ===== Package Card ===== */
 .package-card {
-  display: flex;
-  gap: 24px;
   background: #ffffff;
   padding: 24px;
   border-radius: 12px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  animation: cardFadeIn 0.7s ease-out;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  /* Ensure equal height */
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  animation: cardFadeIn 0.8s ease-out;
 
   &:hover {
     transform: translateY(-6px);
-    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 24px rgba(212, 160, 23, 0.15);
   }
 
   @keyframes cardFadeIn {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 
-/* Image container */
+/* ===== Image Container ===== */
 .image-container {
-  width: 360px;
+  width: 100%;
   max-height: 240px;
   overflow: hidden;
   border-radius: 10px;
-  position: relative;
   background: #e2e8f0;
+  margin-bottom: 20px;
 
   .package-image {
     width: 100%;
@@ -160,21 +204,36 @@
   }
 
   @keyframes imageFadeIn {
-    from { opacity: 0; filter: blur(4px); }
-    to { opacity: 1; filter: blur(0); }
+    from {
+      opacity: 0;
+      filter: blur(4px);
+    }
+
+    to {
+      opacity: 1;
+      filter: blur(0);
+    }
   }
 }
 
-/* Details content */
+/* ===== Details Content ===== */
 .details-content {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   .package-title {
     font-size: 1.875rem;
-    color: #2b6cb0;
+    color: #d4a017;
+    /* Goldenrod theme */
     margin-bottom: 1.25rem;
     font-weight: 700;
     animation: fadeIn 0.8s ease-out;
+  }
+
+  .package-info {
+    margin-bottom: 1.5rem;
   }
 
   .package-detail {
@@ -190,7 +249,7 @@
   }
 }
 
-/* Button group */
+/* ===== Button Group ===== */
 .button-group {
   display: flex;
   gap: 1.25rem;
@@ -199,23 +258,26 @@
 }
 
 .btn {
-  padding: 12px 28px;
+  padding: 12px 24px;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
   animation: buttonPop 0.7s ease-out;
 
   &.btn-primary {
-    background: linear-gradient(135deg, #3182ce, #2b6cb0);
+    background: linear-gradient(135deg, #d4a017, #e6b800);
+    /* Goldenrod theme */
     color: #ffffff;
+    box-shadow: 0 2px 6px rgba(212, 160, 23, 0.3);
 
     &:hover:not(:disabled) {
-      background: linear-gradient(135deg, #2b6cb0, #2c5282);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 16px rgba(49, 130, 206, 0.4);
+      background: linear-gradient(135deg, #e6b800, #d4a017);
+      /* Lighter goldenrod */
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(212, 160, 23, 0.5);
     }
   }
 
@@ -225,39 +287,47 @@
 
     &:hover {
       background: linear-gradient(135deg, #5a7184, #4a5568);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 16px rgba(90, 113, 132, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(90, 113, 132, 0.4);
     }
   }
 
   @keyframes buttonPop {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 }
 
-/* Reviews section */
+/* ===== Reviews Section ===== */
 .reviews-section {
   padding: 24px;
   background: #f7fafc;
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  margin-top: 48px;
   animation: fadeIn 0.9s ease-out;
-
-  .section-title {
-    font-size: 1.75rem;
-    color: #1a202c;
-    margin-bottom: 1.5rem;
-    font-weight: 700;
-    animation: slideIn 0.6s ease-out;
-  }
 }
 
-/* Reviews list */
-.reviews-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+.section-title {
+  font-size: 1.75rem;
+  color: #1a202c;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  animation: slideIn 0.6s ease-out;
+}
+
+/* ===== Reviews Grid ===== */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
 }
 
 .review-item {
@@ -284,28 +354,44 @@
       font-weight: 600;
     }
   }
+}
 
-  @keyframes reviewFadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+@keyframes reviewFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-/* Star rating */
+/* ===== Star Rating ===== */
 .star-rating {
-  color: #f6ad55;
+  color: #d4a017;
+  /* Goldenrod theme */
   font-size: 1rem;
   font-weight: 600;
   animation: starPulse 1s ease-out;
 
   @keyframes starPulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
+    0% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(1.1);
+    }
+
+    100% {
+      transform: scale(1);
+    }
   }
 }
 
-/* Responsive design */
+/* ===== Responsive Design ===== */
 @media (max-width: 1024px) {
   .package-card {
     flex-direction: column;
@@ -316,16 +402,20 @@
     width: 100%;
     max-height: 200px;
   }
+
+  .reviews-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
 }
 
 @media (max-width: 768px) {
   .container {
-    padding: 12px;
-    margin: 24px auto;
+    padding: 16px;
+    margin: 32px auto;
   }
 
   .title {
-    font-size: 2.25rem;
+    font-size: 2.5rem;
   }
 
   .package-title {
@@ -349,14 +439,15 @@
 
 @media (max-width: 576px) {
   .title {
-    font-size: 1.875rem;
+    font-size: 2rem;
   }
 
   .package-title {
     font-size: 1.5rem;
   }
 
-  .package-detail, .review-detail {
+  .package-detail,
+  .review-detail {
     font-size: 0.95rem;
   }
 
@@ -366,5 +457,9 @@
 
   .review-item {
     padding: 12px;
+  }
+
+  .reviews-grid {
+    grid-template-columns: 1fr;
   }
 }

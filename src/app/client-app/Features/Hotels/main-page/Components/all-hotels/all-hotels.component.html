@@ -80,4 +80,16 @@
       </div>
     </div>
   </div>
+  <!-- Pagination Section -->
+  <div *ngIf="filteredHotels.length > 0" class="pagination-section fade-in">
+    <button class="btn btn-secondary pulse-hover">
+      Previous
+    </button>
+    <span *ngFor="let page of [1,2,3,4]" class="page-item" [ngClass]="{'active': currentPage === page}">
+      {{ page }}
+    </span>
+    <button class="btn btn-secondary pulse-hover" [disabled]="currentPage === 4">
+      Next
+    </button>
+  </div>
 </div>

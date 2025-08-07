@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Review } from '../../Hotels/main-page/interfaces/review';
 import { Destination } from '../interfaces/destination';
 import { TourPackage } from '../interfaces/tour-package';
@@ -7,6 +7,8 @@ import { TourPackageService } from '../Services/tour-package.service';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../../../../shared-app/Components/navbar/navbar.component';
 import { AuthService } from '../../../../landing-app/Components/auth-service.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertDialogComponent } from '../../../../alert-dialog-component/alert-dialog-component';
 
 @Component({
   selector: 'app-package-details',
@@ -20,13 +22,23 @@ export class PackageDetailsComponent implements OnInit {
   reviews: Review[] = [];
   tops: any[] = [];
   errorMessage: string | null = null;
+  router = inject(Router);
 
+  dialog = inject(MatDialog);
   constructor(
     private route: ActivatedRoute,
     private tourPackageService: TourPackageService
   ) { }
 
   authService = inject(AuthService);
+
+  goToLoginOrBook(packageId: string) {
+    if (this.isLoggedIn()) {
+      this.router.navigate(['/package-booking', packageId]);
+    } else {
+      this.router.navigate(['/login']);
+    }
+  }
 
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();

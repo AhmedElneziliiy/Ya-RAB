@@ -28,8 +28,8 @@ export class TourPackageService {
     );
   }
 
-  bookPackage(bookingData: { touristEmail: string, packageId: string, bookingDate: string, totalPrice: number }): Observable<{ bookingId: string, message: string }> {
-    return this.http.post<{ bookingId: string, message: string }>(this.bookingsApiUrl, bookingData).pipe(
+  bookPackage(bookingData: { touristEmail: string, packageId: string, bookingDate: string, totalPrice: number }): Observable<{ bookingID: string, message: string }> {
+    return this.http.post<{ bookingID: string, message: string }>(this.bookingsApiUrl, bookingData).pipe(
       catchError(this.handleError)
     );
   }

@@ -1,5 +1,4 @@
-
-/* Container styles */
+/* ===== General Container and Layout ===== */
 .container {
   max-width: 960px;
   margin: 48px auto;
@@ -7,15 +6,23 @@
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   background: linear-gradient(180deg, #f7fafc 0%, #ffffff 100%);
   border-radius: 16px;
-  animation: fadeIn 1s ease-out;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.8s ease-out;
 
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 
-/* Title styles */
+/* ===== Title Styles ===== */
 .title {
   font-size: 3rem;
   color: #1a202c;
@@ -31,31 +38,44 @@
     display: block;
     width: 100px;
     height: 5px;
-    background: linear-gradient(90deg, #2b6cb0, #63b3ed);
+    background: linear-gradient(90deg, #d4a017, #e6b800);
+    /* Goldenrod theme */
     margin: 12px auto;
     border-radius: 3px;
     animation: underlineGrow 0.6s ease-out;
   }
 
   @keyframes slideIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   @keyframes underlineGrow {
-    from { width: 0; }
-    to { width: 100px; }
+    from {
+      width: 0;
+    }
+
+    to {
+      width: 100px;
+    }
   }
 }
 
-/* Alert styles */
+/* ===== Alert Styles ===== */
 .alert {
-  padding: 20px;
-  border-radius: 12px;
-  margin-bottom: 32px;
-  font-size: 1.1rem;
+  padding: 16px;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  font-size: 1rem;
   text-align: center;
-  animation: popIn 0.6s ease-out;
+  animation: popIn 0.5s ease-out;
 
   &.alert-error {
     background-color: #fff5f5;
@@ -92,25 +112,42 @@
   }
 
   @keyframes popIn {
-    from { opacity: 0; transform: scale(0.85); }
-    to { opacity: 1; transform: scale(1); }
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 
   @keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+    0% {
+      transform: translateX(-100%);
+    }
+
+    100% {
+      transform: translateX(100%);
+    }
   }
 }
 
-/* Guide details */
-.guide-details {
-  padding: 32px;
+/* ===== Guide Details ===== */
+.guide-details.card {
   background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
-  animation: fadeInUp 0.9s ease-out;
-  position: relative;
-  overflow: hidden;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  animation: cardFadeIn 0.8s ease-out;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 24px rgba(212, 160, 23, 0.15);
+    /* Goldenrod shadow */
+  }
 
   &::before {
     content: '';
@@ -119,27 +156,44 @@
     left: 0;
     width: 100%;
     height: 4px;
-    background: linear-gradient(90deg, #2b6cb0, #63b3ed);
+    background: linear-gradient(90deg, #d4a017, #e6b800);
+    /* Goldenrod theme */
     animation: borderSlide 1s ease-out;
   }
 
-.guide-title {
-  font-size: 2rem;
-  color: #2b6cb0;
-}
+  @keyframes cardFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
 
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   @keyframes borderSlide {
-    from { width: 0; }
-    to { width: 100%; }
+    from {
+      width: 0;
+    }
+
+    to {
+      width: 100%;
+    }
   }
 }
 
-/* Image slider */
+.guide-title {
+  font-size: 2rem;
+  color: #d4a017;
+  /* Goldenrod theme */
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  animation: slideIn 0.7s ease-out;
+}
+
+/* ===== Image Slider ===== */
 .image-slider {
   position: relative;
   width: 100%;
@@ -155,7 +209,7 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;
-    animation: imageFadeIn 1s ease-out;
+    animation: imageFadeIn 0.9s ease-out;
 
     &:hover {
       transform: scale(1.1);
@@ -178,12 +232,19 @@
   }
 
   @keyframes imageFadeIn {
-    from { opacity: 0; filter: blur(6px); }
-    to { opacity: 1; filter: blur(0); }
+    from {
+      opacity: 0;
+      filter: blur(6px);
+    }
+
+    to {
+      opacity: 1;
+      filter: blur(0);
+    }
   }
 }
 
-/* Slider controls */
+/* ===== Slider Controls ===== */
 .slider-controls {
   position: absolute;
   top: 50%;
@@ -194,7 +255,8 @@
 }
 
 .slider-btn {
-  background: linear-gradient(135deg, rgba(43, 108, 176, 0.8), rgba(49, 130, 206, 0.9));
+  background: linear-gradient(135deg, rgba(212, 160, 23, 0.8), rgba(230, 184, 0, 0.9));
+  /* Goldenrod theme */
   color: #ffffff;
   border: none;
   padding: 12px 16px;
@@ -213,13 +275,14 @@
   }
 
   &:hover {
-    background: linear-gradient(135deg, #2b6cb0, #3182ce);
+    background: linear-gradient(135deg, #e6b800, #d4a017);
+    /* Lighter goldenrod */
     transform: scale(1.15);
-    box-shadow: 0 4px 12px rgba(49, 130, 206, 0.4);
+    box-shadow: 0 4px 12px rgba(212, 160, 23, 0.4);
   }
 }
 
-/* Guide details */
+/* ===== Guide Details ===== */
 .guide-detail {
   font-size: 1.1rem;
   color: #4a5568;
@@ -266,13 +329,21 @@
   }
 
   @keyframes iconPulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.15); }
-    100% { transform: scale(1); }
+    0% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(1.15);
+    }
+
+    100% {
+      transform: scale(1);
+    }
   }
 }
 
-/* Guide rating */
+/* ===== Guide Rating ===== */
 .guide-rating {
   display: flex;
   align-items: center;
@@ -280,7 +351,8 @@
   animation: fadeIn 1s ease-out;
 
   i {
-    color: #f6ad55;
+    color: #d4a017;
+    /* Goldenrod theme */
     font-size: 1.1rem;
     margin-right: 6px;
     animation: starPulse 1.2s ease-out;
@@ -297,25 +369,34 @@
   }
 
   @keyframes starPulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.15); }
-    100% { transform: scale(1); }
+    0% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(1.15);
+    }
+
+    100% {
+      transform: scale(1);
+    }
   }
 }
 
-/* Reviews section */
+/* ===== Reviews Section ===== */
 .guide-reviews {
   margin-top: 32px;
   padding-top: 24px;
   border-top: 1px solid #e2e8f0;
   animation: fadeInUp 0.9s ease-out;
 
-  .reviews-title {
+  .section-title {
     font-size: 1.5rem;
-    color: #2b6cb0;
+    color: #d4a017;
+    /* Goldenrod theme */
     margin-bottom: 24px;
     font-weight: 700;
-    animation: fadeIn 0.9s ease-out;
+    animation: slideIn 0.7s ease-out;
   }
 }
 
@@ -325,7 +406,7 @@
   gap: 20px;
 }
 
-.review-item {
+.review-item.card {
   background: #ffffff;
   padding: 20px;
   border-radius: 12px;
@@ -335,7 +416,8 @@
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 6px 20px rgba(212, 160, 23, 0.15);
+    /* Goldenrod shadow */
   }
 
   .review-rating {
@@ -344,7 +426,8 @@
     margin-bottom: 12px;
 
     i {
-      color: #f6ad55;
+      color: #d4a017;
+      /* Goldenrod theme */
       font-size: 1rem;
       margin-right: 6px;
       animation: starPulse 1.2s ease-out;
@@ -371,14 +454,9 @@
       font-weight: 600;
     }
   }
-
-  @keyframes cardFadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
 }
 
-/* Button group */
+/* ===== Button Group ===== */
 .button-group {
   display: flex;
   gap: 16px;
@@ -387,7 +465,6 @@
   flex-wrap: wrap;
 }
 
-/* Buttons */
 .btn {
   width: 200px;
   padding: 14px;
@@ -399,21 +476,23 @@
   transition: all 0.4s ease;
   animation: buttonPop 0.8s ease-out;
 
-  &.btn-success {
-    background: linear-gradient(135deg, #38a169, #2f855a);
+  &.btn-primary {
+    background: linear-gradient(135deg, #d4a017, #e6b800);
+    /* Goldenrod theme */
     color: #ffffff;
+    box-shadow: 0 2px 6px rgba(212, 160, 23, 0.3);
 
-    &:hover {
-      background: linear-gradient(135deg, #2f855a, #276749);
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, #e6b800, #d4a017);
+      /* Lighter goldenrod */
       transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(47, 133, 90, 0.5);
+      box-shadow: 0 6px 20px rgba(212, 160, 23, 0.5);
     }
 
     &:disabled {
-      background: #b7c2bc;
+      background: #a0aec0;
       cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
+      opacity: 0.6;
     }
   }
 
@@ -429,12 +508,19 @@
   }
 
   @keyframes buttonPop {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 }
 
-/* Responsive design */
+/* ===== Responsive Design ===== */
 @media (max-width: 1024px) {
   .image-slider {
     max-height: 350px;
@@ -478,7 +564,10 @@
     font-size: 1.625rem;
   }
 
-  .guide-detail, .availability, .guide-rating p, .review-detail {
+  .guide-detail,
+  .availability,
+  .guide-rating p,
+  .review-detail {
     font-size: 0.95rem;
   }
 
@@ -495,7 +584,7 @@
     font-size: 0.9rem;
   }
 
-  .reviews-title {
+  .section-title {
     font-size: 1.3rem;
   }
 }

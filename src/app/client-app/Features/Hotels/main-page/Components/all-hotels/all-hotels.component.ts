@@ -14,6 +14,7 @@ import { Hotel } from '../../interfaces/hotel';
 export class AllHotelsComponent implements OnInit {
   hotels: Hotel[] = [];
   filteredHotels: Hotel[] = [];
+  currentPage = 1;
   errorMessage: string | null = null;
   filters = {
     city: 'All',

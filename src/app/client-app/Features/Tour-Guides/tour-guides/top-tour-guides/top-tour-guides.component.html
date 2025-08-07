@@ -1,10 +1,10 @@
-<app-navbar></app-navbar>
-<div class="container" >
+<div class="container">
   <h2 class="title">Top Tour Guides</h2>
   <div *ngIf="errorMessage" class="alert alert-error">{{ errorMessage }}</div>
-  <div *ngIf="topTourGuides.length === 0 && !errorMessage" class="alert alert-no-data">No top tour guides available.</div>
-  <div *ngIf="topTourGuides.length > 0" class="guides-list" style="display: flex; flex-direction: row;">
-    <div *ngFor="let guide of topTourGuides; let i = index" class="guide-item" >
+  <div *ngIf="topTourGuides.length === 0 && !errorMessage" class="alert alert-no-data">No top tour guides available.
+  </div>
+  <div *ngIf="topTourGuides.length > 0" class="guides-list">
+    <div *ngFor="let guide of topTourGuides; let i = index" class="guide-item">
       <!-- Image Slider -->
       <div class="image-slider">
         <div *ngIf="!guide.photoUrls || guide.photoUrls.length === 0" class="no-image">
@@ -24,12 +24,11 @@
         <p class="guide-detail"><strong>Areas Covered:</strong> {{ guide.areasCovered }}</p>
         <p class="guide-detail"><strong>Price per Hour:</strong> ${{ guide.pricePerHour }}</p>
         <p class="availability">
-          <strong>Availability:</strong> 
+          <strong>Availability:</strong>
           <span [ngClass]="guide.isAvailable ? 'available' : 'unavailable'">
             {{ guide.isAvailable ? 'Available' : 'Not Available' }}
-            <i [ngClass]="guide.isAvailable ? 'fa-solid fa-check' : 'fa-solid fa-times'" 
-               [class.available-icon]="guide.isAvailable" 
-               [class.unavailable-icon]="!guide.isAvailable"></i>
+            <i [ngClass]="guide.isAvailable ? 'fa-solid fa-check' : 'fa-solid fa-times'"
+              [class.available-icon]="guide.isAvailable" [class.unavailable-icon]="!guide.isAvailable"></i>
           </span>
         </p>
         <div class="guide-rating">

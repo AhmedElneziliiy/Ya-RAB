@@ -6,12 +6,13 @@ import { HotelBooking } from '../../interfaces/hotel-booking';
 import { Room } from '../../interfaces/room';
 import { HotelsServiceService } from '../../Services/hotels-service.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { NavbarComponent } from "../../../../../../shared-app/Components/navbar/navbar.component";
+import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NavbarComponent } from '../../../../../../shared-app/Components/navbar/navbar.component';
 
 @Component({
   selector: 'app-hotel-booking',
-  imports: [CommonModule, FormsModule, NavbarComponent],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, NavbarComponent],
   templateUrl: './hotel-booking.component.html',
   styleUrl: './hotel-booking.component.scss'
 })
@@ -29,13 +30,20 @@ export class HotelBookingComponent implements OnInit {
   availableDates: string[] = [];
   errorMessage: string | null = null;
   successMessage: string | null = null;
+  bookingForm: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private hotelService: HotelsServiceService,
-    private bookingService: BookingService
-  ) {}
+    private bookingService: BookingService,
+    private fb: FormBuilder
+  ) {
+    this.bookingForm = this.fb.group({
+      bookingDate: ['', Validators.required],
+      numberOfNights: [1, [Validators.required, Validators.min(1)]]
+    });
+  }
 
   ngOnInit(): void {
     const hotelId = this.route.snapshot.queryParamMap.get('hotelId');
@@ -87,35 +95,42 @@ export class HotelBookingComponent implements OnInit {
   }
 
   calculateTotalPrice(): number {
-    return this.room ? this.room.pricePerNight * this.numberOfNights : 0;
+    return this.room ? this.room.pricePerNight * this.bookingForm.get('numberOfNights')?.value : 0;
   }
 
   submitBooking(): void {
-    if (!this.validateForm()) return;
+    if (this.bookingForm.invalid || !this.validateForm()) return;
+    this.booking.touristEmail = localStorage.getItem('email')!;
+    this.booking.bookingDate = this.bookingForm.get('bookingDate')?.value;
     this.booking.totalPrice = this.calculateTotalPrice();
     this.bookingService.createHotelBooking(this.booking).subscribe({
       next: (response) => {
+        console.log(response);
         this.successMessage = 'Booking created successfully!';
         this.errorMessage = null;
-        setTimeout(() => this.router.navigate(['/hotel-reservation']), 2000);
+        let price = this.calculateTotalPrice();
+        let bookingId = response.bookingID;
+        console.log('price : ' + price);
+        this.router.navigate(['/create-checkout-session'], {
+          state: {
+            price,
+            bookingId,
+          }
+        });
       },
       error: (err) => {
-        this.errorMessage = `Booking failed: ${err.message}`;
+        this.errorMessage = `Booking failed: ${err}`;
         this.successMessage = null;
       }
     });
   }
 
   validateForm(): boolean {
-    if (!this.booking.touristEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.booking.touristEmail)) {
-      this.errorMessage = 'Please enter a valid email address.';
-      return false;
-    }
-    if (!this.booking.bookingDate) {
+    if (!this.bookingForm.get('bookingDate')?.value) {
       this.errorMessage = 'Please select a booking date.';
       return false;
     }
-    if (this.numberOfNights < 1) {
+    if (this.bookingForm.get('numberOfNights')?.value < 1) {
       this.errorMessage = 'Number of nights must be at least 1.';
       return false;
     }

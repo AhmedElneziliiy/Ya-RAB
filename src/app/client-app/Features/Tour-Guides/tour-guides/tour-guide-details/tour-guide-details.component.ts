@@ -7,6 +7,8 @@ import { NavbarComponent } from '../../../../../shared-app/Components/navbar/nav
 import { Review } from '../../../Hotels/main-page/interfaces/review';
 import { ReviewService } from '../../../Hotels/main-page/Services/review.service';
 import { AuthService } from '../../../../../landing-app/Components/auth-service.service';
+import { AlertDialogComponent } from '../../../../../alert-dialog-component/alert-dialog-component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tour-guide-details',
@@ -20,7 +22,17 @@ export class TourGuideDetailsComponent implements OnInit {
 
   authService = inject(AuthService);
 
+
+  goToLoginOrBook(packageId: string) {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/package-booking', packageId]);
+    } else {
+      this.router.navigate(['/login']);
+    }
+  }
+
   errorMessage: string | null = null;
+  dialog = inject(MatDialog);
   currentImageIndex: number = 0; // Track current image index for the slider
 
   constructor(
@@ -42,7 +54,11 @@ export class TourGuideDetailsComponent implements OnInit {
     }
   }
   bookTourGuide(guideId: string): void {
-    this.router.navigate(['/tourguide-booking'], { queryParams: { guideId } });
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/tourguide-booking'], { queryParams: { guideId } });
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
   loadTourGuideDetails(guideId: string): void {
     this.tourGuideService.getTourGuideById(guideId).subscribe({

@@ -1,6 +1,6 @@
 import { MatDialog } from '@angular/material/dialog';
 import { Component, inject } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth-service.service';
@@ -8,7 +8,8 @@ import { User } from './user';
 import { AlertDialogComponent } from '../../../alert-dialog-component/alert-dialog-component';
 import { LoadingDialogComponent } from '../../../shared-app/Components/loading-dialog/loading-dialog.component';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
-import { title } from 'process';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { jwtDecode } from 'jwt-decode';
 @Component({
   selector: 'app-login',
   imports: [RouterModule, FormsModule, CommonModule, MatProgressSpinnerModule],
@@ -23,13 +24,12 @@ export class LoginComponent {
 
   isLoggingIn!: boolean;
 
-  constructor(private matDialog: MatDialog, private router: Router) {
+  constructor(private matDialog: MatDialog, private router: Router, private route: ActivatedRoute) {
     this.user = {
       email: '',
       password: '',
     }
   }
-
   login() {
 
     let message = ``;
@@ -87,5 +87,8 @@ export class LoginComponent {
 
   logUser() {
     console.log(this.user);
+  }
+  loginWithGoogle() {
+    this.service.loginWithGoogle();
   }
 }

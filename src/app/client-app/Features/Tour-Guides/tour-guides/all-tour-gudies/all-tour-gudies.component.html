@@ -48,4 +48,12 @@
       </div>
     </div>
   </div>
+  <!-- Fake Pagination Section -->
+  <div *ngIf="filteredTourGuides.length > 0" class="pagination-section fade-in">
+    <button class="btn btn-secondary pulse-hover">Previous</button>
+    <span class="page-item active">1</span>
+    <span class="page-item">2</span>
+    <span class="page-item">3</span>
+    <button class="btn btn-secondary pulse-hover">Next</button>
+  </div>
 </div>

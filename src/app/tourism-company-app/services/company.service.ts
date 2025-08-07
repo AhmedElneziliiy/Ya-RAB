@@ -24,7 +24,7 @@ export class CompanyService {
 
   private packagesSubject = new BehaviorSubject<Package[]>([]);
   packages$ = this.packagesSubject.asObservable();
-  private bookingsSubject = new BehaviorSubject<Booking[]>([]);
+  bookingsSubject = new BehaviorSubject<Booking[]>([]);
   bookings$ = this.bookingsSubject.asObservable();
   private destinationSubject = new BehaviorSubject<Destination[]>([]);
   destinations$ = this.destinationSubject.asObservable();

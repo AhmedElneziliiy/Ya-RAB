@@ -1,6 +1,6 @@
 <div class="container">
   <h2 class="title">All Tour Packages</h2>
-  <div class="filter-section">
+  <div class="filter-section rotate-in">
     <h3 class="section-title">Filter Packages</h3>
     <div class="filter-row">
       <div class="filter-group">
@@ -19,17 +19,21 @@
           <option *ngFor="let dest of availableDestinations" [value]="dest">{{ dest }}</option>
         </select>
       </div>
-      <button class="btn btn-secondary" (click)="resetFilters()">Reset Filters</button>
+      <button class="btn btn-secondary pulse-hover" (click)="resetFilters()">Reset Filters</button>
     </div>
   </div>
-  <div *ngIf="errorMessage" class="alert alert-error">{{ errorMessage }}</div>
-  <div *ngIf="filteredPackages.length === 0 && !errorMessage" class="alert alert-no-data">No tour packages available.
+  <div *ngIf="errorMessage" class="alert alert-error bounce-in">
+    {{ errorMessage }}
+  </div>
+  <div *ngIf="filteredPackages.length === 0 && !errorMessage" class="alert alert-no-data bounce-in">
+    No tour packages available.
   </div>
   <div *ngIf="filteredPackages.length > 0" class="packages-list">
-    <div *ngFor="let pkg of filteredPackages" class="package-item">
+    <div *ngFor="let pkg of filteredPackages; let i = index" class="package-item bounce-in"
+      style="--item-index: {{i}};">
       <div class="image-container">
         <img *ngIf="pkg.photoUrls && pkg.photoUrls.length > 0" [src]="pkg.photoUrls[0]" alt="package-image"
-          class="package-image">
+          class="package-image shimmer-load">
         <div *ngIf="!pkg.photoUrls || pkg.photoUrls.length === 0" class="no-image">No image available</div>
       </div>
       <div class="package-details">
@@ -40,8 +44,20 @@
         <p class="package-detail"><strong>Start Date:</strong> {{ pkg.startDate | date:'mediumDate' }}</p>
         <p class="package-detail"><strong>End Date:</strong> {{ pkg.endDate | date:'mediumDate' }}</p>
         <p class="package-detail"><strong>Destinations:</strong> {{ getDestinationsString(pkg.destinations) }}</p>
-        <button class="btn btn-primary" [routerLink]="['/package-details', pkg.packageId]">View Details</button>
+        <button class="btn btn-primary pulse-hover" [routerLink]="['/package-details', pkg.packageId]">View
+          Details</button>
       </div>
     </div>
+  </div>
+  <div *ngIf="filteredPackages.length > 0" class="pagination-section fade-in">
+    <button class="btn btn-secondary pulse-hover">
+      Previous
+    </button>
+    <span *ngFor="let page of [1,2,3,4]" class="page-item" [ngClass]="{'active': currentPage === page}">
+      {{ page }}
+    </span>
+    <button class="btn btn-secondary pulse-hover" [disabled]="currentPage === 4">
+      Next
+    </button>
   </div>
 </div>

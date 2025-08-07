@@ -1,66 +1,72 @@
-/* Container styles */
+/* ===== General Container and Layout ===== */
 .container {
-  max-width: 900px;
-  margin: 40px auto;
+  max-width: 1200px;
+  margin: 48px auto;
   padding: 20px;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(180deg, #f7fafc 0%, #ffffff 100%);
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   animation: fadeIn 0.8s ease-out;
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
 }
 
-/* Title styles */
 .title {
-  font-size: 2.25rem;
+  font-size: 3rem;
   color: #1a202c;
   text-align: center;
-  margin-bottom: 2rem;
-  font-weight: 700;
+  margin-bottom: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
   position: relative;
-  animation: slideIn 0.6s ease-out;
+  animation: slideIn 0.7s ease-out;
 
   &::after {
     content: '';
     display: block;
-    width: 60px;
-    height: 4px;
-    background: #3182ce;
-    margin: 10px auto;
-    border-radius: 2px;
-    animation: underlineGrow 0.5s ease-out;
-  }
-
-  @keyframes slideIn {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes underlineGrow {
-    from {
-      width: 0;
-    }
-    to {
-      width: 60px;
-    }
+    width: 100px;
+    height: 5px;
+    background: #d4a017;
+    margin: 12px auto;
+    border-radius: 3px;
+    animation: underlineGrow 0.6s ease-out;
   }
 }
 
-/* Alert styles */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes underlineGrow {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100px;
+  }
+}
+
+/* ===== Alert Styles ===== */
 .alert {
   padding: 16px;
   border-radius: 10px;
@@ -85,193 +91,217 @@
     background-color: #edf2f7;
     color: #4a5568;
     border: 1px solid #e2e8f0;
-  }
+    position: relative;
+    overflow: hidden;
 
-  @keyframes popIn {
-    from {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: shimmer 1.5s infinite;
     }
   }
 }
 
-/* Booking section */
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* ===== Booking Section ===== */
 .booking-section {
-  background: #ffffff;
-  padding: 32px;
-  border-radius: 12px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
-  animation: cardFadeIn 0.7s ease-out;
-
-  @keyframes cardFadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(15px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+  margin-bottom: 48px;
+  animation: fadeIn 0.9s ease-out;
 }
 
-/* Package info card */
-.card {
-  background: linear-gradient(145deg, #f7fafc, #e2e8f0);
-  padding: 24px;
+/* ===== Package Card ===== */
+.package-info.card {
+  background: #ffffff;
+  padding: 12px 24px;
+  margin: 5px 0;
   border-radius: 12px;
-  margin-bottom: 24px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  animation: cardFadeIn 0.8s ease-out;
 
   &:hover {
     transform: translateY(-6px);
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.15);
-  }
-
-  .package-title {
-    font-size: 1.8rem;
-    color: #2b6cb0;
-    margin-bottom: 1rem;
-    animation: fadeIn 0.8s ease-out;
-  }
-
-  .package-detail {
-    font-size: 1.1rem;
-    color: #4a5568;
-    margin: 0.75rem 0;
-    animation: fadeIn 0.9s ease-out;
-
-    strong {
-      color: #2d3748;
-      font-weight: 600;
-    }
+    box-shadow: 0 8px 24px rgba(212, 160, 23, 0.15);
   }
 }
 
-/* Form styles */
-.booking-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.75rem;
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
+/* ===== Form Styles ===== */
 .form-group {
-  .form-label {
-    display: block;
-    font-size: 1rem;
-    color: #2d3748;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    animation: fadeIn 0.7s ease-out;
-  }
+  margin-bottom: 1.5rem;
+}
 
-  .form-input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    animation: fadeIn 0.8s ease-out;
+.form-label {
+  display: block;
+  font-size: 1.1rem;
+  color: #1a202c;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
 
-    &:focus {
-      outline: none;
-      border-color: #3182ce;
-      box-shadow: 0 0 0 4px rgba(49, 130, 206, 0.2);
-    }
+.form-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #1a202c;
+  background-color: #fff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
-    &.ng-invalid.ng-touched {
-      border-color: #9b2c2c;
-      box-shadow: 0 0 0 4px rgba(155, 44, 44, 0.1);
-    }
-  }
-
-  .error-message {
-    font-size: 0.85rem;
-    color: #9b2c2c;
-    margin-top: 0.5rem;
-    animation: popIn 0.5s ease-out;
+  &:focus {
+    outline: none;
+    border-color: #d4a017;
+    box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.2);
   }
 }
 
-/* Button group */
+.error-message {
+  color: #9b2c2c;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+/* ===== Button Group ===== */
 .button-group {
   display: flex;
   gap: 1.25rem;
-  justify-content: center;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .btn {
-  padding: 12px 28px;
+  padding: 12px 24px;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  animation: fadeIn 0.9s ease-out;
+  transition: all 0.4s ease;
+  animation: buttonPop 0.7s ease-out;
 
   &.btn-primary {
-    background-color: #3182ce;
+    background: linear-gradient(135deg, #d4a017, #e6b800);
     color: #ffffff;
+    box-shadow: 0 2px 6px rgba(212, 160, 23, 0.3);
 
     &:hover:not(:disabled) {
-      background-color: #2b6cb0;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(49, 130, 206, 0.3);
+      background: linear-gradient(135deg, #e6b800, #d4a017);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(212, 160, 23, 0.5);
     }
 
     &:disabled {
-      background-color: #a0aec0;
+      background: #a0aec0;
       cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
+      opacity: 0.6;
     }
   }
 
   &.btn-secondary {
-    background-color: #718096;
+    background: linear-gradient(135deg, #718096, #5a7184);
     color: #ffffff;
 
     &:hover {
-      background-color: #5a7184;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(90, 113, 132, 0.3);
+      background: linear-gradient(135deg, #5a7184, #4a5568);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(90, 113, 132, 0.4);
     }
   }
 }
 
-/* Responsive design */
-@media (max-width: 640px) {
+@keyframes buttonPop {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 1024px) {
+  .package-info.card {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
   .container {
     padding: 16px;
-    margin: 20px auto;
+    margin: 32px auto;
   }
 
   .title {
-    font-size: 1.75rem;
+    font-size: 2.5rem;
   }
 
-  .booking-section {
-    padding: 20px;
-  }
-
-  .card {
-    padding: 16px;
+  .package-title {
+    font-size: 1.625rem;
   }
 
   .button-group {
     flex-direction: column;
-    gap: 1rem;
+    gap: 12px;
   }
 
   .btn {
     width: 100%;
     padding: 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .package-title {
+    font-size: 1.5rem;
+  }
+
+  .package-detail {
+    font-size: 0.95rem;
   }
 }

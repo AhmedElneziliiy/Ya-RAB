@@ -1,9 +1,9 @@
+<app-navbar></app-navbar>
 <div class="container">
-  <app-navbar></app-navbar>
   <h2 class="title">{{ tourGuide?.guideName || 'Tour Guide Details' }}</h2>
   <div *ngIf="errorMessage" class="alert alert-error">{{ errorMessage }}</div>
   <div *ngIf="!tourGuide && !errorMessage" class="alert alert-loading">Loading tour guide details...</div>
-  <div *ngIf="tourGuide" class="guide-details">
+  <div *ngIf="tourGuide" class="guide-details card">
     <!-- Image Slider -->
     <div class="image-slider">
       <div *ngIf="!tourGuide.photoUrls || tourGuide.photoUrls.length === 0" class="no-image">
@@ -40,10 +40,10 @@
     <p class="guide-detail"><strong>Total Bookings:</strong> {{ tourGuide.totalBookings }}</p>
     <!-- Reviews Section -->
     <div class="guide-reviews">
-      <h4 class="reviews-title">Reviews</h4>
+      <h4 class="section-title">Reviews</h4>
       <div *ngIf="reviews.length === 0" class="alert alert-no-data">No reviews available.</div>
       <div *ngIf="reviews.length > 0" class="reviews-list">
-        <div *ngFor="let review of reviews" class="review-item">
+        <div *ngFor="let review of reviews" class="review-item card">
           <div class="review-rating">
             <i class="fa-solid fa-star" *ngFor="let _ of getStarRatingArray(review.rating)"></i>
             <i class="fa-solid fa-star empty-star" *ngFor="let _ of getEmptyStarRatingArray(review.rating)"></i>
@@ -56,10 +56,8 @@
       </div>
     </div>
     <div class="button-group">
-      @if(isLoggedIn()) {
-      <button class="btn btn-success" (click)="bookTourGuide(tourGuide.guideID)"
+      <button class="btn btn-primary" (click)="bookTourGuide(tourGuide.guideID)"
         [disabled]="!tourGuide.isAvailable">Book Tour Guide</button>
-      }
       <button class="btn btn-secondary" (click)="goBack()">Back to Tour Guides</button>
     </div>
   </div>

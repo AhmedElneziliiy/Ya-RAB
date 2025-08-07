@@ -1,125 +1,293 @@
 /* ===== General Container and Layout ===== */
 .container {
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #f0f4f8 0%, #ffffff 100%);
-    border-radius: 12px;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+    margin: 48px auto;
+    padding: 20px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(180deg, #f7fafc 0%, #ffffff 100%);
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-out;
 }
 
-h2 {
-    font-weight: 700;
+.title {
+    font-size: 3rem;
+    color: #1a202c;
     text-align: center;
-    margin-bottom: 40px;
-    color: #222;
-    font-size: 2.2rem;
-    font-family: 'Segoe UI', sans-serif;
-}
+    margin-bottom: 3rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    position: relative;
+    animation: slideIn 0.7s ease-out;
 
-/* ===== Grid Fix for Cards ===== */
-.rooms .row,
-.guides .row,
-.tour-packages .row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-}
-
-.rooms .col-6,
-.guides .col-6,
-.tour-packages .col-6 {
-    flex: 1 1 calc(16.666% - 1.5rem);
-    min-width: 220px;
-}
-
-@media (max-width: 768px) {
-
-    .rooms .col-6,
-    .guides .col-6,
-    .tour-packages .col-6 {
-        flex: 1 1 calc(50% - 1rem);
+    &::after {
+        content: '';
+        display: block;
+        width: 100px;
+        height: 5px;
+        background: #d4a017;
+        /* Goldenrod theme */
+        margin: 12px auto;
+        border-radius: 3px;
+        animation: underlineGrow 0.6s ease-out;
     }
 }
 
-/* ===== Card Styling ===== */
-.destination-card,
-.room-card,
-.guide-card {
-    background: linear-gradient(145deg, #ffffff, #f0f4f8);
-    border-radius: 18px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.07);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    padding: 16px;
+.no-results {
+    text-align: center;
+    color: #4a5568;
+    font-size: 1.5rem;
+    font-weight: 600;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    color: #1a202c;
+    font-weight: 600;
+    margin-bottom: 20px;
+    animation: slideIn 0.7s ease-out;
+}
+
+/* ===== Guides List ===== */
+.guides-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 32px;
+    margin-bottom: 32px;
+}
+
+/* ===== Guide Item ===== */
+.guide-item {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     height: 100%;
-    cursor: pointer;
-    border: 1px solid #e4e7ec;
+    /* Ensure equal height */
+    justify-content: space-between;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    animation: cardFadeIn 0.8s ease-out;
+
+    &:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 8px 24px rgba(212, 160, 23, 0.15);
+    }
 }
 
-.destination-card:hover,
-.room-card:hover,
-.guide-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+@keyframes cardFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* ===== Image Styling ===== */
-.destination-img,
-.room-card img,
-.guide-card img {
-    height: 170px;
-    width: 100%;
-    object-fit: cover;
-    border-radius: 14px;
-    border: 1px solid #ddd;
+/* ===== Image Slider ===== */
+.image-slider {
+    position: relative;
+    width: 180px;
+    max-height: 120px;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #e2e8f0;
+
+    .guide-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+        animation: imageFadeIn 1s ease-out;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
 }
 
-/* ===== Room Content ===== */
-.room-name,
-.room-type,
-.room-price,
-.guide-name,
-.guide-rating,
-.guide-price,
-.destination-name {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #333;
-    margin-top: 10px;
-    text-align: center;
-    font-family: 'Segoe UI', sans-serif;
+@keyframes imageFadeIn {
+    from {
+        opacity: 0;
+        filter: blur(6px);
+    }
+
+    to {
+        opacity: 1;
+        filter: blur(0);
+    }
 }
 
-.guide-rating {
+/* ===== Guide Details ===== */
+.guide-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .guide-title {
+        font-size: 1.75rem;
+        color: #d4a017;
+        /* Goldenrod theme */
+        margin-bottom: 1rem;
+        font-weight: 700;
+        animation: fadeIn 0.9s ease-out;
+    }
+
+    .guide-detail {
+        font-size: 1rem;
+        color: #4a5568;
+        margin-bottom: 12px;
+        animation: fadeIn 1s ease-out;
+
+        strong {
+            color: #1a202c;
+            font-weight: 600;
+        }
+
+        svg {
+            width: 16px;
+            height: 16px;
+            fill: #d4a017;
+            /* Goldenrod theme */
+            margin-left: 6px;
+            animation: pulse 1.2s infinite;
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* ===== Selected Date and Nights Number ===== */
+.selected-date,
+.nights-number {
+    margin-top: 12px;
+    animation: slideUp 0.6s ease-out;
+}
+
+.nights-number {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 6px;
-    flex-direction: row;
+    justify-content: space-around;
+    gap: 15px;
+
+    button {
+        background: #d4a017;
+        /* Goldenrod theme */
+        color: #ffffff;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 50%;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        width: 36px;
+        height: 36px;
+        box-shadow: 0 2px 4px rgba(212, 160, 23, 0.3);
+
+        &:hover:not(:disabled) {
+            background: #e6b800;
+            /* Lighter goldenrod */
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(212, 160, 23, 0.5);
+        }
+
+        &:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+        }
+    }
+
+    input[type='number'] {
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 8px;
+        font-size: 1rem;
+        width: 80px;
+        text-align: center;
+        transition: all 0.3s ease;
+
+        &:focus {
+            border-color: #d4a017;
+            /* Goldenrod theme */
+            box-shadow: 0 0 5px rgba(212, 160, 23, 0.3);
+            transform: translateY(-2px);
+        }
+    }
 }
 
-.guide-rating svg {
-    width: 16px;
-    height: 16px;
+input[type='date'] {
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    width: 100%;
+
+    &:focus {
+        border-color: #d4a017;
+        /* Goldenrod theme */
+        box-shadow: 0 0 5px rgba(212, 160, 23, 0.3);
+        transform: translateY(-2px);
+    }
 }
 
 /* ===== Button Styling ===== */
+.btn-primary,
 .btn-next {
-    border-radius: 30px;
-    padding: 12px 36px;
-    background: linear-gradient(to right, #007dd1, #0095f6);
-    color: white;
-    font-weight: 600;
+    width: auto;
+    padding: 12px 24px;
     border: none;
-    transition: background 0.3s ease;
-    font-size: 1.05rem;
-}
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    background: linear-gradient(135deg, #d4a017, #e6b800);
+    /* Goldenrod theme */
+    color: #ffffff;
+    box-shadow: 0 2px 6px rgba(212, 160, 23, 0.3);
 
-.btn-next:hover {
-    background: linear-gradient(to right, #005fa3, #007dd1);
+    &:hover:not(:disabled) {
+        background: linear-gradient(135deg, #e6b800, #d4a017);
+        /* Lighter goldenrod */
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(212, 160, 23, 0.5);
+    }
+
+    &:disabled {
+        background: #a0aec0;
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
 }
 
 .next-button {
@@ -129,7 +297,7 @@ h2 {
 /* ===== Progress Bar ===== */
 .progress-bar-custom {
     height: 8px;
-    background-color: #e0e0e0;
+    background-color: #e2e8f0;
     border-radius: 50px;
     overflow: hidden;
     margin-bottom: 30px;
@@ -139,59 +307,27 @@ h2 {
 
 .progress-bar-custom .progress-fill {
     width: 0%;
-    transition: width 0.4s ease;
+    transition: width 0.4s ease-in-out;
     height: 100%;
-    background: linear-gradient(to right, #007dd1, #00c6ff);
+    background: linear-gradient(135deg, #d4a017, #e6b800);
+    /* Goldenrod theme */
     border-radius: 50px;
+    box-shadow: 0 2px 6px rgba(212, 160, 23, 0.4);
+    animation: progressPulse 1.5s infinite;
 }
 
-/* ===== Quantity Section ===== */
-.nights-number {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    margin-top: 12px;
-    gap: 20px;
-}
+@keyframes progressPulse {
+    0% {
+        box-shadow: 0 2px 6px rgba(212, 160, 23, 0.4);
+    }
 
-.nights-number button {
-    background-color: #007dd1;
-    color: #fff;
-    border: none;
-    padding: 6px 14px;
-    border-radius: 50px;
-    font-size: 1.1rem;
-    transition: background-color 0.3s;
-    width: 40px;
-    height: 40px;
-}
+    50% {
+        box-shadow: 0 4px 8px rgba(212, 160, 23, 0.6);
+    }
 
-.nights-number button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-
-.nights-number button:hover:not(:disabled) {
-    background-color: #005fa3;
-}
-
-/* ===== Input Styling ===== */
-input[type='number'],
-.search-box input[type='text'] {
-    border: 2px solid #ddd;
-    border-radius: 30px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    outline: none;
-    transition: border 0.3s ease;
-    width: 100%;
-    font-family: 'Segoe UI', sans-serif;
-}
-
-input[type='number']:focus,
-.search-box input[type='text']:focus {
-    border-color: #007dd1;
-    box-shadow: 0 0 5px rgba(0, 125, 209, 0.3);
+    100% {
+        box-shadow: 0 2px 6px rgba(212, 160, 23, 0.4);
+    }
 }
 
 /* ===== Step Transitions ===== */
@@ -199,13 +335,13 @@ input[type='number']:focus,
 .rooms,
 .guides,
 .final-booking {
-    animation: fadeIn 0.6s ease-in-out;
+    animation: slideUp 0.6s ease-in-out;
 }
 
-@keyframes fadeIn {
+@keyframes slideIn {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(-20px);
     }
 
     to {
@@ -214,23 +350,117 @@ input[type='number']:focus,
     }
 }
 
-/* ===== Stars Section ===== */
-.stars-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 4px;
-    gap: 4px;
-    transform: scale(0.85);
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.stars-container svg {
-    width: 16px;
-    height: 16px;
-    fill: #ffc107;
+@keyframes underlineGrow {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100px;
+    }
 }
 
-.room-card .stars-container,
-.guide-card .stars-container {
-    margin-top: 6px;
+/* ===== Final Booking Card ===== */
+.final-booking .card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.final-booking .card strong {
+    color: #1a202c;
+    font-weight: 600;
+}
+
+.final-booking .card span {
+    color: #4a5568;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #2f855a, #48bb78);
+
+    /* Green gradient */
+    &:hover {
+        background: linear-gradient(135deg, #48bb78, #2f855a);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(47, 133, 90, 0.5);
+    }
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 1024px) {
+    .guides-list {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+
+    .image-slider {
+        width: 100%;
+        max-height: 100px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 16px;
+        margin: 32px auto;
+    }
+
+    .title {
+        font-size: 2.5rem;
+    }
+
+    .section-title {
+        font-size: 1.2rem;
+    }
+
+    .guide-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .image-slider {
+        width: 100%;
+        max-height: 120px;
+    }
+
+    .next-button {
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .title {
+        font-size: 2rem;
+    }
+
+    .section-title {
+        font-size: 1.1rem;
+    }
+
+    .guides-list {
+        grid-template-columns: 1fr;
+    }
+
+    .guide-item {
+        padding: 16px;
+    }
+
+    .btn-primary,
+    .btn-next {
+        width: 100%;
+    }
 }

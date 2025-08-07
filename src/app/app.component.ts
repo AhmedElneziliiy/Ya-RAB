@@ -7,7 +7,7 @@ import { isPlatformBrowser } from '@angular/common';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet,],
 })
 export class AppComponent {
   title = 'TripLink';

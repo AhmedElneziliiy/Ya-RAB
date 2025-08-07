@@ -18,58 +18,9 @@ import { last } from 'rxjs';
   templateUrl: './manage-hotel-profile.component.html',
   styleUrl: './manage-hotel-profile.component.scss'
 })
-export class ManageHotelProfileComponent implements OnInit, AfterViewInit {
+export class ManageHotelProfileComponent implements OnInit {
   service = inject(HotelsService);
   constructor(private route: ActivatedRoute, private matDialog: MatDialog, @Inject(PLATFORM_ID) private platformId: Object) { }
-  async ngAfterViewInit() {
-    if (isPlatformBrowser(this.platformId) && this.isHotelReqFinished) {
-      const L = await import('leaflet');
-
-      L.Icon.Default.mergeOptions({
-        iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
-        iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
-        shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-      });
-
-      let oldAddress = await fetch(`https://us1.locationiq.com/v1/search?key=pk.bc35f990c1e814b1b565b73a70a93e5d&q=${this.hotel.address}&format=json`);
-
-      let oldAddressData = await oldAddress.json();
-
-      const map = L.map('map').setView([oldAddressData[0].lat, oldAddressData[0].lon], 13);
-
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-      }).addTo(map);
-
-      L.marker([oldAddressData[0].lat, oldAddressData[0].lon]).addTo(map)
-        .bindPopup(this.hotel.address || 'Hotel Location')
-        .openPopup();
-
-      let currentMarker: L.Marker | null = null;
-
-      map.on('click', async (e: L.LeafletMouseEvent) => {
-        const { lat, lng } = e.latlng;
-
-        if (currentMarker) {
-          map.removeLayer(currentMarker);
-        }
-
-        currentMarker = L.marker([lat, lng]).addTo(map)
-          .bindPopup(`Selected Location:<br>Lat: ${lat.toFixed(5)}, Lng: ${lng.toFixed(5)}`)
-          .openPopup();
-
-        console.log('Picked coordinates:', lat, lng);
-
-        const address = await fetch(`https://us1.locationiq.com/v1/reverse?key=pk.bc35f990c1e814b1b565b73a70a93e5d&lat=${lat}&lon=${lng}&format=json`);
-
-        const data = await address.json()
-
-        let place = data.display_name;
-
-        this.hotel.address = place;
-      });
-    }
-  }
 
   photos: File[] = [];
 
@@ -83,6 +34,55 @@ export class ManageHotelProfileComponent implements OnInit, AfterViewInit {
         next: async (value) => {
           this.hotel = value;
           this.isHotelReqFinished = true;
+          if (isPlatformBrowser(this.platformId) && this.isHotelReqFinished) {
+            const L = await import('leaflet');
+
+            L.Icon.Default.mergeOptions({
+              iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+              iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+              shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+            });
+
+            let oldAddress = await fetch(`https://us1.locationiq.com/v1/search?key=pk.bc35f990c1e814b1b565b73a70a93e5d&q=${this.hotel.address}&format=json&accept-language=en`);
+
+            let oldAddressData = await oldAddress.json();
+
+            const map = L.map('map').setView([oldAddressData[0].lat, oldAddressData[0].lon], 13);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
+
+            L.marker([oldAddressData[0].lat, oldAddressData[0].lon]).addTo(map)
+              .bindPopup(this.hotel.address || 'Hotel Location')
+              .openPopup();
+
+            let currentMarker: L.Marker | null = null;
+
+            map.on('click', async (e: L.LeafletMouseEvent) => {
+              const { lat, lng } = e.latlng;
+
+              if (currentMarker) {
+                map.removeLayer(currentMarker);
+              }
+
+              currentMarker = L.marker([lat, lng]).addTo(map)
+                .bindPopup(`Selected Location:<br>Lat: ${lat.toFixed(5)}, Lng: ${lng.toFixed(5)}`)
+                .openPopup();
+
+              console.log('Picked coordinates:', lat, lng);
+
+              const address = await fetch(`https://us1.locationiq.com/v1/reverse?key=pk.bc35f990c1e814b1b565b73a70a93e5d&lat=${lat}&lon=${lng}&format=json`);
+
+              const data = await address.json()
+
+              let place = data.display_name;
+
+              this.hotel.address = place;
+
+              this.service.hotelDashBoardSubject.value.hotel!.address = this.hotel.address;
+            });
+          }
         },
         error: (err) => {
           let message = '';
