@@ -57,7 +57,7 @@ export class TourGuideRegisterComponent implements AfterViewInit {
 
             const data = await address.json()
 
-            let place = data.display_name;
+            const place = data.display_name;
 
             this.model.address = place;
           });

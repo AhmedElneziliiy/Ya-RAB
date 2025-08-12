@@ -1,20 +1,15 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { NavbarComponent } from "../../../shared-app/Components/navbar/navbar.component";
-import { HeroSectionComponent } from "./Components/hero-section/hero-section.component";
-import { WhoUsComponentComponent } from "./Components/who-us-component/who-us-component.component";
-import { TravellersGalleryComponent } from "./Components/travellers-gallery/travellers-gallery.component";
 import { HotelsService } from '../../../hotels-app/hotels-service.service';
 import { TourPackageService } from '../../../client-app/Features/tour-packages/Services/tour-package.service';
 import { TourGuideService } from '../../../tour-guides-app/tour-guide.service';
 import { TourGuide } from '../../../tour-guides-app/interfaces/tour-guide';
 import { CommonModule } from '@angular/common';
-import { Package } from '../../../tourism-company-app/interfaces/package';
 import { TourPackage } from '../../../client-app/Features/tour-packages/interfaces/tour-package';
 import { Hotel } from '../../../hotels-app/interfaces/hotel-dashboard';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { Review } from '../../../tour-guides-app/interfaces/review';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-home',

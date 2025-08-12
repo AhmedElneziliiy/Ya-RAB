@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 <div class="container my-4">
-    <div class="slider-photo" style="position: relative;">
+    <div class="slider-photo">
         <img [src]="sliderData[selectedImage].image" width="100%" height="400px" class="slider-image" />
         <i class="fa-solid fa-chevron-left slider-arrow"
             style="position: absolute; top: 50%; transform: translateY(-50%); left: 15px; color: white; cursor: pointer;"
@@ -27,15 +27,20 @@
             <div class="col-6 col-md-4">
                 <div class="tour-guide-card card-animated cascade-card" style="--card-index: {{i}};">
                     <img [src]="guide.photoUrls![0]" alt="{{guide.guideName}}" class="tour-guide img-fluid" />
-                    <div class="tour-guide-name">{{guide.guideName}}</div>
-                    <div class="tour-guide-rating">
-                        <span class="rating-stars">
-                            @for (i of [].constructor(5); track $index) {
-                            <i class="bi bi-star-fill"
-                                [ngClass]="{'text-warning': $index < guide.averageRating!, 'text-secondary': $index >= guide.averageRating!}"></i>
-                            }
-                        </span>
-                        <span class="rating-value">({{guide.averageRating}})</span>
+                    <div class="card-content">
+                        <div class="tour-guide-name">{{guide.guideName}}</div>
+                        <div class="tour-guide-info">Speaks: {{guide.languages || 'N/A'}}</div>
+                        <div class="tour-guide-info">Areas: {{guide.areasCovered || 'N/A'}}</div>
+                        <div class="tour-guide-price">${{guide.pricePerHour}}/hr</div>
+                        <div class="tour-guide-rating">
+                            <span class="rating-stars">
+                                @for (i of [].constructor(5); track $index) {
+                                <i
+                                    [ngClass]="{'text-warning': $index < guide.averageRating!, 'text-secondary': $index >= guide.averageRating!}">★</i>
+                                }
+                            </span>
+                        </div>
+                        <div class="tour-guide-contact">{{guide.contactEmail || 'N/A'}}</div>
                     </div>
                 </div>
             </div>
@@ -66,8 +71,13 @@
             <div class="col-6 col-md-4">
                 <div class="tour-package-card card-animated cascade-card" style="--card-index: {{i}};">
                     <img [src]="package.photoUrls![0]" alt="{{package.packageName}}" class="tour-guide img-fluid" />
-                    <div class="tour-guide-name">{{package.packageName}}</div>
-                    <div class="tour-guide-price">${{package.price}}</div>
+                    <div class="card-content">
+                        <div class="tour-guide-name">{{package.packageName}}</div>
+                        <div class="tour-guide-info">{{package.description | slice:0:80}}...</div>
+                        <div class="tour-guide-info">Duration: {{package.durationDays}} days</div>
+                        <div class="tour-guide-price">${{package.price}}</div>
+                        <div class="tour-guide-info">By: {{package.companyName}}</div>
+                    </div>
                 </div>
             </div>
             }
@@ -97,17 +107,21 @@
             <div class="col-6 col-md-4">
                 <div class="hotel-card card-animated cascade-card" style="--card-index: {{i}};">
                     <img [src]="hotel.photoUrls![0]" alt="{{hotel.hotelName}}" class="tour-guide img-fluid" />
-                    <div class="hotel-name">{{hotel.hotelName}}</div>
-                    <div class="hotel-rating">
-                        <span class="rating-stars">
-                            @for (i of [].constructor(5); track $index) {
-                            <i class="bi bi-star-fill"
-                                [ngClass]="{'text-warning': $index < hotel.rating!, 'text-secondary': $index >= hotel.rating!}"></i>
-                            }
-                        </span>
-                        <span class="rating-value">({{hotel.rating}})</span>
+                    <div class="card-content">
+                        <div class="hotel-name">{{hotel.hotelName}}</div>
+                        <div class="hotel-info">{{hotel.description | slice:0:80}}...</div>
+                        <div class="hotel-info">Rooms Available: {{hotel.availableRooms}}/{{hotel.totalRooms}}</div>
+                        <div class="hotel-address">{{hotel.address}}</div>
+                        <div class="hotel-rating">
+                            <span class="rating-stars">
+                                @for (i of [].constructor(5); track $index) {
+                                <i
+                                    [ngClass]="{'text-warning': $index < hotel.rating!, 'text-secondary': $index >= hotel.rating!}">★</i>
+                                }
+                            </span>
+                        </div>
+                        <div class="hotel-contact">{{hotel.contactPhone || 'N/A'}}</div>
                     </div>
-                    <div class="hotel-address">{{hotel.address}}</div>
                 </div>
             </div>
             }
@@ -132,7 +146,7 @@
             <div class="col-12 my-3">
                 <div class="testimonial-card card-animated cascade-card" style="--card-index: {{i}};">
                     <div class="testimonial-content">
-                        <p>{{item.comment}}</p>
+                        <p>{{item.comment | slice:0:150}}...</p>
                     </div>
                     <div class="rating-stars">
                         @for (i of [0, 1, 2, 3, 4]; track $index) {

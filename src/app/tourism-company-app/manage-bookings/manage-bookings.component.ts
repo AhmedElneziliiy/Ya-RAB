@@ -4,9 +4,8 @@ import { Booking } from '../interfaces/booking';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
-import { AlertDialogComponent } from '../../alert-dialog-component/alert-dialog-component';
 import { MatDialog } from '@angular/material/dialog';
-import { DeleteBookingComponent } from './delete-booking/delete-booking.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-manage-bookings',
@@ -24,6 +23,8 @@ export class ManageBookingsComponent implements OnInit {
 
   isBookingReqFinished = false;
 
+  toastService = inject(ToastrService);
+
 
   constructor(private route: ActivatedRoute, private matDialog: MatDialog) { }
 
@@ -36,25 +37,11 @@ export class ManageBookingsComponent implements OnInit {
       error: (err) => {
         let message = '';
         err['error']['errors'].map((e: string) => message += e + '\n');
-        this.matDialog.open(AlertDialogComponent, {
-          data: {
-            title: 'Error',
-            message: message
-          }
+        this.toastService.error(message, '❌ Error', {
+          toastClass: 'ngx-toastr custom-error'
         });
       }
     });
     this.bookingService.getCompanyBookings();
   }
-
-  //TODO: ASK NEZILLY ABOUT DELETE BOOKING IS IT POSSIBLE FOR COMPAMY OR ONLY FOR TOURIST
-
-  // openDeleteDialog(bookingId: string) {
-  //   this.matDialog.open(DeleteBookingComponent, {
-  //     data: {
-  //       itemName: 'Booking',
-  //       title: 'Delete Booking',
-  //     }
-  //   })
-  // }
 }

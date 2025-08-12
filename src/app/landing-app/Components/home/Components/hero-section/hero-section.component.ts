@@ -47,7 +47,7 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
   private keyboardListener: (() => void) | undefined;
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(PLATFORM_ID) private platformId: object,
     private renderer: Renderer2
   ) {}
 

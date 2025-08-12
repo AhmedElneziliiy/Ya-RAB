@@ -5,13 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth-service.service';
 import { User } from './user';
-import { AlertDialogComponent } from '../../../alert-dialog-component/alert-dialog-component';
 import { LoadingDialogComponent } from '../../../shared-app/Components/loading-dialog/loading-dialog.component';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { jwtDecode } from 'jwt-decode';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [RouterModule, FormsModule, CommonModule, MatProgressSpinnerModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -24,7 +23,7 @@ export class LoginComponent {
 
   isLoggingIn!: boolean;
 
-  constructor(private matDialog: MatDialog, private router: Router, private route: ActivatedRoute) {
+  constructor(private matDialog: MatDialog, private router: Router, private route: ActivatedRoute, private toastService: ToastrService) {
     this.user = {
       email: '',
       password: '',
@@ -46,11 +45,8 @@ export class LoginComponent {
     }
 
     if (message != '') {
-      this.matDialog.open(AlertDialogComponent, {
-        data: {
-          title: 'Error',
-          message: message,
-        }
+      this.toastService.error(message, '❌ Error', {
+        toastClass: 'ngx-toastr custom-error'
       });
       return;
     }
@@ -64,20 +60,12 @@ export class LoginComponent {
           ref.close();
           localStorage.setItem('email', this.user.email!);
           console.log(value);
-          this.matDialog.open(AlertDialogComponent, {
-            data: {
-              title: 'TripLink',
-              message: 'Login is successful!',
-            }
-          });
+          this.toastService.success('Login is successful!', '✅ Success', { toastClass: 'ngx-toastr custom-success' });
         },
         error: (err) => {
           ref.close();
-          this.matDialog.open(AlertDialogComponent, {
-            data: {
-              title: 'Error',
-              message: 'Error Logging In,Try Again Later or check your connection then try'
-            }
+          this.toastService.error('Error Logging In,Try Again Later or check your connection then try', '❌ Error', {
+            toastClass: 'ngx-toastr custom-error'
           });
         },
       });

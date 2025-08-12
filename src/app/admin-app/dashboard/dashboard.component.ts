@@ -3,14 +3,14 @@ import { Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@an
 import { AuthService } from '../../landing-app/Components/auth-service.service';
 import { Admin } from '../admin';
 import { AdminService } from '../admin-service.service';
-import { AlertDialogComponent } from '../../alert-dialog-component/alert-dialog-component';
-import { MatProgressSpinner, MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatProgressSpinner } from "@angular/material/progress-spinner";
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Hotel } from '../../hotels-app/interfaces/hotel-dashboard';
 import { TourGuide } from '../../tour-guides-app/interfaces/tour-guide';
 import { LoadingDialogComponent } from '../../shared-app/Components/loading-dialog/loading-dialog.component';
 import { Chart, registerables } from 'chart.js';
+import { ToastrService } from 'ngx-toastr';
 Chart.register(...registerables);
 
 @Component({
@@ -55,6 +55,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   totalHotels = 0;
   totalCompanies = 0;
   totalPackages = 0;
+  toastService = inject(ToastrService);
 
 
 
@@ -71,12 +72,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
           this.drawChart();
         },
         error: (err) => {
-          this.dialog.open(AlertDialogComponent, {
-            data: {
-              title: 'Error',
-              message: 'Error Getting data try again later'
-            }
-          });
+          this.toastService.error('Error Getting data try again later', '❌ Error', { toastClass: 'ngx-toastr custom-error' });
         },
       }
     );
@@ -89,12 +85,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
           this.drawChart();
         },
         error: (err) => {
-          this.dialog.open(AlertDialogComponent, {
-            data: {
-              title: 'Error',
-              message: 'Error Getting Hotels try again later'
-            }
-          });
+          this.toastService.error('Error Getting Hotels try again later', '❌ Error', { toastClass: 'ngx-toastr custom-error' });
         },
       }
     );
@@ -108,12 +99,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
 
         },
         error: (err) => {
-          this.dialog.open(AlertDialogComponent, {
-            data: {
-              title: 'Error',
-              message: 'Error Getting Guides, try again later!'
-            }
-          });
+          this.toastService.error('Error Getting Guides try again later', '❌ Error', { toastClass: 'ngx-toastr custom-error' });
         },
       }
     );
@@ -125,12 +111,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
           this.drawChart();
         },
         error: (err) => {
-          this.dialog.open(AlertDialogComponent, {
-            data: {
-              title: 'Error',
-              message: 'Error Getting Guides, try again later!'
-            }
-          });
+          this.toastService.error('Error Getting Packages try again later', '❌ Error', { toastClass: 'ngx-toastr custom-error' });
         },
       }
     );
@@ -141,28 +122,22 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   verifyUser(userId: string) {
-    let ref = this.dialog.open(LoadingDialogComponent, {
+    const ref = this.dialog.open(LoadingDialogComponent, {
       disableClose: true,
     })
     this.adminService.verifyUser(userId).subscribe({
       next: (value) => {
         ref.close();
-        this.dialog.open(AlertDialogComponent, {
-          data: {
-            title: 'TripLink',
-            message: 'User is verified!'
-          }
-        })
+        this.toastService.success('User is verified!', '✅ Success', {
+          toastClass: 'ngx-toastr custom-success'
+        });
       },
 
       error: (err) => {
         ref.close();
-        this.dialog.open(AlertDialogComponent, {
-          data: {
-            title: 'Err',
-            message: 'Error verifying user!'
-          }
-        })
+        this.toastService.error('Error verifying user!', '❌ Error', {
+          toastClass: 'ngx-toastr custom-error'
+        });
       },
     })
   }
@@ -180,11 +155,11 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   drawChart() {
-    let reviewsInJuly = [];
-    let reviewsInAugust = [];
-    let moreThanFourStarsHotels = [];
-    let fourStarsHotels = [];
-    let lessThanFourStarsHotels = [];
+    const reviewsInJuly = [];
+    const reviewsInAugust = [];
+    const moreThanFourStarsHotels = [];
+    const fourStarsHotels = [];
+    const lessThanFourStarsHotels = [];
     let pendingCount = 0;
     let confirmedCount = 0;
     let cancelledCount = 0;
@@ -192,7 +167,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     // Process packages for bar chart
     if (this.admin.recentReviews) {
       this.admin.recentReviews.map((e) => {
-        let date = e.reviewDate.split('T')[0].split('-');
+        const date = e.reviewDate.split('T')[0].split('-');
         if (date[1] == '07') {
           reviewsInJuly.push(e);
         } else {

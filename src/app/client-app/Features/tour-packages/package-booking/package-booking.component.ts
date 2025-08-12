@@ -62,7 +62,7 @@ export class PackageBookingComponent implements OnInit {
 
   generateDateRange(startDate: Date, endDate: Date): Date[] {
     const dates: Date[] = [];
-    let currentDate = new Date(startDate);
+    const currentDate = new Date(startDate);
     while (currentDate <= endDate) {
       dates.push(new Date(currentDate));
       currentDate.setDate(currentDate.getDate() + 1);
@@ -89,9 +89,9 @@ export class PackageBookingComponent implements OnInit {
       next: (response) => {
         this.successMessage = response.message || 'Booking created successfully!';
         this.errorMessage = null;
-        let bookingId = response.bookingID;
+        const bookingId = response.bookingID;
         this.bookingForm.reset();
-        let price = this.package!.price;
+        const price = this.package!.price;
 
         this.router.navigate(['/create-checkout-session'], {
           state: {

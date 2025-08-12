@@ -1,5 +1,15 @@
-.custom-snackbar {
-    background-color: #159d3b !important;
+.toast-top-center {
+    top: 15px !important;
+}
+
+.custom-success {
+    margin: 0 auto;
+    background-color: #28a745 !important;
     color: white !important;
-    font-weight: bold;
+}
+
+.custom-error {
+    margin: 0 auto;
+    background-color: #dc3545 !important;
+    color: white !important;
 }

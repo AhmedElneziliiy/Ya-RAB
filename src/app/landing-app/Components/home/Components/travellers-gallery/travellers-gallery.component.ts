@@ -19,7 +19,7 @@ export class TravellersGalleryComponent {
 
   selectedImage: { src: string; caption: string } | null = null;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: object) {}
 
   openLightbox(item: { src: string; caption: string }) {
     if (isPlatformBrowser(this.platformId)) {

@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { HotelsService } from '../hotels-service.service';
 import { Booking, HotelDashBoard } from '../interfaces/hotel-dashboard';
-import { MatProgressSpinner, MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 import { AlertDialogComponent } from '../../alert-dialog-component/alert-dialog-component';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,6 +10,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID, Inject } from '@angular/core';
 import { AuthService } from '../../landing-app/Components/auth-service.service';
 import { Chart, registerables } from 'chart.js';
+import { ToastrService } from 'ngx-toastr';
 Chart.register(...registerables);
 @Component({
   selector: 'app-hotel-dashboard',
@@ -20,7 +21,7 @@ Chart.register(...registerables);
 })
 export class HotelDashboardComponent implements OnInit {
 
-  constructor(private matDialog: MatDialog, @Inject(PLATFORM_ID) private platformId: Object) { }
+  constructor(private matDialog: MatDialog, @Inject(PLATFORM_ID) private platformId: object) { }
 
   authService = inject(AuthService);
 
@@ -38,6 +39,8 @@ export class HotelDashboardComponent implements OnInit {
   private map: L.Map | undefined;
 
   hotelDashBoard!: HotelDashBoard;
+
+  toastService = inject(ToastrService);
 
   profit = 0;
 
@@ -116,8 +119,8 @@ export class HotelDashboardComponent implements OnInit {
   }
 
   drawChart() {
-    let reviewsInJuly = [];
-    let reviewsInAugust = [];
+    const reviewsInJuly = [];
+    const reviewsInAugust = [];
     let pendingCount = 0;
     let confirmedCount = 0;
     let cancelledCount = 0;
@@ -125,7 +128,7 @@ export class HotelDashboardComponent implements OnInit {
     // Process packages for bar chart
     if (this.hotelDashBoard.reviews) {
       this.hotelDashBoard.reviews.map((e) => {
-        let date = e.reviewDate.split('T')[0].split('-');
+        const date = e.reviewDate.split('T')[0].split('-');
         if (date[1] == '07') {
           reviewsInJuly.push(e);
         } else {

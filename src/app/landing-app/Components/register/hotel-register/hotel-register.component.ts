@@ -3,7 +3,6 @@ import { HotelRegistration } from '../register-interfaces';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../auth-service.service';
 import L from 'leaflet';
-import { After } from 'v8';
 
 @Component({
   selector: 'app-hotel-register',
@@ -59,7 +58,7 @@ export class HotelRegisterComponent implements AfterViewInit {
 
             const data = await address.json()
 
-            let place = data.display_name;
+            const place = data.display_name;
 
             this.model.address = place;
           });

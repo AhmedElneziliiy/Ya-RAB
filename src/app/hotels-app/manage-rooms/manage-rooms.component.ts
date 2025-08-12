@@ -2,9 +2,8 @@ import { Component, inject, OnInit } from '@angular/core';
 import { HotelsService } from '../hotels-service.service';
 import { Room } from '../interfaces/hotel-dashboard';
 import { MatDialog } from '@angular/material/dialog';
-import { AlertDialogComponent } from '../../alert-dialog-component/alert-dialog-component';
 import { RouterOutlet, Router } from '@angular/router';
-import { HotelNavbarComponent } from "../hotel-navbar/hotel-navbar.component";
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-manage-rooms',
   imports: [RouterOutlet],
@@ -23,6 +22,9 @@ export class ManageRoomsComponent implements OnInit {
   isRoomsReqFinished = false;
 
   rooms: Room[] = [];
+
+  toastService = inject(ToastrService);
+
   ngOnInit(): void {
     this.service.hotelDashBoard$.subscribe(
       {
@@ -33,12 +35,10 @@ export class ManageRoomsComponent implements OnInit {
         error: (err) => {
           let message = '';
           err['error']['errors'].map((e: string) => message += e + '\n');
-          this.matDialog.open(AlertDialogComponent, {
-            data: {
-              title: 'Error',
-              message: message
-            }
+          this.toastService.error(message, '❌ Error', {
+            toastClass: 'ngx-toastr custom-error'
           });
+
         },
       }
     );

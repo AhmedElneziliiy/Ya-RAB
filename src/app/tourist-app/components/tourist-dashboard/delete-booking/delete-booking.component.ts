@@ -1,9 +1,8 @@
-import { Component, inject, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SharedAppModule } from '../../../../shared-app/shared-app.module';
 import { TouristService } from '../../../tourist.service';
-import { AlertDialogComponent } from '../../../../alert-dialog-component/alert-dialog-component';
-import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-delete-booking',
@@ -13,7 +12,8 @@ import { Router } from '@angular/router';
 })
 export class DeleteBookingComponent implements OnInit {
 
-  constructor(private service: TouristService, @Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<DeleteBookingComponent>, public matDialog: MatDialog) { }
+  constructor(private service: TouristService, @Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<DeleteBookingComponent>, private toastService: ToastrService) { }
+
   ngOnInit(): void {
     this.id = this.data.id;
     this.itemName = this.data.itemName;
@@ -25,23 +25,12 @@ export class DeleteBookingComponent implements OnInit {
     this.service.deleteBooking(this.id).subscribe(
       {
         next: (value) => {
-          this.matDialog.open(AlertDialogComponent, {
-            data: {
-              title: 'TripLink',
-              message: 'Booking deleted successfully!',
-            }
-          });
-
+          this.toastService.success('Booking deleted successfully!', '✅ Success', { toastClass: 'ngx-toastr custom-success' });
         },
         error: (err) => {
           let message = '';
           err['error']['errors'].map((e: string) => message += e + '\n');
-          this.matDialog.open(AlertDialogComponent, {
-            data: {
-              title: 'Error',
-              message: message
-            }
-          });
+          this.toastService.error(message, '❌ Error', { toastClass: 'ngx-toastr custom-error' });
         },
       }
     );

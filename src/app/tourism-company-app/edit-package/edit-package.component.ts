@@ -1,13 +1,12 @@
-import { Component, inject, input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CompanyService } from '../services/company.service';
 import { Destination, Package } from '../interfaces/package';
 import { FormsModule } from '@angular/forms';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { AlertDialogComponent } from '../../alert-dialog-component/alert-dialog-component';
 import { MatDialog } from '@angular/material/dialog';
-import { title } from 'process';
 import { LoadingDialogComponent } from '../../shared-app/Components/loading-dialog/loading-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -26,6 +25,8 @@ export class EditPackageComponent implements OnInit {
 
   router = inject(Router);
 
+  toastService = inject(ToastrService);
+
   ngOnInit(): void {
     this.service.destinations$.subscribe(
       {
@@ -35,11 +36,8 @@ export class EditPackageComponent implements OnInit {
         error: (err) => {
           let message = '';
           err['error']['errors'].map((e: string) => message += e + '\n');
-          this.matDialog.open(AlertDialogComponent, {
-            data: {
-              title: 'Error',
-              message: message
-            }
+          this.toastService.error(message, '❌ Error', {
+            toastClass: 'ngx-toastr custom-error'
           });
         },
       }
@@ -60,12 +58,10 @@ export class EditPackageComponent implements OnInit {
             error: (err) => {
               let message = '';
               err['error']['errors'].map((e: string) => message += e + '\n');
-              this.matDialog.open(AlertDialogComponent, {
-                data: {
-                  title: 'Error',
-                  message: message
-                }
+              this.toastService.error(message, '❌ Error', {
+                toastClass: 'ngx-toastr custom-error'
               });
+
             }
           }
         )
@@ -110,25 +106,18 @@ export class EditPackageComponent implements OnInit {
         this.service.getPackageById(this.package.packageId).subscribe((e) => {
           this.package.photoUrls = e.photoUrls;
         });
-        this.matDialog.open(AlertDialogComponent, {
-          data: {
-            title: 'TripLink',
-            message: 'Package Updated Successfully!',
-            method: () => {
-              this.router.navigate(['/company/dashboard']);
-            }
-          }
+        this.toastService.success('Package Edit Succesfully!', '✅ Success', {
+          toastClass: 'ngx-toastr custom-success'
         });
+        this.router.navigate(['/company/dashboard']);
+
         this.photos = [];
       },
       error: (err) => {
         ref.close();
-        let message = '';
-        this.matDialog.open(AlertDialogComponent, {
-          data: {
-            title: 'Error',
-            message: 'Check Your Data!'
-          }
+        const message = '';
+        this.toastService.error(message, '❌ Error', {
+          toastClass: 'ngx-toastr custom-error'
         });
       },
     });

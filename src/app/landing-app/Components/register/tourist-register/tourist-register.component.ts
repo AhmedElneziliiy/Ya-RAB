@@ -1,5 +1,5 @@
 
-import { AfterViewInit, Component, inject, OnInit } from "@angular/core";
+import { AfterViewInit, Component, inject } from "@angular/core";
 import { TouristRegistration } from "../register-interfaces";
 import { FormsModule } from "@angular/forms";
 import { AuthService } from "../../auth-service.service";
@@ -64,7 +64,7 @@ export class TouristRegisterComponent implements AfterViewInit {
 
         const data = await address.json()
 
-        let place = data.display_name;
+        const place = data.display_name;
 
         this.model.address = place;
       });

@@ -1,14 +1,14 @@
 import { Package } from './../interfaces/package';
-import { Component, ElementRef, Inject, inject, OnChanges, OnInit, SimpleChanges, ViewChild, Renderer2 } from '@angular/core';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CompanyService } from '../services/company.service';
 import { DeletePackageComponent } from './delete-package/delete-package.component';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { AlertDialogComponent } from '../../alert-dialog-component/alert-dialog-component';
 import { AuthService } from '../../landing-app/Components/auth-service.service';
 import { Chart, registerables } from 'chart.js';
+import { ToastrService } from 'ngx-toastr';
 Chart.register(...registerables);
 @Component({
   selector: 'app-dashboard',
@@ -32,6 +32,8 @@ export class CompanyDashboardComponent implements OnInit {
 
   authService = inject(AuthService);
 
+  toastService = inject(ToastrService);
+
   ngOnInit(): void {
     this.service.packages$.subscribe(
       {
@@ -45,11 +47,8 @@ export class CompanyDashboardComponent implements OnInit {
         error: (err) => {
           let message = '';
           err['error']['errors'].map((e: string) => message += e + '\n');
-          this.matDialog.open(AlertDialogComponent, {
-            data: {
-              title: 'Error',
-              message: message
-            }
+          this.toastService.error(message, '❌ Error', {
+            toastClass: 'ngx-toastr custom-error'
           });
         }
       }
@@ -68,11 +67,8 @@ export class CompanyDashboardComponent implements OnInit {
         error: (err) => {
           let message = '';
           err['error']['errors'].map((e: string) => message += e + '\n');
-          this.matDialog.open(AlertDialogComponent, {
-            data: {
-              title: 'Error',
-              message: message
-            }
+          this.toastService.error(message, '❌ Error', {
+            toastClass: 'ngx-toastr custom-error'
           });
         }
       }
@@ -89,8 +85,8 @@ export class CompanyDashboardComponent implements OnInit {
 
 
   drawChart() {
-    let packagesInJuly = [];
-    let packagesInAugust = [];
+    const packagesInJuly = [];
+    const packagesInAugust = [];
     let pendingCount = 0;
     let confirmedCount = 0;
     let cancelledCount = 0;
@@ -98,7 +94,7 @@ export class CompanyDashboardComponent implements OnInit {
     // Process packages for bar chart
     if (this.packages) {
       this.packages.map((e) => {
-        let date = e.startDate.split('T')[0].split('-');
+        const date = e.startDate.split('T')[0].split('-');
         if (date[1] == '07') {
           packagesInJuly.push(e);
         } else {

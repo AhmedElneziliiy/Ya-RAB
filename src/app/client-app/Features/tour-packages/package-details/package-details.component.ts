@@ -8,7 +8,6 @@ import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../../../../shared-app/Components/navbar/navbar.component';
 import { AuthService } from '../../../../landing-app/Components/auth-service.service';
 import { MatDialog } from '@angular/material/dialog';
-import { AlertDialogComponent } from '../../../../alert-dialog-component/alert-dialog-component';
 
 @Component({
   selector: 'app-package-details',

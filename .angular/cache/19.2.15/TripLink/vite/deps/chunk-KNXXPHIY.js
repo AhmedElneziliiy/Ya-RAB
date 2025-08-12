@@ -209,14 +209,14 @@ var HttpHeaders = class _HttpHeaders {
     }
   }
   init() {
-    if (!!this.lazyInit) {
+    if (this.lazyInit) {
       if (this.lazyInit instanceof _HttpHeaders) {
         this.copyFrom(this.lazyInit);
       } else {
         this.lazyInit();
       }
       this.lazyInit = null;
-      if (!!this.lazyUpdate) {
+      if (this.lazyUpdate) {
         this.lazyUpdate.forEach((update) => this.applyUpdate(update));
         this.lazyUpdate = null;
       }
@@ -380,7 +380,7 @@ var HttpParams = class _HttpParams {
         throw new RuntimeError(2805, ngDevMode && "Cannot specify both fromString and fromObject.");
       }
       this.map = paramParser(options.fromString, this.encoder);
-    } else if (!!options.fromObject) {
+    } else if (options.fromObject) {
       this.map = /* @__PURE__ */ new Map();
       Object.keys(options.fromObject).forEach((key) => {
         const value = options.fromObject[key];
@@ -410,7 +410,7 @@ var HttpParams = class _HttpParams {
   get(param) {
     this.init();
     const res = this.map.get(param);
-    return !!res ? res[0] : null;
+    return res ? res[0] : null;
   }
   /**
    * Retrieves all values for a  parameter.
@@ -718,16 +718,16 @@ var HttpRequest = class _HttpRequest {
     if (options) {
       this.reportProgress = !!options.reportProgress;
       this.withCredentials = !!options.withCredentials;
-      if (!!options.responseType) {
+      if (options.responseType) {
         this.responseType = options.responseType;
       }
-      if (!!options.headers) {
+      if (options.headers) {
         this.headers = options.headers;
       }
-      if (!!options.context) {
+      if (options.context) {
         this.context = options.context;
       }
-      if (!!options.params) {
+      if (options.params) {
         this.params = options.params;
       }
       this.transferCache = options.transferCache;
@@ -1061,7 +1061,7 @@ var HttpClient = class _HttpClient {
         headers = new HttpHeaders(options.headers);
       }
       let params = void 0;
-      if (!!options.params) {
+      if (options.params) {
         if (options.params instanceof HttpParams) {
           params = options.params;
         } else {
@@ -1773,7 +1773,7 @@ var HttpXhrBackend = class _HttpXhrBackend {
             body = typeof xhr.response === "undefined" ? xhr.responseText : xhr.response;
           }
           if (status === 0) {
-            status = !!body ? HTTP_STATUS_CODE_OK : 0;
+            status = body ? HTTP_STATUS_CODE_OK : 0;
           }
           let ok = status >= 200 && status < 300;
           if (req.responseType === "json" && typeof body === "string") {

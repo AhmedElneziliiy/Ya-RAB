@@ -5,8 +5,8 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { AlertDialogComponent } from '../../alert-dialog-component/alert-dialog-component';
 import { LoadingDialogComponent } from '../../shared-app/Components/loading-dialog/loading-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-manager-tour-guide-profile',
@@ -36,6 +36,9 @@ export class ManagerTourGuideProfileComponent implements OnInit {
   router = inject(Router);
 
 
+  toastService = inject(ToastrService);
+
+
   ngOnInit(): void {
     this.service.getDestinations().subscribe(
       {
@@ -46,12 +49,10 @@ export class ManagerTourGuideProfileComponent implements OnInit {
         error: (err) => {
           let message = '';
           err['error']['errors'].map((e: string) => message += e + '\n');
-          this.matDialog.open(AlertDialogComponent, {
-            data: {
-              title: 'Error',
-              message: message
-            }
+          this.toastService.error(message, '❌ Error', {
+            toastClass: 'ngx-toastr custom-error'
           });
+
         },
       }
     );
@@ -67,11 +68,8 @@ export class ManagerTourGuideProfileComponent implements OnInit {
         error: (err) => {
           let message = '';
           err['error']['errors'].map((e: string) => message += e + '\n');
-          this.matDialog.open(AlertDialogComponent, {
-            data: {
-              title: 'Error',
-              message: message
-            }
+          this.toastService.error(message, '❌ Error', {
+            toastClass: 'ngx-toastr custom-error'
           });
         },
       }
@@ -98,25 +96,17 @@ export class ManagerTourGuideProfileComponent implements OnInit {
           ref.close();
           this.tourGuide = value;
           this.photos = [];
-          this.matDialog.open(AlertDialogComponent, {
-            data: {
-              title: 'TripLink',
-              message: 'Profile Updated Successfully',
-              method: () => {
-                this.router.navigate(['/tour-guide/dashboard'])
-              }
-            }
+          this.toastService.success('Profile Edit Succesfully!', '✅ Success', {
+            toastClass: 'ngx-toastr custom-success'
           });
+          this.router.navigate(['/tour-guide/dashboard'])
         },
         error: (err) => {
           ref.close();
           let message = '';
           err['error']['errors'].map((e: string) => message += e + '\n');
-          this.matDialog.open(AlertDialogComponent, {
-            data: {
-              title: 'Error',
-              message: message
-            }
+          this.toastService.error(message, '❌ Error', {
+            toastClass: 'ngx-toastr custom-error'
           });
         },
       }

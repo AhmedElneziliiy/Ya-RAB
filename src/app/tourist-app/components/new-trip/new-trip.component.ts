@@ -2,19 +2,17 @@ import { Booking } from './../../../hotels-app/interfaces/hotel-dashboard';
 import { Component, inject } from '@angular/core';
 import { NavbarComponent } from "../../../shared-app/Components/navbar/navbar.component";
 import { TouristService } from '../../tourist.service';
-import { Hotel, Room } from '../hotel-details/hotel-details.component';
+import { Room } from '../hotel-details/hotel-details.component';
 import { TourGuide } from '../tour-guide-offers/tour-guide-offers.component';
 import { Package } from '../../../tourism-company-app/interfaces/package';
 import { FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatDialog } from '@angular/material/dialog';
-import { AlertDialogComponent } from '../../../alert-dialog-component/alert-dialog-component';
 import { LoadingDialogComponent } from '../../../shared-app/Components/loading-dialog/loading-dialog.component';
 import { CommonModule } from '@angular/common';
 import { Trip } from '../trip';
-import { HotelsService } from '../../../hotels-app/hotels-service.service';
-import { title } from 'process';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-new-trip',
@@ -61,6 +59,8 @@ export class NewTripComponent {
   selectedTourGuide: TourGuide | null = null;
 
   isPackageReqFinished: boolean = false;
+
+  toastService = inject(ToastrService);
 
   currentStep = 0;
 
@@ -148,12 +148,9 @@ export class NewTripComponent {
                   this.booking.hotelEmail = value.contactEmail;
                 },
                 error: (err) => {
-                  this.dialog.open(AlertDialogComponent, {
-                    data: {
-                      title: 'Error',
-                      messsage: 'Error retrieveing hotels,try again later',
-                    }
-                  })
+                  this.toastService.error('Error retrieveing hotels,try again later', '❌ Error', {
+                    toastClass: 'ngx-toastr custom-error'
+                  });
                 },
               }
             )
@@ -190,11 +187,8 @@ export class NewTripComponent {
 
   getDestinationsForTrip() {
     if (this.searchTerm.length == 0) {
-      this.dialog.open(AlertDialogComponent, {
-        data: {
-          title: 'Error',
-          message: 'Please enter a destination to search for.',
-        }
+      this.toastService.error('Please enter a destination to search for.', '❌ Error', {
+        toastClass: 'ngx-toastr custom-error'
       });
     }
     else {
@@ -222,11 +216,8 @@ export class NewTripComponent {
           },
           error: (err) => {
             ref.close();
-            this.dialog.open(AlertDialogComponent, {
-              data: {
-                title: 'Error',
-                message: 'Failed to fetch destinations. Please try again later.',
-              }
+            this.toastService.error('Failed to fetch destinations. Please try again later.', '❌ Error', {
+              toastClass: 'ngx-toastr custom-error'
             });
           }
         }
@@ -262,13 +253,10 @@ export class NewTripComponent {
   bookTrip() {
     this.booking.touristEmail = localStorage.getItem('email')!;
     this.booking.totalPrice = this.totalPrice;
-    let date = new Date();
+    const date = new Date();
     if (this.selectedDate! <= date) {
-      this.dialog.open(AlertDialogComponent, {
-        data: {
-          title: 'Error',
-          message: 'Please select a future date.',
-        }
+      this.toastService.error('Please select a future date.', '❌ Error', {
+        toastClass: 'ngx-toastr custom-error'
       });
     }
     else {
@@ -276,21 +264,18 @@ export class NewTripComponent {
       const ref = this.dialog.open(LoadingDialogComponent, {
         disableClose: true,
       });
-      let price = this.totalPrice;
+      const price = this.totalPrice;
       this.service.createBooking(this.booking).subscribe(
         {
           next: (value) => {
             this.totalPrice = 0;
             this.numberOfNights = 1;
             this.guideHours = 1;
-            this.dialog.open(AlertDialogComponent, {
-              data: {
-                title: 'Success',
-                message: 'Booking created successfully.',
-              }
+            this.toastService.success('Booking created successfully.', '✅ Success', {
+              toastClass: 'ngx-toastr custom-success'
             });
             ref.close();
-            let bookingId = value.bookingID;
+            const bookingId = value.bookingID;
             this.router.navigate(['/create-checkout-session'], {
               state: {
                 price,
@@ -300,11 +285,8 @@ export class NewTripComponent {
           },
           error: (err) => {
             ref.close();
-            this.dialog.open(AlertDialogComponent, {
-              data: {
-                title: 'Error',
-                message: 'Failed to create booking. Please try again later.',
-              }
+            this.toastService.error('Failed to create booking. Please try again later.', '❌ Error', {
+              toastClass: 'ngx-toastr custom-error'
             });
           },
         }

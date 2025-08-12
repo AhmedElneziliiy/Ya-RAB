@@ -5,12 +5,10 @@ import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Booking } from '../tourist';
 import { TouristService } from '../../tourist.service';
-import { AlertDialogComponent } from '../../../alert-dialog-component/alert-dialog-component';
 import { TouristNavbarComponent } from '../tourist-navbar/tourist-navbar.component';
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from "../../../shared-app/Components/navbar/navbar.component";
-import { title } from 'process';
 import { LoadingDialogComponent } from '../../../shared-app/Components/loading-dialog/loading-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-booking',
@@ -31,6 +29,8 @@ export class EditBookingComponent implements OnInit {
 
   service = inject(TouristService);
 
+  toastService = inject(ToastrService);
+
   constructor(private route: ActivatedRoute, private matDialog: MatDialog) { }
 
   router = inject(Router);
@@ -44,18 +44,16 @@ export class EditBookingComponent implements OnInit {
           next: (value) => {
             this.isBookingReqFinished = true;
             this.booking = value;
-            let date = new Date(this.booking.bookingDate).toISOString().substring(0, 10);
+            const date = new Date(this.booking.bookingDate).toISOString().substring(0, 10);
             console.log('date : ' + date);
           },
           error: (err) => {
             let message = '';
             err['error']['errors'].map((e: string) => message += e + '\n');
-            this.matDialog.open(AlertDialogComponent, {
-              data: {
-                title: 'Error',
-                message: message
-              }
+            this.toastService.error(message, '❌ Error', {
+              toastClass: 'ngx-toastr custom-error'
             });
+
           },
         });
       }
@@ -73,36 +71,26 @@ export class EditBookingComponent implements OnInit {
         ref.close();
         this.booking = value;
         this.isEditing = false;
-
-        this.matDialog.open(AlertDialogComponent, {
-          data: {
-            title: 'TripLink',
-            message: 'Booking Updated Successfully!',
-            method: () => {
-              this.router.navigate(['/tourist/dashboard'], { replaceUrl: true });
-            }
-          }
+        this.toastService.success('Booking Edited Succcessfully!', '✅ Success', {
+          toastClass: 'ngx-toastr custom-success'
         });
+        this.router.navigate(['/tourist/dashboard'], { replaceUrl: true });
       },
       error: (err: string) => {
         ref.close();
         console.log(err);
-        this.matDialog.open(AlertDialogComponent, {
-          data: {
-            title: 'TripLink',
-            message: 'Error while creating Booking,try again later!',
-            method: () => {
-              this.router.navigate(['/tourist/dashboard'], { replaceUrl: true });
-            }
-          }
+        this.toastService.error('Error while creating Booking,try again later!', '❌ Error', {
+          toastClass: 'ngx-toastr custom-error'
         });
+        this.router.navigate(['/tourist/dashboard'], { replaceUrl: true });
+
       },
     });
   }
 
 
   get BookingDate(): string {
-    let date: Date = new Date(this.booking.bookingDate);
+    const date: Date = new Date(this.booking.bookingDate);
     return date.toISOString().substring(0, 10);
   }
 

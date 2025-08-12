@@ -9,7 +9,6 @@ import { Room } from '../../interfaces/room';
 import { Review } from '../../interfaces/review';
 import { ReviewService } from '../../Services/review.service';
 import { MatDialog } from '@angular/material/dialog';
-import { AlertDialogComponent } from '../../../../../../alert-dialog-component/alert-dialog-component';
 
 @Component({
   selector: 'app-hotels-details',

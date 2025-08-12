@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BookingService } from '../../../../shared/booking.service';
 import { Hotel } from '../../interfaces/hotel';
 import { HotelBooking } from '../../interfaces/hotel-booking';
@@ -12,7 +12,7 @@ import { NavbarComponent } from '../../../../../../shared-app/Components/navbar/
 @Component({
   selector: 'app-hotel-booking',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, NavbarComponent],
+  imports: [CommonModule, ReactiveFormsModule, NavbarComponent],
   templateUrl: './hotel-booking.component.html',
   styleUrl: './hotel-booking.component.scss'
 })
@@ -108,8 +108,8 @@ export class HotelBookingComponent implements OnInit {
         console.log(response);
         this.successMessage = 'Booking created successfully!';
         this.errorMessage = null;
-        let price = this.calculateTotalPrice();
-        let bookingId = response.bookingID;
+        const price = this.calculateTotalPrice();
+        const bookingId = response.bookingID;
         console.log('price : ' + price);
         this.router.navigate(['/create-checkout-session'], {
           state: {

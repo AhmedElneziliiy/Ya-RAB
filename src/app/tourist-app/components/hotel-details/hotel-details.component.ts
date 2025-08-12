@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../landing-app/Components/auth-service.service';
-import { StripeCardElement } from '@stripe/stripe-js';
 import { StripeService } from '../../../payment/payment.service';
 
 @Component({

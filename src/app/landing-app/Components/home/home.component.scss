@@ -11,6 +11,7 @@
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+    border: 2px solid goldenrod;
 
     &::before {
         content: '';
@@ -43,6 +44,7 @@
     background: rgba(0, 0, 0, 0.25);
     border-radius: 50%;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid goldenrod;
 
     &:hover {
         color: goldenrod;
@@ -53,6 +55,8 @@
 
 .slider-title {
     animation: pulseText 2s ease-in-out infinite;
+    border-bottom: 2px solid goldenrod;
+    padding-bottom: 5px;
 }
 
 .section-heading {
@@ -62,6 +66,7 @@
     padding-left: 18px;
     position: relative;
     animation: fadeInSlide 1.2s ease-out;
+    background: linear-gradient(to right, rgba(212, 160, 23, 0.1), transparent);
 
     &::after {
         content: '';
@@ -100,6 +105,11 @@
     overflow: hidden;
     padding: 20px;
     animation-delay: calc(var(--card-index) * 0.25s);
+    border: 2px solid goldenrod;
+    display: flex;
+    flex-direction: column;
+    min-height: 400px;
+    /* Consistent height to prevent overlap */
 
     &:hover {
         transform: translateY(-12px) scale(1.04);
@@ -110,6 +120,14 @@
             transform: scale(1.1);
         }
     }
+}
+
+.card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow: hidden;
 }
 
 .rotate-in {
@@ -132,13 +150,29 @@ img {
 .tour-guide-name,
 .tour-guide-price,
 .hotel-name,
-.hotel-address {
-    margin-top: 1rem;
+.hotel-address,
+.tour-guide-info,
+.hotel-info,
+.hotel-contact,
+.tour-guide-contact {
+    margin-top: 0.5rem;
     font-weight: 600;
     font-size: 1rem;
     color: #333;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
     padding: 0 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tour-guide-info,
+.hotel-info,
+.hotel-contact,
+.tour-guide-contact {
+    font-size: 0.9rem;
+    color: #555;
+    font-weight: 500;
 }
 
 .tour-guide-price {
@@ -149,17 +183,20 @@ img {
 
 .rating-stars i,
 .rating-stars svg {
+    display: inline;
     margin-right: 5px;
     transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .rating-stars i.text-warning,
 .rating-stars svg.filled {
+    display: inline;
     color: #f7c948;
 }
 
 .rating-stars i.text-secondary,
 .rating-stars svg.empty {
+    display: inline;
     color: #dcdcdc;
 }
 
@@ -180,7 +217,7 @@ img {
     background: linear-gradient(135deg, goldenrod, #d4a017);
     color: #ffffff;
     padding: 10px 25px;
-    border: none;
+    border: 2px solid goldenrod;
     border-radius: 25px;
     font-size: 14px;
     font-weight: 600;
@@ -209,6 +246,8 @@ img {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     transition: transform 0.5s ease-in-out, box-shadow 0.5s ease;
     width: 100%;
+    border: 2px solid goldenrod;
+    min-height: 200px;
 
     &:hover {
         transform: translateY(-10px);
@@ -222,6 +261,8 @@ img {
     color: #444;
     line-height: 1.7;
     padding: 0 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .testimonial-date p {
@@ -240,6 +281,7 @@ img {
     transition: transform 0.5s ease-in-out, box-shadow 0.5s ease;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
     width: 100%;
+    border: 2px solid goldenrod;
 
     &:hover {
         transform: translateY(-10px);
@@ -267,7 +309,7 @@ footer {
     padding: 25px 0;
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     color: #666;
-    border-top: 2px solid #dee2e6;
+    border-top: 2px solid goldenrod;
     font-size: 0.9rem;
 }
 
@@ -283,7 +325,7 @@ footer {
     animation: bounceIn 1.4s ease-in-out infinite;
 }
 
-/* New and Enhanced Animations */
+/* Animations */
 @keyframes pulseText {
 
     0%,
@@ -440,6 +482,11 @@ footer {
     .section-heading {
         font-size: 1.4rem;
     }
+
+    .card-animated {
+        min-height: 450px;
+        /* Adjusted for mobile */
+    }
 }
 
 @media (max-width: 576px) {
@@ -461,6 +508,8 @@ footer {
     .card-animated,
     .testimonial-card {
         padding: 15px;
+        min-height: 500px;
+        /* Adjusted for smaller screens */
     }
 
     .tour-guide,

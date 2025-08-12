@@ -1,15 +1,14 @@
-import { Component, Input, Output, EventEmitter, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { TourGuidesComponent } from '../tour-guides.component';
 import { TourGuide } from '../interfaces/tour-guide';
 import { TourGuideService } from '../Services/tour-guide.service';
-import { NavbarComponent } from "../../../../../shared-app/Components/navbar/navbar.component";
+
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-all-tour-gudies',
-  imports: [RouterModule, CommonModule, NavbarComponent, FormsModule],
+  imports: [RouterModule, CommonModule, FormsModule],
   templateUrl: './all-tour-gudies.component.html',
   styleUrl: './all-tour-gudies.component.scss'
 })

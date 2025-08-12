@@ -2,10 +2,10 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
-import { AlertDialogComponent } from '../../alert-dialog-component/alert-dialog-component';
 import { MatDialog } from '@angular/material/dialog';
 import { TourGuideService } from '../tour-guide.service';
 import { Booking } from '../../tourism-company-app/interfaces/booking';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-manage-bookings',
@@ -23,6 +23,8 @@ export class ManageGuideBookingsComponent implements OnInit {
 
   isBookingReqFinished = false;
 
+  toastService = inject(ToastrService);
+
 
   constructor(private route: ActivatedRoute, private matDialog: MatDialog) { }
 
@@ -35,11 +37,8 @@ export class ManageGuideBookingsComponent implements OnInit {
       error: (err) => {
         let message = '';
         err['error']['errors'].map((e: string) => message += e + '\n');
-        this.matDialog.open(AlertDialogComponent, {
-          data: {
-            title: 'Error',
-            message: message
-          }
+        this.toastService.error(message, '❌ Error', {
+          toastClass: 'ngx-toastr custom-error'
         });
       }
     });

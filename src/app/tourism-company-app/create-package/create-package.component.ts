@@ -4,11 +4,10 @@ import { CompanyService } from '../services/company.service';
 import { Destination } from '../interfaces/package';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AlertDialogComponent } from '../../alert-dialog-component/alert-dialog-component';
 import { MatDialog } from '@angular/material/dialog';
-import { title } from 'process';
 import { Router, RouterLink } from '@angular/router';
 import { LoadingDialogComponent } from '../../shared-app/Components/loading-dialog/loading-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-package',
@@ -52,19 +51,18 @@ export class CreatePackageComponent implements OnInit {
 
   router = inject(Router);
 
+  toastService = inject(ToastrService);
+
+
   ngOnInit(): void {
     this.service.destinations$.subscribe({
       next: (value) => {
         this.destinations = value;
       },
       error: (err) => {
-        let message = '';
-        err['error']['errors'].map((e: string) => message += e + '\n');
-        this.matDialog.open(AlertDialogComponent, {
-          data: {
-            title: 'Error',
-            message: message
-          }
+        const message = '';
+        this.toastService.error(message, '❌ Error', {
+          toastClass: 'ngx-toastr custom-error'
         });
       },
     });
@@ -87,19 +85,13 @@ export class CreatePackageComponent implements OnInit {
 
         next: (val) => {
           ref.close();
-          this.matDialog.open(AlertDialogComponent, {
-            data: {
-              title: 'TripLink',
-              message: 'Package Created Successfully!',
-              method: () => {
-                this.router.navigate(['/company/dashboard'])
-              }
-            }
-          })
+          this.toastService.success('Package Created Successfully!', '✅ Success', {
+            toastClass: 'ngx-toastr custom-success'
+          });
         },
         error: (error) => {
           ref.close();
-          let message = '';
+          const message = '';
           console.log(error.errors);
         }
       }

@@ -2,7 +2,7 @@ import { HomeComponent } from './landing-app/Components/home/home.component';
 import { TourGuidesComponent } from './client-app/Features/Tour-Guides/tour-guides/tour-guides.component';
 import { HotelsDetailsComponent } from './client-app/Features/Hotels/main-page/Components/hotels-details/hotels-details.component';
 import { AllHotelsComponent } from './client-app/Features/Hotels/main-page/Components/all-hotels/all-hotels.component';
-import { ActivatedRoute, ActivatedRouteSnapshot, Routes } from '@angular/router';
+import { ActivatedRouteSnapshot, Routes } from '@angular/router';
 import { RegisterComponent } from './landing-app/Components/register/register.component';
 import { PackageDetailsComponent } from './client-app/Features/tour-packages/package-details/package-details.component';
 import { HotelBookingComponent } from './client-app/Features/Hotels/main-page/Components/hotel-booking/hotel-booking.component';

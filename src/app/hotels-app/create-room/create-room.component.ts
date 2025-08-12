@@ -3,10 +3,10 @@ import { Room } from '../interfaces/hotel-dashboard';
 import { HotelsService } from '../hotels-service.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AlertDialogComponent } from '../../alert-dialog-component/alert-dialog-component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { LoadingDialogComponent } from '../../shared-app/Components/loading-dialog/loading-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-room',
@@ -37,6 +37,9 @@ export class CreateRoomComponent implements OnInit {
 
   router = inject(Router);
 
+  toastService = inject(ToastrService);
+
+
   photos: File[] = [
   ];
 
@@ -47,7 +50,7 @@ export class CreateRoomComponent implements OnInit {
   }
 
   createNewRoom() {
-    let formData = new FormData();
+    const formData = new FormData();
     formData.append('IsAvailable', this.room!.isAvailable!.toString());
     formData.append('PricePerNight', this.room!.pricePerNight!.toString());
     formData.append('RoomType', this.room!.roomType!.toString());
@@ -63,26 +66,18 @@ export class CreateRoomComponent implements OnInit {
         next: (value) => {
           ref.close();
           this.room = value;
-          this.matDialog.open(AlertDialogComponent, {
-            data: {
-              title: 'TripLink',
-              message: 'Room Created Successfully!',
-              method: () => {
-                this.router.navigate(['/hotel/dashboard'])
-              }
-            }
+          this.toastService.success('Room Created Successfully!', '✅ Success', {
+            toastClass: 'ngx-toastr custom-success'
           });
+          this.router.navigate(['/hotel/dashboard']);
           this.photos = [];
         },
         error: (err) => {
           ref.close();
           let message = '';
           err['error']['errors'].map((e: string) => message += e + '\n');
-          this.matDialog.open(AlertDialogComponent, {
-            data: {
-              title: 'Error',
-              message: message
-            }
+          this.toastService.error(message, '❌ Error', {
+            toastClass: 'ngx-toastr custom-error'
           });
         },
       }

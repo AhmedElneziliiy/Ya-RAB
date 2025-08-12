@@ -1,9 +1,8 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CompanyService } from '../../services/company.service';
-import { AlertDialogComponent } from '../../../alert-dialog-component/alert-dialog-component';
-import { title } from 'process';
 import { LoadingDialogComponent } from '../../../shared-app/Components/loading-dialog/loading-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-delete-booking',
@@ -18,6 +17,8 @@ export class DeleteBookingComponent {
 
   itemName!: string;
 
+  toastService = inject(ToastrService);
+
   confirm() {
     const ref = this.matDialog.open(LoadingDialogComponent, {
       disableClose: true,
@@ -27,25 +28,18 @@ export class DeleteBookingComponent {
       {
         next: (val) => {
           ref.close();
-          this.matDialog.open(AlertDialogComponent, {
-            data: {
-              title: 'TripLink',
-              message: 'Booking Deleted Successfully!',
-              method: () => {
-                this.dialogRef.close(true);
-              }
-            }
+          this.toastService.success('Booking Deleted Successfully!', '✅ Success', {
+            toastClass: 'ngx-toastr custom-success'
           });
+          this.dialogRef.close(true);
+
         },
         error: (error) => {
           ref.close();
           let message = '';
           error['error']['errors'].map((e: string) => message += e + '\n');
-          this.matDialog.open(AlertDialogComponent, {
-            data: {
-              title: 'Error',
-              message: message
-            }
+          this.toastService.error(message, '❌ Error', {
+            toastClass: 'ngx-toastr custom-error'
           });
         }
       }

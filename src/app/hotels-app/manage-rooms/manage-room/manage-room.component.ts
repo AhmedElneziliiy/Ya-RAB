@@ -5,7 +5,6 @@ import { Room } from '../../interfaces/hotel-dashboard';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { log } from 'console';
 
 @Component({
   selector: 'app-manage-room',
@@ -58,7 +57,7 @@ export class ManageRoomComponent implements OnInit {
   }
 
   editRoom() {
-    let formData = new FormData();
+    const formData = new FormData();
     formData.append('RoomType', this.room.roomType!.toString());
     formData.append('PricePerNight', this.room.pricePerNight!.toString());
     formData.append('IsAvailable', 'true');

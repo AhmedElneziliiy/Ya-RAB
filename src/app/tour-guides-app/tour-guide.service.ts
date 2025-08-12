@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { DashBoard } from './interfaces/dashboard';
 import { TourGuide } from './interfaces/tour-guide';
-import { log } from 'console';
 import { Destination } from '../tourism-company-app/interfaces/package';
 
 @Injectable({

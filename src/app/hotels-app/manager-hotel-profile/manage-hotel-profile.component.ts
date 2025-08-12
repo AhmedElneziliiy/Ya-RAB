@@ -1,15 +1,14 @@
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
-import { AfterViewInit, Component, Inject, OnInit, PLATFORM_ID, inject } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { HotelsService } from '../hotels-service.service';
 import { Hotel } from '../interfaces/hotel-dashboard';
-import { AlertDialogComponent } from '../../alert-dialog-component/alert-dialog-component';
 import { LoadingDialogComponent } from '../../shared-app/Components/loading-dialog/loading-dialog.component';
 import { isPlatformBrowser } from '@angular/common';
-import { last } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-manage-hotel-profile',
@@ -20,13 +19,15 @@ import { last } from 'rxjs';
 })
 export class ManageHotelProfileComponent implements OnInit {
   service = inject(HotelsService);
-  constructor(private route: ActivatedRoute, private matDialog: MatDialog, @Inject(PLATFORM_ID) private platformId: Object) { }
+  constructor(private route: ActivatedRoute, private matDialog: MatDialog, @Inject(PLATFORM_ID) private platformId: object) { }
 
   photos: File[] = [];
 
   hotel!: Hotel;
 
   isHotelReqFinished = false;
+
+  toastService = inject(ToastrService);
 
   ngOnInit(): void {
     this.service.profileDashBoard$.subscribe(
@@ -43,9 +44,9 @@ export class ManageHotelProfileComponent implements OnInit {
               shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
             });
 
-            let oldAddress = await fetch(`https://us1.locationiq.com/v1/search?key=pk.bc35f990c1e814b1b565b73a70a93e5d&q=${this.hotel.address}&format=json&accept-language=en`);
+            const oldAddress = await fetch(`https://us1.locationiq.com/v1/search?key=pk.bc35f990c1e814b1b565b73a70a93e5d&q=${this.hotel.address}&format=json&accept-language=en`);
 
-            let oldAddressData = await oldAddress.json();
+            const oldAddressData = await oldAddress.json();
 
             const map = L.map('map').setView([oldAddressData[0].lat, oldAddressData[0].lon], 13);
 
@@ -76,7 +77,7 @@ export class ManageHotelProfileComponent implements OnInit {
 
               const data = await address.json()
 
-              let place = data.display_name;
+              const place = data.display_name;
 
               this.hotel.address = place;
 
@@ -87,11 +88,8 @@ export class ManageHotelProfileComponent implements OnInit {
         error: (err) => {
           let message = '';
           err['error']['errors'].map((e: string) => message += e + '\n');
-          this.matDialog.open(AlertDialogComponent, {
-            data: {
-              title: 'Error',
-              message: message
-            }
+          this.toastService.error(message, '❌ Error', {
+            toastClass: 'ngx-toastr custom-error'
           });
         },
       }
@@ -122,25 +120,18 @@ export class ManageHotelProfileComponent implements OnInit {
       next: (value) => {
         ref.close();
         this.hotel = value;
-        this.matDialog.open(AlertDialogComponent, {
-          data: {
-            title: 'TripLink',
-            message: 'Profile Updated Successfully!',
-            method: () => {
-              inject(Router).navigate(['/hotel/profile']);
-            }
-          }
+        this.toastService.success('Profile Updated Successfully!', '✅ Success', {
+          toastClass: 'ngx-toastr custom-success'
         });
+        inject(Router).navigate(['/hotel/profile']);
+
       },
       error: (err) => {
         ref.close();
         let message = '';
         err['error']['errors'].map((e: string) => message += e + '\n');
-        this.matDialog.open(AlertDialogComponent, {
-          data: {
-            title: 'Error',
-            message: message
-          }
+        this.toastService.error(message, '❌ Error', {
+          toastClass: 'ngx-toastr custom-error'
         });
       },
     });

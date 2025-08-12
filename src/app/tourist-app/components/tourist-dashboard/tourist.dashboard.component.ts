@@ -1,18 +1,15 @@
-import { DashBoard } from './../../../tour-guides-app/interfaces/dashboard';
 import { ChartOptions, ChartType } from './../../../../../node_modules/chart.js/dist/types/index.d';
 import { AuthService } from './../../../landing-app/Components/auth-service.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { trigger, transition, style, animate } from '@angular/animations';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteBookingComponent } from './delete-booking/delete-booking.component';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Booking, Tourist } from '../tourist';
 import { TouristService } from '../../tourist.service';
-import { NavbarComponent } from "../../../shared-app/Components/navbar/navbar.component";
-import { AfterViewInit, Component, ElementRef, inject, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { AlertDialogComponent } from '../../../alert-dialog-component/alert-dialog-component';
+import { Component, ElementRef, inject, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
+import { ToastrService } from 'ngx-toastr';
 Chart.register(...registerables);
 @Component({
   selector: 'app-dashboard',
@@ -42,6 +39,8 @@ export class TouristDashboardComponent implements OnInit {
 
   authService = inject(AuthService);
 
+  toastService = inject(ToastrService);
+
   constructor(private matDialog: MatDialog, private service: TouristService, private el: ElementRef, private renderer: Renderer2) { }
 
 
@@ -64,12 +63,9 @@ export class TouristDashboardComponent implements OnInit {
           this.drawChart();
         },
         error: (err) => {
-          this.matDialog.open(AlertDialogComponent, {
-            data: {
-              title: 'Error',
-              message: 'Error getting data,try again later',
-            }
-          })
+          this.toastService.error('Error getting Data,Try Again Later!', '❌ Error', {
+            toastClass: 'ngx-toastr custom-error'
+          });
         },
       }
     );
@@ -82,14 +78,14 @@ export class TouristDashboardComponent implements OnInit {
       return;
     }
 
-    let bookingsInJuly: Booking[] = [];
-    let bookingsInAugust: Booking[] = [];
+    const bookingsInJuly: Booking[] = [];
+    const bookingsInAugust: Booking[] = [];
     let pendingCount = 0;
     let confirmedCount = 0;
     let cancelledCount = 0;
 
     this.tourist.bookings.forEach((e) => {
-      let date = e.bookingDate.split('T')[0].split('-');
+      const date = e.bookingDate.split('T')[0].split('-');
       if (date[1] === '07') {
         bookingsInJuly.push(e);
       } else if (date[1] === '08') {

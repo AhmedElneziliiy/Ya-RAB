@@ -9,7 +9,7 @@ export interface Package {
     endDate: string;
     companyName: string;
     destinations?: Destination[];
-    destinationIds?: String[];
+    destinationIds?: string[];
     photoUrls?: string[],
 }
 

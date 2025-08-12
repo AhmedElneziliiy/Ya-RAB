@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { TourGuide } from '../interfaces/tour-guide';
 import { TourGuideService } from '../Services/tour-guide.service';
-import { NavbarComponent } from "../../../../../shared-app/Components/navbar/navbar.component";
+
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-top-tour-guides',
-  imports: [CommonModule, NavbarComponent,RouterModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './top-tour-guides.component.html',
   styleUrl: './top-tour-guides.component.scss'
 })

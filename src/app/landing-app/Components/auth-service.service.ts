@@ -6,13 +6,12 @@ import { DecodedToken } from './decoded-token';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { isPlatformBrowser } from '@angular/common';
-import { Auth, GoogleAuthProvider, signInWithPopup } from '@angular/fire/auth';
 import { MatDialog } from '@angular/material/dialog';
-import { AlertDialogComponent } from '../../alert-dialog-component/alert-dialog-component';
 import { HotelDashBoard } from '../../hotels-app/interfaces/hotel-dashboard';
 import { TourGuide } from '../../tour-guides-app/interfaces/tour-guide';
 import { Tourist } from '../../tourist-app/components/tourist';
 import { ResetPassword } from './reset-password';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -29,8 +28,10 @@ export class AuthService {
 
   id: string = '';
 
+  toastService = inject(ToastrService);
 
-  constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: Object, private matDialog: MatDialog) {
+
+  constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: object, private matDialog: MatDialog) {
   }
 
 
@@ -76,22 +77,17 @@ export class AuthService {
       {
         next: (value) => {
           this.saveUser(value);
-          this.matDialog.open(AlertDialogComponent, {
-            data: {
-              title: 'TripLink',
-              message: 'Registeration is Successful!'
-            }
-          })
+          this.toastService.success('This is a success message!', '✅ Success', {
+            toastClass: 'ngx-toastr custom-success'
+          });
+
           this.navigateToLogin();
         },
         error: (err: { error: { errors: [] } }) => {
           err.error.errors.map((e) => {
-            this.matDialog.open(AlertDialogComponent, {
-              data: {
-                title: 'Error',
-                message: e,
-              }
-            })
+            this.toastService.error(e, '❌ Error', {
+              toastClass: 'ngx-toastr custom-error'
+            });
           });
         }
       }

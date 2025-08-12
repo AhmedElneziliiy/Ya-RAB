@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, Inject } from '@angular/core';
-import { RouterModule, Router, ActivatedRoute } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { NavbarComponent } from '../../../../../../shared-app/Components/navbar/navbar.component';
 import { HotelsServiceService } from '../../Services/hotels-service.service';
 import { Hotel } from '../../interfaces/hotel';

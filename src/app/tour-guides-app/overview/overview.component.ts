@@ -1,14 +1,12 @@
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { TourGuideService } from '../tour-guide.service';
 import { DashBoard } from '../interfaces/dashboard';
-import { log } from 'console';
 import { CommonModule } from '@angular/common';
-import { AlertDialogComponent } from '../../alert-dialog-component/alert-dialog-component';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../../landing-app/Components/auth-service.service';
 import { RouterLink } from '@angular/router';
 import { Chart, registerables } from 'chart.js';
+import { ToastrService } from 'ngx-toastr';
 Chart.register(...registerables);
 
 @Component({
@@ -41,6 +39,8 @@ export class OverviewComponent implements OnInit {
 
   @ViewChild('pieChartCanvas', { static: true }) pieChartCanvas!: ElementRef;
 
+  toastService = inject(ToastrService);
+
 
   ngOnInit(): void {
     this.service.dashboard$.subscribe(
@@ -56,11 +56,8 @@ export class OverviewComponent implements OnInit {
         error: (err) => {
           let message = '';
           err['error']['errors'].map((e: string) => message += e + '\n');
-          this.matDialog.open(AlertDialogComponent, {
-            data: {
-              title: 'Error',
-              message: message
-            }
+          this.toastService.error(message, '❌ Error', {
+            toastClass: 'ngx-toastr custom-error'
           });
         },
       }
@@ -69,8 +66,8 @@ export class OverviewComponent implements OnInit {
   }
 
   drawChart() {
-    let bookingsInJuly = [];
-    let bookingsInAugust = [];
+    const bookingsInJuly = [];
+    const bookingsInAugust = [];
     let pendingCount = 0;
     let confirmedCount = 0;
     let cancelledCount = 0;
@@ -78,7 +75,7 @@ export class OverviewComponent implements OnInit {
     // Process packages for bar chart
     if (this.dashBoard.bookings) {
       this.dashBoard.bookings.map((e) => {
-        let date = e.bookingDate.split('T')[0].split('-');
+        const date = e.bookingDate.split('T')[0].split('-');
         if (date[1] == '07') {
           bookingsInJuly.push(e);
         } else {

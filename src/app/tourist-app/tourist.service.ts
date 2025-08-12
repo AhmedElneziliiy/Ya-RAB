@@ -1,6 +1,5 @@
-import { Destination } from './../tourism-company-app/interfaces/package';
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject, tap } from 'rxjs';
 import { Booking, Tourist } from './components/tourist';
 import { Trip } from './components/trip';
@@ -39,8 +38,8 @@ export class TouristService {
     }).subscribe((e) => this.touristSubject$.next(e));
   }
 
-  editProfile(tourist: Tourist): Observable<Object> {
-    return this.client.put<Object>(this.baseUrl + 'Dashboard/profile', {
+  editProfile(tourist: Tourist): Observable<object> {
+    return this.client.put<object>(this.baseUrl + 'Dashboard/profile', {
       firstName: tourist.name.split(' ')[0],
       lastName: tourist.name.split(' ')[1],
     }, {

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TourPackage } from '../interfaces/tour-package';
 import { TourPackageService } from '../Services/tour-package.service';
-import { NavbarComponent } from "../../../../shared-app/Components/navbar/navbar.component";
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Destination } from '../interfaces/destination';

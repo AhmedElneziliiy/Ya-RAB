@@ -1,9 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { Booking } from '../interfaces/booking';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Destination, Package } from '../interfaces/package';
-import { log } from 'console';
 
 @Injectable({
   providedIn: 'root',

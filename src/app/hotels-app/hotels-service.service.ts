@@ -1,18 +1,18 @@
 import { Hotel, HotelDashBoard, Room } from './interfaces/hotel-dashboard';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable, ReplaySubject, take, tap } from 'rxjs';
-import { AlertDialogComponent } from '../alert-dialog-component/alert-dialog-component';
+import { BehaviorSubject, Observable, ReplaySubject, take, tap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { LoadingDialogComponent } from '../shared-app/Components/loading-dialog/loading-dialog.component';
-import { TourGuide } from '../tour-guides-app/interfaces/tour-guide';
 import { Review } from '../tour-guides-app/interfaces/review';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HotelsService {
+
+  toastService = inject(ToastrService);
 
   getTopHotels(): Observable<Hotel[]> {
     return this.client.get<Hotel[]>(this.baseUrl + 'Hotels', {
@@ -49,15 +49,9 @@ export class HotelsService {
     }).subscribe({
       next: (value) => {
         ref.close();
-        this.matDialog.open(AlertDialogComponent, {
-          data: {
-            title: 'TripLink',
-            message: 'Room Updated Successfully',
-            method: () => {
-              inject(Router).navigate(['/hotel/rooms'])
-            }
-          }
-        });
+        this.toastService.success('Room Updated Successfully', '✅ Success', {
+      toastClass: 'ngx-toastr custom-success'
+    });
         this.hotelDashBoard$.subscribe(
           (hotel) => {
             hotel.rooms?.map((e) => {
@@ -73,17 +67,13 @@ export class HotelsService {
         ref.close();
         let message = '';
         err['error']['errors'].map((e: string) => message += e + '\n');
-        this.matDialog.open(AlertDialogComponent, {
-          data: {
-            title: 'Error',
-            message: message
-          }
-        });
+        this.toastService.error(message, '❌ Error', {
+      toastClass: 'ngx-toastr custom-error'
+    });
       },
     });
   }
   matDialog!: MatDialog;
-  // localStorage.setItem('hotelToken', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlNzM2NjhkMy05MGM1LTRmOGYtYjA2NS0wNzVjYTZiNDcwN2MiLCJqdGkiOiJiN2VlNDY2MS0wYzJjLTRkMDUtYjgwNi01NWFlZmU5NmIxZTYiLCJlbWFpbCI6InNhcmEuYWhtZWRAZXhhbXBsZS5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJIb3RlbCIsInJvbGVzIjoiSG90ZWwiLCJleHAiOjE3NTU1NDIyMjEsImlzcyI6IkVneXB0VHJpcEFwaSIsImF1ZCI6IkVneXB0VHJpcEFwaSJ9.CrmD7MfOII_fsj_EfAZapPyUEa7wbwcp2SsqOqWufuo');
   deleteRoom(roomId: string) {
     return this.client.delete<Room>(this.baseUrl + 'rooms/' + roomId, {
       headers: {

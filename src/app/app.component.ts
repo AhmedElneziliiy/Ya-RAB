@@ -8,11 +8,12 @@ import { isPlatformBrowser } from '@angular/common';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   imports: [RouterOutlet,],
+  providers: []
 })
 export class AppComponent {
   title = 'TripLink';
 
-  constructor(private authService: AuthService, @Inject(PLATFORM_ID) private platformId: Object
+  constructor(private authService: AuthService, @Inject(PLATFORM_ID) private platformId: object
   ) {
     if (isPlatformBrowser(this.platformId)) {
       this.checkIfLoggedIn();
@@ -20,7 +21,7 @@ export class AppComponent {
   }
 
   private checkIfLoggedIn() {
-    let token = this.authService.getToken();
+    const token = this.authService.getToken();
 
     if (token) {
       this.authService.navigateBasedOnRole();

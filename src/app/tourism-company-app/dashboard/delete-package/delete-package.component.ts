@@ -2,10 +2,9 @@ import { Component, inject, Inject, OnInit } from '@angular/core';
 import { CompanyService } from '../../services/company.service';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SharedAppModule } from '../../../shared-app/shared-app.module';
-import { AlertDialogComponent } from '../../../alert-dialog-component/alert-dialog-component';
-import { title } from 'process';
 import { Router } from '@angular/router';
 import { LoadingDialogComponent } from '../../../shared-app/Components/loading-dialog/loading-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-delete-package',
@@ -26,6 +25,8 @@ export class DeletePackageComponent implements OnInit {
 
   router = inject(Router);
 
+  toastService = inject(ToastrService);
+
   confirm() {
     const ref = this.matDialog.open(LoadingDialogComponent, {
       disableClose: true,
@@ -34,25 +35,18 @@ export class DeletePackageComponent implements OnInit {
       {
         next: (val) => {
           ref.close();
-          this.matDialog.open(AlertDialogComponent, {
-            data: {
-              title: 'TripLink',
-              message: 'Package Deleted Successfully!',
-              method: () => {
-                this.router.navigate(['/company/dashboard']);
-              }
-            }
-          })
+          this.toastService.success('Package Deleted Successfully!', '✅ Success', {
+            toastClass: 'ngx-toastr custom-success'
+          });
+          this.router.navigate(['/company/dashboard']);
+
         },
         error: (error) => {
           ref.close();
           let message = '';
           error['error']['errors'].map((e: string) => message += e + '\n');
-          this.matDialog.open(AlertDialogComponent, {
-            data: {
-              title: 'Error',
-              message: message
-            }
+          this.toastService.error(message, '❌ Error', {
+            toastClass: 'ngx-toastr custom-error'
           });
         }
       }

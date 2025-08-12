@@ -7,9 +7,6 @@ import { TourGuideService } from '../Services/tour-guide.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NavbarComponent } from '../../../../../shared-app/Components/navbar/navbar.component';
-import { StripeService } from '../../../../../payment/payment.service';
-import { AuthService } from '../../../../../landing-app/Components/auth-service.service';
-import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tour-guide-booking',
@@ -89,8 +86,8 @@ export class TourGuideBookingComponent implements OnInit {
       next: (response) => {
         this.successMessage = 'Booking created successfully!';
         this.errorMessage = null;
-        let price = this.booking.totalPrice;
-        let bookingId = response.bookingID;
+        const price = this.booking.totalPrice;
+        const bookingId = response.bookingID;
         this.router.navigate(['/create-checkout-session'], {
           state: {
             price,
